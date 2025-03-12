@@ -99,7 +99,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 max-w-screen-xl items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-orange-500">Magenta Ong</span>
+            <span className="text-2xl font-bold text-orange-500">Portfolio</span>
           </Link>
           <nav className="flex items-center gap-6">
             <div className="hidden md:flex space-x-6 text-sm font-medium">
@@ -293,7 +293,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-xl font-bold">Experience</h3>
                     <p className="mt-2 text-muted-foreground">
-                      Design Mentor at Steamunity, Private Tutor for STEM subjects, and experience at L.E. Cafe Confectionery and Pastry
+                      Freelance Designer and Developer, Design Mentor at Steamunity, Private Tutor for STEM subjects
                     </p>
                   </CardContent>
                 </Card>
@@ -338,6 +338,22 @@ export default function Home() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <ProjectCard
+                  title="Freelance Portfolio Development"
+                  subtitle="Custom Portfolio Websites for Clients"
+                  description="Designing and developing modern, responsive portfolio websites for clients. Built with Next.js, styled with Tailwind CSS, and deployed on Vercel for seamless performance."
+                  image="/images/IMAGE 2025-03-13 06:48:43.jpg"
+                  link="/not-found.tsx"
+                  tags={["Next.js", "Tailwind CSS", "Figma", "Vercel"]}
+                  date="Mar 2025 - present"
+                />
+              </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -349,7 +365,7 @@ export default function Home() {
                   subtitle="AI-Powered Learning Platform"
                   description="Awarded SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. Developing an AI-driven LMS enabling students to find or create courses tailored to learning preferences while assisting teachers in streamlining courses efficiently."
                   image="/images/GenEd.png"
-                  link="#"
+                  link="/not-found.tsx"
                   tags={["AI", "EdTech", "LMS"]}
                   date="Jan 2025 - Present"
                 />
@@ -366,7 +382,7 @@ export default function Home() {
                   subtitle="Team Task Management Platform"
                   description="Built a Next.js web app for team task tracking with authentication via Clerk. Uses PostgreSQL for database management and Vercel for continuous deployment. Designed a real-time dashboard to visualize task progress."
                   image="/images/TaskSnipe.png"
-                  link="#"
+                  link="/not-found.tsx"
                   tags={["Next.js", "PostgreSQL", "Clerk", "Vercel"]}
                   date="Jan 2025 - Present"
                 />
@@ -412,7 +428,7 @@ export default function Home() {
                 <Link href="/projects">
                   <span className="absolute inset-0 w-0 h-full bg-orange-600 transition-all duration-300 group-hover:w-full"></span>
                   <span className="relative flex items-center">
-                    View Detailed Projects
+                    View More Work
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </Link>
@@ -491,6 +507,13 @@ export default function Home() {
             <div className="mt-16">
               <h3 className="text-2xl font-bold mb-6 text-center">Experience Timeline</h3>
               <div className="space-y-8">
+              <TimelineItem
+                  date="Mar 2025 - Present"
+                  title="Freelance Designer and Developer"
+                  company="Self-Employed"
+                  description="Designing and developing custom portfolio websites for clients. Utilizing Next.js, Vercel, and Figma to create responsive and visually appealing web experiences."
+                />
+
                 <TimelineItem
                   date="Nov 2024 - Present"
                   title="Design Mentor"

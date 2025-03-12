@@ -13,7 +13,7 @@ import FloatingBalls from "@/components/floating-balls"
 import { UrlObject } from "url"
 
 export default function ProjectsPage() {
-  const [activeProject, setActiveProject] = useState("gened")
+  const [activeProject, setActiveProject] = useState("freelance")
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
@@ -52,8 +52,9 @@ export default function ProjectsPage() {
 
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 max-w-screen-xl items-center">
+          
           <Link
-            href="/"
+            href="/#projects" 
             className="flex items-center space-x-2 text-muted-foreground hover:text-orange-500 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -81,6 +82,15 @@ export default function ProjectsPage() {
               <h2 className="text-xl font-bold mb-4">Projects</h2>
             </motion.div>
 
+            <motion.div variants={item}>
+              <ProjectSelector
+                id="freelance"
+                title="Freelance Designer & Developer"
+                subtitle="Creating Custom Portfolio Websites"
+                active={activeProject === "freelance"}
+                onClick={() => setActiveProject("freelance")}
+              />
+            </motion.div>
             <motion.div variants={item}>
               <ProjectSelector
                 id="gened"
@@ -124,6 +134,47 @@ export default function ProjectsPage() {
 
           <div className="bg-background/60 backdrop-blur-sm rounded-lg border border-orange-500/20 p-6">
             <Tabs value={activeProject} onValueChange={setActiveProject}>
+            <TabsContent value="freelance" className="mt-0">
+              <ProjectDetail
+                title="Freelance Designer & Developer"
+                subtitle="Custom Websites for anyone :D"
+                date="March 2025 - Present"
+                description={
+                  <>
+                    <p className="mb-4">
+                      As a freelance designer and developer, I specialise in creating custom, responsive, and visually engaging 
+                      portfolio websites tailored to clients wants and needs. Each portfolio is crafted to highlight 
+                      personal branding and showcase work effectively.
+                    </p>
+                    <p className="mb-4">
+                      My design process starts with understanding the client's vision and wants, followed by wireframing in Figma, and finally once the client is satisfied,
+                      developing the site using Next.js, styled with Tailwind CSS. The websites are deployed on Vercel for seamless 
+                      performance.
+                    </p>
+                    <p>
+                      Whether you're a student looking to display your projects and standout, a small business looking to market your products and build a personal branding, I aim to 
+                      deliver sleek, modern, and accessible websites to all.
+                    </p>
+                  </>
+                }
+                challenges={[
+                  "Ensuring seamless user experience across all screen sizes",
+                  "Balancing aesthetic design with optimized performance",
+                  "Implementing intuitive navigation and accessibility features",
+                  "Making sure that the design fits the clients wants and need",
+                ]}
+                technologies={["Next.js", "React", "Tailwind CSS", "Figma", "Vercel"]}
+                links={[
+                  { label: "Project Showcase", url: "/projects/Freelance", icon: <ExternalLink className="h-4 w-4" /> },
+                  { label: "GitHub Repository", url: "https://github.com/magentaong", icon: <Github className="h-4 w-4" /> },
+                ]}
+                images={["/images/IMAGE 2025-03-13 06:48:43.jpg"]}
+                videos={[]}
+                mousePosition={mousePosition}
+              />
+            </TabsContent>
+                
+
               <TabsContent value="gened" className="mt-0">
                 <ProjectDetail
                   title="GenEd"
