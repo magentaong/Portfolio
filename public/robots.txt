@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://magentaong.vercel.app
+
+# Sitemaps
+Sitemap: https://magentaong.vercel.app/sitemap.xml
