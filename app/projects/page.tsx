@@ -54,7 +54,7 @@ export default function ProjectsPage() {
         <div className="container flex h-16 max-w-screen-xl items-center">
           
           <Link
-            href="/#projects" 
+            href="/" 
             className="flex items-center space-x-2 text-muted-foreground hover:text-orange-500 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
