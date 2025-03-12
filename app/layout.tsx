@@ -8,12 +8,12 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Magenta Ong | Portfolio",
   icons: {
-    icon: "app/favicon.png", // For older browsers
-    shortcut: "app/favicon.png",
-    apple: "app/favicon.png", // Apple devices
+    icon: "/images/favicon.ico", // For older browsers
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico", // Apple devices
   },
   description: " Aspiring Full Stack Developer & UI/UX Designer. Passionate about building innovative web experiences.",
-  keywords: "Full Stack Developer, UI/UX Designer, Magenta Ong, Web Development, Next.js Portfolio",
+  keywords: "Aspiring Full Stack Developer, UI/UX Designer, Magenta Ong, Web Development, Next.js Portfolio",
   robots: "index, follow",
   author: "Magenta Ong",
   openGraph: {
