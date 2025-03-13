@@ -338,22 +338,7 @@ export default function Home() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <ProjectCard
-                  title="Freelance Portfolio Development"
-                  subtitle="Custom Portfolio Websites for Clients"
-                  description="Designing and developing modern, responsive portfolio websites for clients. Built with Next.js, styled with Tailwind CSS, and deployed on Vercel for seamless performance."
-                  image="/images/IMAGE 2025-03-13 06:48:43.jpg"
-                  link="/not-found.tsx"
-                  tags={["Next.js", "Tailwind CSS", "Figma", "Vercel"]}
-                  date="Mar 2025 - present"
-                />
-              </motion.div>
+            
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -387,7 +372,22 @@ export default function Home() {
                   date="Jan 2025 - Present"
                 />
               </motion.div>
-
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <ProjectCard
+                  title="Freelance Portfolio Development"
+                  subtitle="Custom Portfolio Websites for Clients"
+                  description="Designing and developing modern, responsive portfolio websites for clients. Built with Next.js, styled with Tailwind CSS, and deployed on Vercel for seamless performance."
+                  image="/images/IMAGE 2025-03-13 06:48:43.jpg"
+                  link="/not-found.tsx"
+                  tags={["Next.js", "Tailwind CSS", "Figma", "Vercel"]}
+                  date="Mar 2025 - present"
+                />
+              </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

@@ -168,7 +168,7 @@ export default function ProjectsPage() {
                   { label: "Project Showcase", url: "/projects/Freelance", icon: <ExternalLink className="h-4 w-4" /> },
                   { label: "GitHub Repository", url: "https://github.com/magentaong", icon: <Github className="h-4 w-4" /> },
                 ]}
-                images={["/images/IMAGE 2025-03-13 06:48:43.jpg"]}
+                images={["/images/IMAGE 2025-03-13 06:48:43.jpg","/images/Screenshot 2025-03-13 at 9.45.49 AM.png"]}
                 videos={[]}
                 mousePosition={mousePosition}
               />
