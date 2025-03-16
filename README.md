@@ -92,11 +92,11 @@ I learned **UI/UX principles**, designing a fully functional webpage for the fir
 
 ## 📌 Future Enhancements
 
-📌 **Add Horizontal Scrolling** for project cards to show more media 
-📌 **Add a Testimonials Section** for feedback from freelance clients as well as past testimonials
-📌 **Integrate a Blog** for sharing insights and technical tutorials  
-📌 **Adjust Responsiveness** for mobile phones
-📌 **Include filtering** for projects to showcase multidisciplinary projects
+- 📌 **Add Horizontal Scrolling** for project cards to show more media 
+- 📌 **Add a Testimonials Section** for feedback from freelance clients as well as past testimonials
+- 📌 **Integrate a Blog** for sharing insights and technical tutorials  
+- 📌 **Adjust Responsiveness** for mobile phones
+- 📌 **Include filtering** for projects to showcase multidisciplinary projects
 
 ---
 
@@ -116,10 +116,14 @@ If you'd like to contribute or suggest improvements:
 
 💡 Have feedback or need a personal portfolio? Reach out!  
 
-📩 **Email:** [your-email@example.com](mailto:ongmagenta@gmail.com)  
+📩 **Email:** [ongmagenta@gmail.com](mailto:ongmagenta@gmail.com)  
 🌐 **Website:** [https://magentaong.vercel.app/](https://magentaong.vercel.app/)  
 🐙 **GitHub:** [@magentaong](https://github.com/magentaong)  
 
 ---
 
-Built by Magenta Ong
+Built by Magenta Ong 
+
+## 🙌 Acknowledgments
+This README was drafted with the assistance of [ChatGPT](https://openai.com/chatgpt) to ensure clarity and completeness.
+
