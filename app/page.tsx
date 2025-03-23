@@ -35,6 +35,12 @@ export default function Home() {
   const skillsRef = useRef(null)
   const contactRef = useRef(null)
 
+  useEffect(() => {
+    if (window.location.hash === '#projects') {
+      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [scrollY, setScrollY] = useState(0)
@@ -172,7 +178,7 @@ export default function Home() {
                 </motion.p>
                 <motion.div variants={item} className="flex flex-wrap gap-4">
                   <Button asChild size="lg" className="relative z-10 overflow-hidden group">
-                    <Link href="public/ResumeT4_8.pdf" target="_blank" download>
+                    <Link href="/ResumeT4_10.pdf" target="_blank" download>
                       <span className="absolute inset-0 w-0 h-full bg-orange-600 transition-all duration-300 group-hover:w-full"></span>
                       <span className="relative flex items-center">
                         <Download className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
@@ -322,6 +328,7 @@ export default function Home() {
       
 
         <motion.section
+          id = "projects"
           ref={projectsRef}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -350,7 +357,7 @@ export default function Home() {
                   subtitle="AI-Powered Learning Platform"
                   description="Awarded SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. Developing an AI-driven LMS enabling students to find or create courses tailored to learning preferences while assisting teachers in streamlining courses efficiently."
                   image="/images/GenEd.png"
-                  link="/not-found.tsx"
+                  link="/projects"
                   tags={["AI", "EdTech", "LMS"]}
                   date="Jan 2025 - Present"
                 />
@@ -367,7 +374,7 @@ export default function Home() {
                   subtitle="Team Task Management Platform"
                   description="Built a Next.js web app for team task tracking with authentication via Clerk. Uses PostgreSQL for database management and Vercel for continuous deployment. Designed a real-time dashboard to visualize task progress."
                   image="/images/TaskSnipe.png"
-                  link="/not-found.tsx"
+                  link="/projects"
                   tags={["Next.js", "PostgreSQL", "Clerk", "Vercel"]}
                   date="Jan 2025 - Present"
                 />
@@ -379,11 +386,11 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <ProjectCard
-                  title="Freelance Portfolio Development"
+                  title="Freelance Website Developer"
                   subtitle="Custom Portfolio Websites for Clients"
                   description="Designing and developing modern, responsive portfolio websites for clients. Built with Next.js, styled with Tailwind CSS, and deployed on Vercel for seamless performance."
                   image="/images/IMAGE 2025-03-13 06:48:43.jpg"
-                  link="/not-found.tsx"
+                  link= "https://aloykoh.vercel.app"
                   tags={["Next.js", "Tailwind CSS", "Figma", "Vercel"]}
                   date="Mar 2025 - present"
                 />

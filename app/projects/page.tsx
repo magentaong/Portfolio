@@ -54,7 +54,7 @@ export default function ProjectsPage() {
         <div className="container flex h-16 max-w-screen-xl items-center">
           
           <Link
-            href="/" 
+            href="/#projects" 
             className="flex items-center space-x-2 text-muted-foreground hover:text-orange-500 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -155,6 +155,9 @@ export default function ProjectsPage() {
                       Whether you're a student looking to display your projects and standout, a small business looking to market your products and build a personal branding, I aim to 
                       deliver sleek, modern, and accessible websites to all.
                     </p>
+                    <p className="mb-4">
+                      More to come!! (i'm currently drowning in student work, haven't updated)
+                    </p>
                   </>
                 }
                 challenges={[
@@ -165,7 +168,7 @@ export default function ProjectsPage() {
                 ]}
                 technologies={["Next.js", "React", "Tailwind CSS", "Figma", "Vercel"]}
                 links={[
-                  { label: "Project Showcase", url: "/projects/Freelance", icon: <ExternalLink className="h-4 w-4" /> },
+                  { label: "Latest Design", url: "https://aloykoh.vercel.app", icon: <ExternalLink className="h-4 w-4" /> },
                   { label: "GitHub Repository", url: "https://github.com/magentaong", icon: <Github className="h-4 w-4" /> },
                 ]}
                 images={["/images/IMAGE 2025-03-13 06:48:43.jpg","/images/Screenshot 2025-03-13 at 9.45.49 AM.png"]}
@@ -202,7 +205,7 @@ export default function ProjectsPage() {
                     "Ensuring data privacy and security for educational data",
                     "Designing an intuitive interface for both students and educators",
                   ]}
-                  technologies={["AI/ML", "React", "Next.js", "MySQL", "Mux", "Prisma", "Stripe"]}
+                  technologies={["AI/ML", "EdTech", "LMS"]}
                   links={[
                     { label: "Project Website", url: "/projects/GenEd", icon: <ExternalLink className="h-4 w-4" /> },
                     { label: "GitHub Repository", url: "/projects/GenEd", icon: <Github className="h-4 w-4" /> },
@@ -449,9 +452,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
             <Image
               src={image}
               alt={`${title} screenshot ${index + 1}`}
+              layout="intrinsic"
               width={600}
               height={300}
-              className="w-full h-auto max-h-[300px] object-cover hover:scale-105 transition-transform duration-500"
+              className="w-full h-auto max-h-[400px] object- hover:scale-105 transition-transform duration-500"
             />
           </div>
         ))}
