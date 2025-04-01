@@ -26,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useTheme } from "next-themes"
 import FloatingBalls from "@/components/floating-balls"
 import { useTypewriter, Cursor } from "react-simple-typewriter"
+import ContactForm from "@/components/ContactForm"
 
 export default function Home() {
   const { theme, setTheme } = useTheme()
@@ -99,11 +100,11 @@ export default function Home() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex flex-col bg-background relative overflow-hidden w-full min-h-[90vh]">
       <FloatingBalls count={15} />
 
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 max-w-screen-xl items-center justify-between">
+        <div className="container flex h-16 max-w-screen-xl items-center justify-between md:6-xl ">
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-2xl font-bold text-orange-500">Portfolio</span>
           </Link>
@@ -257,7 +258,7 @@ export default function Home() {
           className="py-20 bg-muted/30 relative z-10 gradient-bg"
         >
           <div className="container">
-            <div className="mx-auto max-w-4xl text-center">
+            <div className="mx-auto max-w-4xl text-center md:6-xl">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
                 About <span className="text-orange-500">Me</span>
               </h2>
@@ -336,7 +337,7 @@ export default function Home() {
           viewport={{ once: true, margin: "-100px" }}
           className="py-20 relative z-10"
         >
-          <div className="container">
+          <div className="container md:6-xl px-0">
             <div className="mx-auto max-w-4xl text-center">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
                 My <span className="text-orange-500">Work</span>
@@ -452,7 +453,7 @@ export default function Home() {
           viewport={{ once: true, margin: "-100px" }}
           className="py-20 bg-muted/30 relative z-10 gradient-bg"
         >
-          <div className="container">
+          <div className="container px-0">
             <div className="mx-auto max-w-4xl text-center">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
                 Skills & <span className="text-orange-500">Technologies</span>
@@ -625,7 +626,7 @@ export default function Home() {
           className="py-20 relative z-10 gradient-bg"
         >
           
-            <div className="container max-w-5xl mx-auto">
+            <div className="container max-w-5xl mx-auto px-0">
               <div className="mx-auto max-w-4xl text-center">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
                   Get In <span className="text-orange-500">Touch</span>
@@ -885,50 +886,6 @@ const SkillTag: React.FC<SkillTagProps> = ({ name }) => {
   )
 }
 
-function ContactForm() {
-  return (
-    <form className="space-y-4">
-      <div className="space-y-2">
-        <label htmlFor="name" className="text-sm font-medium">
-          Name
-        </label>
-        <input
-          id="name"
-          className="flex h-10 w-full rounded-md border border-input bg-background/60 backdrop-blur-sm px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:border-orange-500/50"
-          placeholder="Your name"
-        />
-      </div>
-      <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium">
-          Email
-        </label>
-        <input
-          id="email"
-          type="email"
-          className="flex h-10 w-full rounded-md border border-input bg-background/60 backdrop-blur-sm px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:border-orange-500/50"
-          placeholder="Your email"
-        />
-      </div>
-      <div className="space-y-2">
-        <label htmlFor="message" className="text-sm font-medium">
-          Message
-        </label>
-        <textarea
-          id="message"
-          className="flex min-h-[120px] w-full rounded-md border border-input bg-background/60 backdrop-blur-sm px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:border-orange-500/50"
-          placeholder="Write a message to me!"
-        />
-      </div>
-      <Button
-        type="submit"
-        className="w-full bg-orange-500 hover:bg-orange-600 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20 hover:-translate-y-1 group"
-      >
-        <span className="relative flex items-center">
-          Send Message
-          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </span>
-      </Button>
-    </form>
-  )
-}
+
+
 
