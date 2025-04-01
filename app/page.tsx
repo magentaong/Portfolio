@@ -916,7 +916,7 @@ function ContactForm() {
         <textarea
           id="message"
           className="flex min-h-[120px] w-full rounded-md border border-input bg-background/60 backdrop-blur-sm px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:border-orange-500/50"
-          placeholder="Your message"
+          placeholder="Write a message to me!"
         />
       </div>
       <Button
