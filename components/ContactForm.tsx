@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
+import PawLoader from "./CuteGifLoader"
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" })
@@ -79,20 +79,11 @@ export default function ContactForm() {
         {loading ? "Sending..." : "Send Message"}
       </button>
 
-      {loading && (
-        <div className="flex justify-center pt-4">
-          <Image
-            src="/images/cat-typing.gif"
-            alt="Sending..."
-            width={60}
-            height={60}
-            className="rounded-md"
-          />
-        </div>
-      )}
+      {loading && <PawLoader />}
 
       {success && <p className="text-green-500">Message sent!</p>}
       {error && <p className="text-red-500"> {error}</p>}
     </form>
   )
 }
+

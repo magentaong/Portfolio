@@ -715,7 +715,7 @@ export default function Home() {
                       <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 m-2">
                         <CardContent className="p-6">
                           <h3 className="text-xl font-bold mb-4">Send Me a Message</h3>
-                          <ContactForm />
+                             <ContactForm /> 
                         </CardContent>
                       </Card>
                   </motion.div>
