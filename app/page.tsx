@@ -461,14 +461,14 @@ export default function Home() {
             </div>
 
             <Tabs defaultValue="languages" className="mx-auto max-w-4xl">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-4 h-full grid-cols-[repeat(auto-fit,minmax(120px,1fr))]">
                 <TabsTrigger value="languages">Languages</TabsTrigger>
                 <TabsTrigger value="frameworks">Frameworks</TabsTrigger>
                 <TabsTrigger value="data">Data</TabsTrigger>
                 <TabsTrigger value="design">Design</TabsTrigger>
               </TabsList>
               <TabsContent value="languages" className="mt-6">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center">
                   <SkillTag name="Python" />
                   <SkillTag name="JavaScript" />
                   <SkillTag name="TypeScript" />
@@ -480,7 +480,7 @@ export default function Home() {
                 </div>
               </TabsContent>
               <TabsContent value="frameworks" className="mt-6">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center ">
                   <SkillTag name="React" />
                   <SkillTag name="Next.js" />
                   <SkillTag name="Flask" />
@@ -490,7 +490,7 @@ export default function Home() {
               </TabsContent>
               
               <TabsContent value="data" className="mt-6">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center">
                 <SkillTag name="PostgreSQL" />
                   <SkillTag name="MySQL" />
                   <SkillTag name="MongoDB" />
@@ -502,7 +502,7 @@ export default function Home() {
                 </div>
               </TabsContent>
               <TabsContent value="design" className="mt-6">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center">
                   <SkillTag name="Figma" />
                   <SkillTag name="Illustrator" />
                   <SkillTag name="Photoshop" />
