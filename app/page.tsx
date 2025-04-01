@@ -343,93 +343,93 @@ export default function Home() {
               </h2>
               <p className="mb-8 text-muted-foreground md:text-xl">A showcase of my recent work and ongoing projects</p>
             </div>
+            <div className="flex justify-center">
+                <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-fit">
+                
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard
+                      title="GenEd"
+                      subtitle="AI-Powered Learning Platform"
+                      description="Awarded SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. Developing an AI-driven LMS enabling students to find or create courses tailored to learning preferences while assisting teachers in streamlining courses efficiently."
+                      image="/images/GenEd.png"
+                      link="/projects"
+                      tags={["AI", "EdTech", "LMS"]}
+                      date="Jan 2025 - Present"
+                    />
+                  </motion.div>
 
-            <div className="grid gap-8 md:grid-cols-2">
-            
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <ProjectCard
-                  title="GenEd"
-                  subtitle="AI-Powered Learning Platform"
-                  description="Awarded SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. Developing an AI-driven LMS enabling students to find or create courses tailored to learning preferences while assisting teachers in streamlining courses efficiently."
-                  image="/images/GenEd.png"
-                  link="/projects"
-                  tags={["AI", "EdTech", "LMS"]}
-                  date="Jan 2025 - Present"
-                />
-              </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard
+                      title="TaskSnipe"
+                      subtitle="Team Task Management Platform"
+                      description="Built a Next.js web app for team task tracking with authentication via Clerk. Uses PostgreSQL for database management and Vercel for continuous deployment. Designed a real-time dashboard to visualize task progress."
+                      image="/images/TaskSnipe.png"
+                      link="/projects"
+                      tags={["Next.js", "PostgreSQL", "Clerk", "Vercel"]}
+                      date="Jan 2025 - Present"
+                    />
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard
+                      title="Freelance Website Developer"
+                      subtitle="Custom Portfolio Websites for Clients"
+                      description="Designing and developing modern, responsive portfolio websites for clients. Built with Next.js, styled with Tailwind CSS, and deployed on Vercel for seamless performance."
+                      image="/images/IMAGE 2025-03-13 06:48:43.jpg"
+                      link= "https://aloykoh.vercel.app"
+                      tags={["Next.js", "Tailwind CSS", "Figma", "Vercel"]}
+                      date="Mar 2025 - present"
+                    />
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard
+                      title="LepakLah!"
+                      subtitle="AI Senior-Centric Mobile App"
+                      description="3rd Place, Dell InnovateFest 2024. Built a Flutter-based app to help seniors access activity center slots, addressing inefficiencies in the current system. Developed a Buddy Matching Algorithm for personalized connections. Deployed on RedHat OpenShift, Docker, Kubernetes."
+                      image="/images/LepakLah.png"
+                      link="https://www.linkedin.com/in/magenta-ong/details/projects/"
+                      tags={["Flutter", "AI", "Docker", "Kubernetes"]}
+                      date="Jun 2024 - Sept 2024"
+                    />
+                  </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                <ProjectCard
-                  title="TaskSnipe"
-                  subtitle="Team Task Management Platform"
-                  description="Built a Next.js web app for team task tracking with authentication via Clerk. Uses PostgreSQL for database management and Vercel for continuous deployment. Designed a real-time dashboard to visualize task progress."
-                  image="/images/TaskSnipe.png"
-                  link="/projects"
-                  tags={["Next.js", "PostgreSQL", "Clerk", "Vercel"]}
-                  date="Jan 2025 - Present"
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <ProjectCard
-                  title="Freelance Website Developer"
-                  subtitle="Custom Portfolio Websites for Clients"
-                  description="Designing and developing modern, responsive portfolio websites for clients. Built with Next.js, styled with Tailwind CSS, and deployed on Vercel for seamless performance."
-                  image="/images/IMAGE 2025-03-13 06:48:43.jpg"
-                  link= "https://aloykoh.vercel.app"
-                  tags={["Next.js", "Tailwind CSS", "Figma", "Vercel"]}
-                  date="Mar 2025 - present"
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <ProjectCard
-                  title="LepakLah!"
-                  subtitle="AI Senior-Centric Mobile App"
-                  description="3rd Place, Dell InnovateFest 2024. Built a Flutter-based app to help seniors access activity center slots, addressing inefficiencies in the current system. Developed a Buddy Matching Algorithm for personalized connections. Deployed on RedHat OpenShift, Docker, Kubernetes."
-                  image="/images/LepakLah.png"
-                  link="https://www.linkedin.com/in/magenta-ong/details/projects/"
-                  tags={["Flutter", "AI", "Docker", "Kubernetes"]}
-                  date="Jun 2024 - Sept 2024"
-                />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                <ProjectCard
-                  title="Whiskers"
-                  subtitle="Interactive Robo-Cat"
-                  description="Engineered a chatbot using OpenAI GPT + Whisper for speech-to-text conversation. Integrated Raspberry Pi 4 for robotic sensory responses."
-                  image="/images/Whiskers.png"
-                  link="https://aliciang999.wixsite.com/my-site-3"
-                  tags={["OpenAI", "Raspberry Pi", "Robotics"]}
-                  date="Jan 2024 - Apr 2024"
-                />
-              </motion.div>
-            </div>
-
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard
+                      title="Whiskers"
+                      subtitle="Interactive Robo-Cat"
+                      description="Engineered a chatbot using OpenAI GPT + Whisper for speech-to-text conversation. Integrated Raspberry Pi 4 for robotic sensory responses."
+                      image="/images/Whiskers.png"
+                      link="https://aliciang999.wixsite.com/my-site-3"
+                      tags={["OpenAI", "Raspberry Pi", "Robotics"]}
+                      date="Jan 2024 - Apr 2024"
+                    />
+                  </motion.div>
+                </div>
+              </div>
             <div className="mt-12 text-center">
               <Button asChild size="lg" className="relative overflow-hidden group">
                 <Link href="/projects">
@@ -624,98 +624,103 @@ export default function Home() {
           viewport={{ once: true, margin: "-100px" }}
           className="py-20 relative z-10 gradient-bg"
         >
-          <div className="container">
-            <div className="mx-auto max-w-4xl text-center">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-                Get In <span className="text-orange-500">Touch</span>
-              </h2>
-              <p className="mb-8 text-muted-foreground md:text-xl">
-                I&apos;m always open to new opportunities and collaborations
-              </p>
+          
+            <div className="container max-w-5xl mx-auto">
+              <div className="mx-auto max-w-4xl text-center">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                  Get In <span className="text-orange-500">Touch</span>
+                </h2>
+                <p className="mb-8 text-muted-foreground md:text-xl">
+                  I&apos;m always open to new opportunities and collaborations
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto px-4">
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  
+                    <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 interactive-hover">
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-bold mb-4">Contact Information</h3>
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+                              <Mail className="h-5 w-5 text-orange-500" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-muted-foreground">Email</p>
+                              <p className="font-medium">ongmagenta@gmail.com</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+                              <Linkedin className="h-5 w-5 text-orange-500" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-muted-foreground">LinkedIn</p>
+                              <p className="font-medium">magenta-ong-766378307</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
+                              <Github className="h-5 w-5 text-orange-500" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-muted-foreground">GitHub</p>
+                              <p className="font-medium">magentaong</p>
+                            </div>
+                          </div>
+                        </div>
+                          <div className="mt-8">
+                            <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
+                            <div className="flex gap-4">
+                              <Button asChild variant="outline" size="lg" className="rounded-full group overflow-hidden">
+                                <Link href="https://github.com/magentaong" target="_blank">
+                                  <span className="absolute inset-0 w-0 h-full bg-orange-500/10 transition-all duration-300 group-hover:w-full"></span>
+                                  <span className="relative flex items-center">
+                                    <Github className="mr-2 h-5 w-5 group-hover:text-orange-500 transition-colors" />
+                                    GitHub
+                                  </span>
+                                </Link>
+                              </Button>
+                              <Button asChild variant="outline" size="lg" className="rounded-full group overflow-hidden">
+                                <Link href="https://www.linkedin.com/in/magenta-ong-766378307" target="_blank">
+                                  <span className="absolute inset-0 w-0 h-full bg-orange-500/10 transition-all duration-300 group-hover:w-full"></span>
+                                  <span className="relative flex items-center">
+                                    <Linkedin className="mr-2 h-5 w-5 group-hover:text-orange-500 transition-colors" />
+                                    LinkedIn
+                                  </span>
+                                </Link>
+                              </Button>
+                            </div>
+                          </div>
+                      </CardContent>
+                    </Card>
+                  
+                </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                    viewport={{ once: true }}
+                  >
+                      
+                      <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 m-2">
+                        <CardContent className="p-6">
+                          <h3 className="text-xl font-bold mb-4">Send Me a Message</h3>
+                          <ContactForm />
+                        </CardContent>
+                      </Card>
+                  </motion.div>
+              </div>
             </div>
-
-            <div className="grid gap-8 md:grid-cols-2">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 interactive-hover">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-4">Contact Information</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
-                          <Mail className="h-5 w-5 text-orange-500" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Email</p>
-                          <p className="font-medium">ongmagenta@gmail.com</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
-                          <Linkedin className="h-5 w-5 text-orange-500" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">LinkedIn</p>
-                          <p className="font-medium">magenta-ong-766378307</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
-                          <Github className="h-5 w-5 text-orange-500" />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">GitHub</p>
-                          <p className="font-medium">magentaong</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-8">
-                      <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
-                      <div className="flex gap-4">
-                        <Button asChild variant="outline" size="lg" className="rounded-full group overflow-hidden">
-                          <Link href="https://github.com/magentaong" target="_blank">
-                            <span className="absolute inset-0 w-0 h-full bg-orange-500/10 transition-all duration-300 group-hover:w-full"></span>
-                            <span className="relative flex items-center">
-                              <Github className="mr-2 h-5 w-5 group-hover:text-orange-500 transition-colors" />
-                              GitHub
-                            </span>
-                          </Link>
-                        </Button>
-                        <Button asChild variant="outline" size="lg" className="rounded-full group overflow-hidden">
-                          <Link href="https://www.linkedin.com/in/magenta-ong-766378307" target="_blank">
-                            <span className="absolute inset-0 w-0 h-full bg-orange-500/10 transition-all duration-300 group-hover:w-full"></span>
-                            <span className="relative flex items-center">
-                              <Linkedin className="mr-2 h-5 w-5 group-hover:text-orange-500 transition-colors" />
-                              LinkedIn
-                            </span>
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold mb-4">Send Me a Message</h3>
-                    <ContactForm />
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </div>
-          </div>
+          
         </motion.section>
       </main>
 
