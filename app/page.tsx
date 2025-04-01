@@ -430,7 +430,7 @@ export default function Home() {
                     />
                   </motion.div>
                 </div>
-              </div>
+            </div>
             <div className="mt-12 text-center">
               <Button asChild size="lg" className="relative overflow-hidden group">
                 <Link href="/projects">
@@ -806,7 +806,7 @@ type ProjectCardProps = {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ title, subtitle, description, image, link, tags, date }) => {
   return (
-    <Card className="group overflow-hidden bg-background/60 backdrop-blur-sm border-orange-500/20 hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 h-full">
+    <Card className="group flex flex-col overflow-hidden bg-background/60 backdrop-blur-sm border-orange-500/20 hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 h-full">
       <div className="aspect-video overflow-hidden relative">
         <Image
           src={image || "/placeholder.svg"}
@@ -823,8 +823,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, subtitle, description,
           {date}
         </div>
       </div>
-      <CardContent className="p-6">
-        <div className="space-y-3">
+      <CardContent className="p-6 flex flex-col flex-grow">
+        <div className="space-y-3 flex flex-col flex-grow justify-between">
           <div>
             <h3 className="text-xl font-bold text-orange-500 group-hover:translate-x-1 transition-transform">
               {title}
