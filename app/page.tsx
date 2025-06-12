@@ -179,7 +179,7 @@ export default function Home() {
                 </motion.p>
                 <motion.div variants={item} className="flex flex-wrap gap-4">
                   <Button asChild size="lg" className="relative z-10 overflow-hidden group">
-                    <Link href="/Magenta_Ong_Resume_1.pdf.pdf" target="_blank" download>
+                    <Link href="/Magenta_Ong_Resume_1.pdf" target="_blank" download>
                       <span className="absolute inset-0 w-0 h-full bg-orange-600 transition-all duration-300 group-hover:w-full"></span>
                       <span className="relative flex items-center">
                         <Download className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
