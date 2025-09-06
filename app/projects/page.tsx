@@ -1,6 +1,6 @@
 "use client"
-
-import { useState, useEffect, SetStateAction, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, AwaitedReactNode} from "react"
+import { useSearchParams } from "next/navigation"
+import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, AwaitedReactNode} from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Github, ExternalLink, ChevronRight, ChevronDown } from "lucide-react"
@@ -12,8 +12,11 @@ import { Tabs, TabsContent } from "@/components/ui/tabs"
 import FloatingBalls from "@/components/floating-balls"
 import { UrlObject } from "url"
 
+
 export default function ProjectsPage() {
-  const [activeProject, setActiveProject] = useState("freelance")
+  const searchParams = useSearchParams()
+  const initialProject = searchParams.get("active") || "compostkaki"
+  const [activeProject, setActiveProject] = useState(initialProject)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
@@ -81,16 +84,6 @@ export default function ProjectsPage() {
             <motion.div variants={item}>
               <h2 className="text-xl font-bold mb-4">Projects</h2>
             </motion.div>
-
-            <motion.div variants={item}>
-              <ProjectSelector
-                id="freelance"
-                title="Freelance Designer & Developer"
-                subtitle="Creating Custom Portfolio Websites"
-                active={activeProject === "freelance"}
-                onClick={() => setActiveProject("freelance")}
-              />
-            </motion.div>
             <motion.div variants={item}>
               <ProjectSelector
                 id="gened"
@@ -100,6 +93,15 @@ export default function ProjectsPage() {
                 onClick={() => setActiveProject("gened")}
               />
             </motion.div>
+            <motion.div variants={item}>
+              <ProjectSelector
+                id="compostkaki"
+                title="CompostKaki"
+                subtitle="A community based composting platform"
+                active={activeProject === "compostkaki"}
+                onClick={() => setActiveProject("compostkaki")}
+              />
+            </motion.div> 
 
             <motion.div variants={item}>
               <ProjectSelector
@@ -108,6 +110,36 @@ export default function ProjectsPage() {
                 subtitle="Team Task Management Platform"
                 active={activeProject === "tasksnipe"}
                 onClick={() => setActiveProject("tasksnipe")}
+              />
+            </motion.div>
+            
+            <motion.div variants={item}>
+              <ProjectSelector
+                id="tasktales"
+                title="TaskTales"
+                subtitle="A Gamified Task App"
+                active={activeProject === "tasktales"}
+                onClick={() => setActiveProject("tasktales")}
+              />
+            </motion.div> 
+            
+            <motion.div variants={item}>
+              <ProjectSelector
+                id="stackoverflow"
+                title="StackOverflow"
+                subtitle="A FPGA 1v1 Based Game"
+                active={activeProject === "stackoverflow"}
+                onClick={() => setActiveProject("stackoverflow")}
+              />
+            </motion.div> 
+
+            <motion.div variants={item}>
+              <ProjectSelector
+                id="freelance"
+                title="Freelance Designer & Developer"
+                subtitle="Creating Custom Portfolio Websites"
+                active={activeProject === "freelance"}
+                onClick={() => setActiveProject("freelance")}
               />
             </motion.div>
 
@@ -134,7 +166,115 @@ export default function ProjectsPage() {
 
           <div className="bg-background/60 backdrop-blur-sm rounded-lg border border-orange-500/20 p-6">
             <Tabs value={activeProject} onValueChange={setActiveProject}>
+            <TabsContent value="compostkaki" className="mt-0">
+              <ProjectDetail
+                title="CompostKaki"
+                subtitle="A community based composting platform"
+                date="Jun 2025 - Present"
+                description={
+                  <>
+                    <p className="mb-4">
+                     Developed CompostKaki, a community composting platform created to address Singapore’s food waste challenge by empowering residents to participate in local composting initiatives. Developed during OGP's Build For Good Community Hackathon 2025.
+                    </p>
+                    <p className="mb-4">
+                      CompostKaki is a community based platform, which helps gardeners better manage compost bins collaboratively and coordinate community support. Features include QR-based bin tracking, user management, and historical records to analyse composting cycles. 
+                    </p>
+
+                    <p className="mb-4">
+                      Conducted user testing with over 15+ users at Mountbatten CITs, and worked closely with PA and Mountbatten CIT as well as NParks to develop for user needs. We managed to secure continued development under PA Sparks Division as a Citizen Developer :) 
+                    </p>
+                  </>
+                }
+                challenges={[
+                ]}
+                technologies={["Next.js", "CRUD", "Sustainability", "Supabase"]}
+                links={[
+                  { label: "Latest Design", url: "compostkaki.vercel.app", icon: <ExternalLink className="h-4 w-4" /> },
+                  { label: "GitHub Repository", url: "https://github.com/magentaong/compostkaki", icon: <Github className="h-4 w-4" /> },
+                ]}
+                images={["/images/webbanner.jpg","/images/CompostKakiTeam.jpg"]}
+                mousePosition={mousePosition}
+              />
+            </TabsContent>
+            <TabsContent value="stackoverflow" className="mt-0">
+              <ProjectDetail
+                title="StackOverflow"
+                subtitle="A FPGA 1v1 based game"
+                date="Jan 2025 - April 2025"
+                description={
+                  <>
+                    <p className="mb-4">
+                     Rise to the Top. Beat the Clock. Outsmart Your Rival.
+
+                    Battle in a 1v1 arcade challenge where precision meets speed! One misstep, and it’s joever!
+
+                    Are you up for the challenge?
+
+                    </p>
+                    <p className="mb-4">
+                      StackOverflow is a FPGA based 1v1 game, built with Lucid and Alchitry Labs as an IDE. It was one of the most if not THE MOST tough projects I've ever done, where we had to understand Finite State Machines, Datapath, and how ALU operations worked down to the bit.
+                    </p>
+
+                    <p className="mb-4">
+                      Definitely not a fun time doing the project, but the outcome was great and I've learnt to appreciate computers even more after this!
+                    </p>
+                  </>
+                }
+                challenges={[
+                  "FPGA IS TOUGH MAN."
+                ]}
+                technologies={["Lucid", "FPGA","Alchitry"]}
+                links={[
+                  { label: "Latest Design", url: "https://github.com/aaj1510/tasktales", icon: <ExternalLink className="h-4 w-4" /> },
+                  { label: "GitHub Repository", url: "https://github.com/aaj1510/tasktales", icon: <Github className="h-4 w-4" /> },
+                ]}
+                images={["/images/StackOverflow.png"]}
+                videos={["videos/StackOverflow.MOV"]}
+                mousePosition={mousePosition}
+              />
+            </TabsContent>
+            <TabsContent value="tasktales" className="mt-0">
+              <ProjectDetail
+                title="TaskTales"
+                subtitle="A Gamified Task App"
+                date="Jan 2025 - April 2025"
+                description={
+                  <>
+                    <p className="mb-4">
+                     TaskTales is a gamified productivity android app, designed to combat procrastination by allowing users to choose characters, log tasks, gain points and battle weekly bosses. It was chosen to be awarded the Honourable Mention award by Singtel for our module, Information Systems and Programming.
+
+                    </p>
+                    <p className="mb-4">
+                      The onboarding process allows users to pick and customise their path, choosing a character that meets their own personal goal. From there, the app would randomise a set of habits and daily tasks to combat task paralysis in users. 
+                      
+                    </p>
+                    <p>
+                      
+                    </p>
+                    <p className="mb-4">
+                      The application is built with Java using Android Studio, and Firebase was used to store data and for authentication.
+                    </p>
+                  </>
+                }
+                challenges={[
+                  "Ensuring seamless user experience across all screen sizes",
+                  "Bug fixing to ensure that Users are unable to exploit the point system",
+                  "Implementing intuitive navigation and accessibility features",
+                  "Creating modular and abstract classes, aligning with OOP design principles",
+                ]}
+                technologies={["Java", "Firebase"]}
+                links={[
+                  { label: "Latest Design", url: "https://github.com/aaj1510/tasktales", icon: <ExternalLink className="h-4 w-4" /> },
+                  { label: "GitHub Repository", url: "https://github.com/aaj1510/tasktales", icon: <Github className="h-4 w-4" /> },
+                ]}
+                images={["/images/tasktalesfeatures.jpg"]}
+                videos={["/videos/Team 43_Task Tales.mp4"]}
+                mousePosition={mousePosition}
+              />
+            </TabsContent>
+
             <TabsContent value="freelance" className="mt-0">
+              
               <ProjectDetail
                 title="Freelance Designer & Developer"
                 subtitle="Custom Websites for anyone :D"
@@ -455,7 +595,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
               layout="intrinsic"
               width={600}
               height={300}
-              className="w-full h-auto max-h-[400px] object- hover:scale-105 transition-transform duration-500"
+              className="w-full h-auto max-h-[300px] object-cover hover:scale-105 transition-transform duration-500"
             />
           </div>
         ))}

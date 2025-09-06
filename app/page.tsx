@@ -346,7 +346,6 @@ export default function Home() {
             </div>
             <div className="flex justify-center">
                 <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-fit">
-                
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -361,6 +360,22 @@ export default function Home() {
                       link="/projects"
                       tags={["AI", "EdTech", "LMS"]}
                       date="Jan 2025 - Present"
+                    />
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard
+                      title="CompostKaki"
+                      subtitle="A community based composting platform"
+                      description="Developed CompostKaki, a community composting platform created to address Singapore’s food waste challenge by empowering residents to participate in local composting initiatives. Developed during OGP's Build For Good Community Hackathon 2025."
+                      image="/images/webbanner.jpg"
+                      link="/projects"
+                      tags={["Next.js", "CRUD", "Sustainability", "Supabase"]}
+                      date="June 2025 - Present"
                     />
                   </motion.div>
 
@@ -380,6 +395,41 @@ export default function Home() {
                       date="Jan 2025 - Present"
                     />
                   </motion.div>
+              
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard
+                      title="TaskTales"
+                      subtitle="A Gamified Task App"
+                      description="Awarded Singtel Award for Honourable Mention as part of our school module for Infomation Systems. Developed a Java based android app to gamify tasks and help combat task paralysis."
+                      image="/images/tasktalesthumbnail.jpg"
+                      link="/projects"
+                      tags={["CRUD", "Java", "OOP"]}
+                      date="Jan 2025 - April 2025"
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    <ProjectCard
+                      title="StackOverflow"
+                      subtitle="A FPGA 1v1 Based Game"
+                      description="Built a two player competitive stacking game on FPGA, where players have to take turns to stack shifting blocks and reach the top. Designed and implemented FSM, datapath and ALU operations to manage game state Strengthened low-level understanding of digital systems through direct hardware design using Lucid"
+                      image="/images/StackOverflow.png"
+                      link="/projects"
+                      tags={["FPGA", "Lucid", "ALU Operations"]}
+                      date="Jan 2025 - April 2025"
+                    />
+                  </motion.div>
+
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -521,18 +571,17 @@ export default function Home() {
                   company="Self-Employed"
                   description="Designing and developing custom portfolio websites for clients. Utilizing Next.js, Vercel, and Figma to create responsive and visually appealing web experiences."
                 />
-
-                <TimelineItem
-                  date="Nov 2024 - Present"
-                  title="Design Mentor"
-                  company="Steamunity"
-                  description="Mentored 4 secondary and 2 polytechnic students in design thinking, guiding prototyping and solution development."
-                />
-                <TimelineItem
+              <TimelineItem
                   date="Aug 2023 - Present"
                   title="Private Tutor"
                   company="Physics, Chemistry, Math, Programming"
                   description="Students achieved 100% A-grades in H2 Physics/Math, avg. 6.5-grade improvement in O-Level Physics. Simplified programming concepts through hands-on mini projects."
+                />
+                <TimelineItem
+                  date="Dec 2024 - Mar 2025"
+                  title="Design Mentor"
+                  company="Steamunity"
+                  description="Mentored 4 secondary and 2 polytechnic students in design thinking, guiding prototyping and solution development."
                 />
                 <TimelineItem
                   date="Dec 2022 - Feb 2023"
@@ -857,7 +906,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, subtitle, description,
               asChild
               className="border-orange-500/30 hover:border-orange-500/60 transition-colors"
             >
-              <Link href="/projects">
+              <Link href={`/projects?active=${title.toLowerCase()}`}>
                 Details
                 <ChevronRight className="ml-2 h-3 w-3" />
               </Link>
