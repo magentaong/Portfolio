@@ -437,7 +437,7 @@ export default function Home() {
                     viewport={{ once: true }}
                   >
                     <ProjectCard
-                      title="Freelance Website Developer"
+                      title="Freelance Developer"
                       subtitle="Custom Portfolio Websites for Clients"
                       description="Designing and developing modern, responsive portfolio websites for clients. Built with Next.js, styled with Tailwind CSS, and deployed on Vercel for seamless performance."
                       image="/images/IMAGE 2025-03-13 06:48:43.jpg"
@@ -906,7 +906,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, subtitle, description,
               asChild
               className="border-orange-500/30 hover:border-orange-500/60 transition-colors"
             >
-              <Link href={`/projects?active=${title.toLowerCase()}`}>
+              <Link href={`/projects?active=${title.toLowerCase().trim()}`}>
                 Details
                 <ChevronRight className="ml-2 h-3 w-3" />
               </Link>

@@ -1,6 +1,7 @@
 "use client"
+
+import { Suspense, useState, useEffect , ReactElement, JSXElementConstructor, ReactPortal,AwaitedReactNode,ReactNode, Key} from "react"
 import { useSearchParams } from "next/navigation"
-import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, AwaitedReactNode} from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, Github, ExternalLink, ChevronRight, ChevronDown } from "lucide-react"
@@ -13,7 +14,7 @@ import FloatingBalls from "@/components/floating-balls"
 import { UrlObject } from "url"
 
 
-export default function ProjectsPage() {
+function ProjectsPageContent() {
   const searchParams = useSearchParams()
   const initialProject = searchParams.get("active") || "compostkaki"
   const [activeProject, setActiveProject] = useState(initialProject)
@@ -65,7 +66,7 @@ export default function ProjectsPage() {
           </Link>
         </div>
       </header>
-
+      
       <main className="container py-12 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -135,21 +136,21 @@ export default function ProjectsPage() {
 
             <motion.div variants={item}>
               <ProjectSelector
-                id="freelance"
-                title="Freelance Designer & Developer"
+                id="freelancedeveloper"
+                title="Freelance Developer"
                 subtitle="Creating Custom Portfolio Websites"
-                active={activeProject === "freelance"}
-                onClick={() => setActiveProject("freelance")}
+                active={activeProject === "freelancedeveloper"}
+                onClick={() => setActiveProject("freelancedeveloper")}
               />
             </motion.div>
 
             <motion.div variants={item}>
               <ProjectSelector
-                id="lepaklah"
+                id="lepaklah!"
                 title="LepakLah!"
                 subtitle="AI Senior-Centric Mobile App"
-                active={activeProject === "lepaklah"}
-                onClick={() => setActiveProject("lepaklah")}
+                active={activeProject === "lepaklah!"}
+                onClick={() => setActiveProject("lepaklah!")}
               />
             </motion.div>
 
@@ -163,334 +164,342 @@ export default function ProjectsPage() {
               />
             </motion.div>
           </motion.div>
+            <div className="bg-background/60 backdrop-blur-sm rounded-lg border border-orange-500/20 p-6">
+              <Tabs value={activeProject} onValueChange={setActiveProject}>
+              <TabsContent value="compostkaki" className="mt-0">
+                <ProjectDetail
+                  title="CompostKaki"
+                  subtitle="A community based composting platform"
+                  date="Jun 2025 - Present"
+                  description={
+                    <>
+                      <p className="mb-4">
+                      Developed CompostKaki, a community composting platform created to address Singapore’s food waste challenge by empowering residents to participate in local composting initiatives. Developed during OGP's Build For Good Community Hackathon 2025.
+                      </p>
+                      <p className="mb-4">
+                        CompostKaki is a community based platform, which helps gardeners better manage compost bins collaboratively and coordinate community support. Features include QR-based bin tracking, user management, and historical records to analyse composting cycles. 
+                      </p>
 
-          <div className="bg-background/60 backdrop-blur-sm rounded-lg border border-orange-500/20 p-6">
-            <Tabs value={activeProject} onValueChange={setActiveProject}>
-            <TabsContent value="compostkaki" className="mt-0">
-              <ProjectDetail
-                title="CompostKaki"
-                subtitle="A community based composting platform"
-                date="Jun 2025 - Present"
-                description={
+                      <p className="mb-4">
+                        Conducted user testing with over 15+ users at Mountbatten CITs, and worked closely with PA and Mountbatten CIT as well as NParks to develop for user needs. We managed to secure continued development under PA Sparks Division as a Citizen Developer :) 
+                      </p>
+                    </>
+                  }
+                  challenges={[
+                  ]}
+                  technologies={["Next.js", "CRUD", "Sustainability", "Supabase"]}
+                  links={[
+                    { label: "Latest Design", url: "compostkaki.vercel.app", icon: <ExternalLink className="h-4 w-4" /> },
+                    { label: "GitHub Repository", url: "https://github.com/magentaong/compostkaki", icon: <Github className="h-4 w-4" /> },
+                  ]}
+                  images={["/images/webbanner.jpg","/images/CompostKakiTeam.jpg"]}
+                  mousePosition={mousePosition}
+                />
+              </TabsContent>
+              <TabsContent value="stackoverflow" className="mt-0">
+                <ProjectDetail
+                  title="StackOverflow"
+                  subtitle="A FPGA 1v1 based game"
+                  date="Jan 2025 - April 2025"
+                  description={
+                    <>
+                      <p className="mb-4">
+                      Rise to the Top. Beat the Clock. Outsmart Your Rival.
+
+                      Battle in a 1v1 arcade challenge where precision meets speed! One misstep, and it’s joever!
+
+                      Are you up for the challenge?
+
+                      </p>
+                      <p className="mb-4">
+                        StackOverflow is a FPGA based 1v1 game, built with Lucid and Alchitry Labs as an IDE. It was one of the most if not THE MOST tough projects I've ever done, where we had to understand Finite State Machines, Datapath, and how ALU operations worked down to the bit.
+                      </p>
+
+                      <p className="mb-4">
+                        Definitely not a fun time doing the project, but the outcome was great and I've learnt to appreciate computers even more after this!
+                      </p>
+                    </>
+                  }
+                  challenges={[
+                    "FPGA IS TOUGH MAN."
+                  ]}
+                  technologies={["Lucid", "FPGA","Alchitry"]}
+                  links={[
+                    { label: "Latest Design", url: "https://github.com/aaj1510/tasktales", icon: <ExternalLink className="h-4 w-4" /> },
+                    { label: "GitHub Repository", url: "https://github.com/aaj1510/tasktales", icon: <Github className="h-4 w-4" /> },
+                  ]}
+                  images={["/images/StackOverflow.png"]}
+                  videos={["videos/StackOverflow.mp4"]}
+                  mousePosition={mousePosition}
+                />
+              </TabsContent>
+              <TabsContent value="tasktales" className="mt-0">
+                <ProjectDetail
+                  title="TaskTales"
+                  subtitle="A Gamified Task App"
+                  date="Jan 2025 - April 2025"
+                  description={
+                    <>
+                      <p className="mb-4">
+                      TaskTales is a gamified productivity android app, designed to combat procrastination by allowing users to choose characters, log tasks, gain points and battle weekly bosses. It was chosen to be awarded the Honourable Mention award by Singtel for our module, Information Systems and Programming.
+
+                      </p>
+                      <p className="mb-4">
+                        The onboarding process allows users to pick and customise their path, choosing a character that meets their own personal goal. From there, the app would randomise a set of habits and daily tasks to combat task paralysis in users. 
+                        
+                      </p>
+                      <p>
+                        
+                      </p>
+                      <p className="mb-4">
+                        The application is built with Java using Android Studio, and Firebase was used to store data and for authentication.
+                      </p>
+                    </>
+                  }
+                  challenges={[
+                    "Ensuring seamless user experience across all screen sizes",
+                    "Bug fixing to ensure that Users are unable to exploit the point system",
+                    "Implementing intuitive navigation and accessibility features",
+                    "Creating modular and abstract classes, aligning with OOP design principles",
+                  ]}
+                  technologies={["Java", "Firebase"]}
+                  links={[
+                    { label: "Latest Design", url: "https://github.com/aaj1510/tasktales", icon: <ExternalLink className="h-4 w-4" /> },
+                    { label: "GitHub Repository", url: "https://github.com/aaj1510/tasktales", icon: <Github className="h-4 w-4" /> },
+                  ]}
+                  images={["/images/tasktalesfeatures.jpg"]}
+                  videos={["/videos/Team 43_Task Tales.mp4"]}
+                  mousePosition={mousePosition}
+                />
+              </TabsContent>
+
+                <TabsContent value="freelance developer" className="mt-0">
+                
+                <ProjectDetail
+                  title="Freelance Designer and Developer"
+                  subtitle="Custom Websites for anyone :D"
+                  date="March 2025 - Present"
+                  description={
                   <>
                     <p className="mb-4">
-                     Developed CompostKaki, a community composting platform created to address Singapore’s food waste challenge by empowering residents to participate in local composting initiatives. Developed during OGP's Build For Good Community Hackathon 2025.
+                    As a freelance designer and developer, I specialise in creating custom, responsive, and visually engaging 
+                    portfolio websites tailored to clients wants and needs. Each portfolio is crafted to highlight 
+                    personal branding and showcase work effectively.
                     </p>
                     <p className="mb-4">
-                      CompostKaki is a community based platform, which helps gardeners better manage compost bins collaboratively and coordinate community support. Features include QR-based bin tracking, user management, and historical records to analyse composting cycles. 
-                    </p>
-
-                    <p className="mb-4">
-                      Conducted user testing with over 15+ users at Mountbatten CITs, and worked closely with PA and Mountbatten CIT as well as NParks to develop for user needs. We managed to secure continued development under PA Sparks Division as a Citizen Developer :) 
-                    </p>
-                  </>
-                }
-                challenges={[
-                ]}
-                technologies={["Next.js", "CRUD", "Sustainability", "Supabase"]}
-                links={[
-                  { label: "Latest Design", url: "compostkaki.vercel.app", icon: <ExternalLink className="h-4 w-4" /> },
-                  { label: "GitHub Repository", url: "https://github.com/magentaong/compostkaki", icon: <Github className="h-4 w-4" /> },
-                ]}
-                images={["/images/webbanner.jpg","/images/CompostKakiTeam.jpg"]}
-                mousePosition={mousePosition}
-              />
-            </TabsContent>
-            <TabsContent value="stackoverflow" className="mt-0">
-              <ProjectDetail
-                title="StackOverflow"
-                subtitle="A FPGA 1v1 based game"
-                date="Jan 2025 - April 2025"
-                description={
-                  <>
-                    <p className="mb-4">
-                     Rise to the Top. Beat the Clock. Outsmart Your Rival.
-
-                    Battle in a 1v1 arcade challenge where precision meets speed! One misstep, and it’s joever!
-
-                    Are you up for the challenge?
-
-                    </p>
-                    <p className="mb-4">
-                      StackOverflow is a FPGA based 1v1 game, built with Lucid and Alchitry Labs as an IDE. It was one of the most if not THE MOST tough projects I've ever done, where we had to understand Finite State Machines, Datapath, and how ALU operations worked down to the bit.
-                    </p>
-
-                    <p className="mb-4">
-                      Definitely not a fun time doing the project, but the outcome was great and I've learnt to appreciate computers even more after this!
-                    </p>
-                  </>
-                }
-                challenges={[
-                  "FPGA IS TOUGH MAN."
-                ]}
-                technologies={["Lucid", "FPGA","Alchitry"]}
-                links={[
-                  { label: "Latest Design", url: "https://github.com/aaj1510/tasktales", icon: <ExternalLink className="h-4 w-4" /> },
-                  { label: "GitHub Repository", url: "https://github.com/aaj1510/tasktales", icon: <Github className="h-4 w-4" /> },
-                ]}
-                images={["/images/StackOverflow.png"]}
-                videos={["videos/StackOverflow.mp4"]}
-                mousePosition={mousePosition}
-              />
-            </TabsContent>
-            <TabsContent value="tasktales" className="mt-0">
-              <ProjectDetail
-                title="TaskTales"
-                subtitle="A Gamified Task App"
-                date="Jan 2025 - April 2025"
-                description={
-                  <>
-                    <p className="mb-4">
-                     TaskTales is a gamified productivity android app, designed to combat procrastination by allowing users to choose characters, log tasks, gain points and battle weekly bosses. It was chosen to be awarded the Honourable Mention award by Singtel for our module, Information Systems and Programming.
-
-                    </p>
-                    <p className="mb-4">
-                      The onboarding process allows users to pick and customise their path, choosing a character that meets their own personal goal. From there, the app would randomise a set of habits and daily tasks to combat task paralysis in users. 
-                      
+                    My design process starts with understanding the client's vision and wants, followed by wireframing in Figma, and finally once the client is satisfied,
+                    developing the site using Next.js, styled with Tailwind CSS. The websites are deployed on Vercel for seamless 
+                    performance.
                     </p>
                     <p>
-                      
+                    Whether you're a student looking to display your projects and standout, a small business looking to market your products and build a personal branding, I aim to 
+                    deliver sleek, modern, and accessible websites to all.
                     </p>
                     <p className="mb-4">
-                      The application is built with Java using Android Studio, and Firebase was used to store data and for authentication.
+                    More to come!! (i'm currently drowning in student work, haven't updated)
                     </p>
                   </>
-                }
-                challenges={[
-                  "Ensuring seamless user experience across all screen sizes",
-                  "Bug fixing to ensure that Users are unable to exploit the point system",
-                  "Implementing intuitive navigation and accessibility features",
-                  "Creating modular and abstract classes, aligning with OOP design principles",
-                ]}
-                technologies={["Java", "Firebase"]}
-                links={[
-                  { label: "Latest Design", url: "https://github.com/aaj1510/tasktales", icon: <ExternalLink className="h-4 w-4" /> },
-                  { label: "GitHub Repository", url: "https://github.com/aaj1510/tasktales", icon: <Github className="h-4 w-4" /> },
-                ]}
-                images={["/images/tasktalesfeatures.jpg"]}
-                videos={["/videos/Team 43_Task Tales.mp4"]}
-                mousePosition={mousePosition}
-              />
-            </TabsContent>
-
-            <TabsContent value="freelance" className="mt-0">
-              
-              <ProjectDetail
-                title="Freelance Designer & Developer"
-                subtitle="Custom Websites for anyone :D"
-                date="March 2025 - Present"
-                description={
-                  <>
-                    <p className="mb-4">
-                      As a freelance designer and developer, I specialise in creating custom, responsive, and visually engaging 
-                      portfolio websites tailored to clients wants and needs. Each portfolio is crafted to highlight 
-                      personal branding and showcase work effectively.
-                    </p>
-                    <p className="mb-4">
-                      My design process starts with understanding the client's vision and wants, followed by wireframing in Figma, and finally once the client is satisfied,
-                      developing the site using Next.js, styled with Tailwind CSS. The websites are deployed on Vercel for seamless 
-                      performance.
-                    </p>
-                    <p>
-                      Whether you're a student looking to display your projects and standout, a small business looking to market your products and build a personal branding, I aim to 
-                      deliver sleek, modern, and accessible websites to all.
-                    </p>
-                    <p className="mb-4">
-                      More to come!! (i'm currently drowning in student work, haven't updated)
-                    </p>
-                  </>
-                }
-                challenges={[
+                  }
+                  challenges={[
                   "Ensuring seamless user experience across all screen sizes",
                   "Balancing aesthetic design with optimized performance",
                   "Implementing intuitive navigation and accessibility features",
                   "Making sure that the design fits the clients wants and need",
-                ]}
-                technologies={["Next.js", "React", "Tailwind CSS", "Figma", "Vercel"]}
-                links={[
+                  ]}
+                  technologies={["Next.js", "React", "Tailwind CSS", "Figma", "Vercel"]}
+                  links={[
                   { label: "Latest Design", url: "https://aloykoh.vercel.app", icon: <ExternalLink className="h-4 w-4" /> },
                   { label: "GitHub Repository", url: "https://github.com/magentaong", icon: <Github className="h-4 w-4" /> },
-                ]}
-                images={["/images/IMAGE 2025-03-13 06:48:43.jpg","/images/Screenshot 2025-03-13 at 9.45.49 AM.png"]}
-                videos={[]}
-                mousePosition={mousePosition}
-              />
-            </TabsContent>
-                
-
-              <TabsContent value="gened" className="mt-0">
-                <ProjectDetail
-                  title="GenEd"
-                  subtitle="AI-Powered Learning Platform"
-                  date="January 2025 - Present"
-                  description={
-                    <>
-                      <p className="mb-4">
-                        GenEd is an innovative AI-driven Learning Management System (LMS) that was awarded the SUTD
-                        BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. The platform is designed to
-                        revolutionize the way students find and engage with educational content.
-                      </p>
-                      <p className="mb-4">
-                        The core innovation of GenEd is its ability to tailor courses to individual learning
-                        preferences. Using GenAI, GenEd aims to make learning accessible to all, by providing tailored content to individual needs, and streamlining content generation to suit users. 
-                      </p>
-                      <p>
-                        For educators, GenEd provides powerful tools to streamline course creation and management, with
-                        AI assistance for content generation.
-                      </p>
-                    </>
-                  }
-                  challenges={[
-                    "Ensuring reliability of content generated",
-                    "Ensuring data privacy and security for educational data",
-                    "Designing an intuitive interface for both students and educators",
                   ]}
-                  technologies={["AI/ML", "EdTech", "LMS"]}
-                  links={[
-                    { label: "Project Website", url: "/projects/GenEd", icon: <ExternalLink className="h-4 w-4" /> },
-                    { label: "GitHub Repository", url: "/projects/GenEd", icon: <Github className="h-4 w-4" /> },
-                  ]}
-                  images={["/images/GenEd.png"]}
-                  videos={["/videos/GenEdPrototype.mp4"]}
+                  images={["/images/IMAGE 2025-03-13 06:48:43.jpg","/images/Screenshot 2025-03-13 at 9.45.49 AM.png"]}
+                  videos={[]}
                   mousePosition={mousePosition}
                 />
-              </TabsContent>
+                </TabsContent>
+                  
 
-              <TabsContent value="tasksnipe" className="mt-0">
-                <ProjectDetail
-                  title="TaskSnipe"
-                  subtitle="Team Task Management Platform"
-                  date="January 2025 - Present"
-                  description={
-                    <>
-                      <p className="mb-4">
-                        TaskSnipe is a comprehensive task management web application built with Next.js, designed to
-                        help teams track and manage projects efficiently. The platform features a clean, intuitive
-                        interface that makes task organization simple and effective.
-                      </p>
-                      <p className="mb-4">
-                        The application includes authentication via Clerk, ensuring secure access control. Data
-                        is stored in a PostgreSQL database, providing reliable and scalable data management. The
-                        platform is deployed on Vercel, enabling continuous deployment and excellent performance.
-                      </p>
-                      <p>
-                        One of the standout features of TaskSnipe is its real-time dashboard that visualizes task
-                        progress, helping teams identify bottlenecks and track productivity at a glance.
-                      </p>
-                    </>
-                  }
-                  challenges={[
-                    "Implementing real-time updates across multiple users",
-                    "Designing an intuitive task organization system",
-                    "Creating effective data visualization for project progress",
-                    "Ensuring seamless mobile responsiveness",
-                  ]}
-                  technologies={["Next.js", "PostgreSQL", "Clerk", "Vercel", "Tailwind CSS", "TypeScript"]}
-                  links={[
-                    { label: "Live Demo", url: "/Projects/TaskSnipe", icon: <ExternalLink className="h-4 w-4" /> },
-                    { label: "GitHub Repository", url: "Projects/TaskSnipe", icon: <Github className="h-4 w-4" /> },
-                  ]}
-                  images={["/images/TaskSnipe.png", "/images/TaskFigma.png"]}
-                  mousePosition={mousePosition}
-                />
-              </TabsContent>
+                <TabsContent value="gened" className="mt-0">
+                  <ProjectDetail
+                    title="GenEd"
+                    subtitle="AI-Powered Learning Platform"
+                    date="January 2025 - Present"
+                    description={
+                      <>
+                        <p className="mb-4">
+                          GenEd is an innovative AI-driven Learning Management System (LMS) that was awarded the SUTD
+                          BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. The platform is designed to
+                          revolutionize the way students find and engage with educational content.
+                        </p>
+                        <p className="mb-4">
+                          The core innovation of GenEd is its ability to tailor courses to individual learning
+                          preferences. Using GenAI, GenEd aims to make learning accessible to all, by providing tailored content to individual needs, and streamlining content generation to suit users. 
+                        </p>
+                        <p>
+                          For educators, GenEd provides powerful tools to streamline course creation and management, with
+                          AI assistance for content generation.
+                        </p>
+                      </>
+                    }
+                    challenges={[
+                      "Ensuring reliability of content generated",
+                      "Ensuring data privacy and security for educational data",
+                      "Designing an intuitive interface for both students and educators",
+                    ]}
+                    technologies={["AI/ML", "EdTech", "LMS"]}
+                    links={[
+                      { label: "Project Website", url: "/projects/GenEd", icon: <ExternalLink className="h-4 w-4" /> },
+                      { label: "GitHub Repository", url: "/projects/GenEd", icon: <Github className="h-4 w-4" /> },
+                    ]}
+                    images={["/images/GenEd.png"]}
+                    videos={["/videos/GenEdPrototype.mp4"]}
+                    mousePosition={mousePosition}
+                  />
+                </TabsContent>
 
-              <TabsContent value="lepaklah" className="mt-0">
-                <ProjectDetail
-                  title="LepakLah!"
-                  subtitle="AI Senior-Centric Mobile App"
-                  date="June 2024 - September 2024"
-                  description={
-                    <>
-                      <p className="mb-4">
-                        LepakLah! is a Flutter-based mobile application designed to help seniors at LionBefrienders access activity center
-                        slots more efficiently. The project won 3rd Place at Dell InnovateFest 2024, recognizing its
-                        innovative approach to addressing the needs of elderly users.
-                      </p>
-                      <p className="mb-4">
-                        The app features a senior-friendly interface with large, clear text and intuitive navigation. It
-                        allows users to browse, book, and manage activity slots at community centers, addressing the
-                        inefficiencies in the current manual booking systems by focusing on better user experience.
-                      </p>
-                      <p>
-                        A key feature of LepakLah! is its Buddy Matching Algorithm, which uses AI to connect seniors
-                        with similar interests, encouraging social interaction and community building among users.
-                      </p>
-                    
-                      <p>
-                        Alongside the Buddy Matching Algorithm, an Admin Dashboard was made to steamline operations 
-                        in active ageing centers, by providing features like trend detection, as well as AI-integrated activity creation for the elderly.
-                      </p>
-                    </>
-                  }
-                  challenges={[
-                    "Designing an interface accessible to elderly users",
-                    "Developing an effective matching algorithm for buddy connections",
-                    "Ensuring robust backend infrastructure with RedHat OpenShift",
-                    "Implementing secure user authentication for a vulnerable user group",
-                  ]}
-                  technologies={["Flutter", "Python", "AI", "Docker", "Kubernetes", "RedHat OpenShift", "Figma"]}
-                  links={[
-                    { label: "Project Overview", url: "https://www.linkedin.com/in/magenta-ong/details/projects/", icon: <ExternalLink className="h-4 w-4" /> },
-                    { label: "GitHub Repository", url: "https://github.com/magentaong/dell-innovatefest-2024", icon: <Github className="h-4 w-4" /> },
-                  ]}
-                  images={["/images/2025-03-11 13.59.40.jpg"]}
-                  videos={["/videos/FigmaPrototype1.mp4"]}
-                  mousePosition={mousePosition}
-                />
-              </TabsContent>
+                <TabsContent value="tasksnipe" className="mt-0">
+                  <ProjectDetail
+                    title="TaskSnipe"
+                    subtitle="Team Task Management Platform"
+                    date="January 2025 - Present"
+                    description={
+                      <>
+                        <p className="mb-4">
+                          TaskSnipe is a comprehensive task management web application built with Next.js, designed to
+                          help teams track and manage projects efficiently. The platform features a clean, intuitive
+                          interface that makes task organization simple and effective.
+                        </p>
+                        <p className="mb-4">
+                          The application includes authentication via Clerk, ensuring secure access control. Data
+                          is stored in a PostgreSQL database, providing reliable and scalable data management. The
+                          platform is deployed on Vercel, enabling continuous deployment and excellent performance.
+                        </p>
+                        <p>
+                          One of the standout features of TaskSnipe is its real-time dashboard that visualizes task
+                          progress, helping teams identify bottlenecks and track productivity at a glance.
+                        </p>
+                      </>
+                    }
+                    challenges={[
+                      "Implementing real-time updates across multiple users",
+                      "Designing an intuitive task organization system",
+                      "Creating effective data visualization for project progress",
+                      "Ensuring seamless mobile responsiveness",
+                    ]}
+                    technologies={["Next.js", "PostgreSQL", "Clerk", "Vercel", "Tailwind CSS", "TypeScript"]}
+                    links={[
+                      { label: "Live Demo", url: "/Projects/TaskSnipe", icon: <ExternalLink className="h-4 w-4" /> },
+                      { label: "GitHub Repository", url: "Projects/TaskSnipe", icon: <Github className="h-4 w-4" /> },
+                    ]}
+                    images={["/images/TaskSnipe.png", "/images/TaskFigma.png"]}
+                    mousePosition={mousePosition}
+                  />
+                </TabsContent>
 
-              <TabsContent value="whiskers" className="mt-0">
-                <ProjectDetail
-                  title="Whiskers"
-                  subtitle="Interactive Robo-Cat"
-                  date="January 2024 - April 2024"
-                  description={
-                    <>
-                      <p className="mb-4">
-                        Whiskers is an innovative interactive robotic cat that combines AI chatbot capabilities with
-                        physical robotic responses. The project integrates OpenAI&apos;s GPT models with Whisper for
-                        speech-to-text conversion, enabling natural conversation with the robot.
-                      </p>
-                      <p className="mb-4">
-                        The hardware is built around a Raspberry Pi 4, which controls various sensors and actuators to
-                        create lifelike movements and responses. The robot can respond to touch, voice, and visual
-                        stimuli, creating an engaging and interactive experience. 
-                      </p>
-                      <p>
-                        Whiskers demonstrates the potential of combining conversational AI with robotics to create
-                        companions that can provide both entertainment and practical assistance.
-                      </p>
-                      <p className="mb-4"></p>
-                      <p>
-                        The aim of Whiskers is to promote interactivity in a site where there&apos;s low engagement but high traffic. We analysed the site and used Design Thinking approach in order to come up with this solution. 
-                      </p>
-                    </>
-                  }
-                  challenges={[
-                    "Integrating speech recognition in noisy environments",
-                    "Optimizing AI model performance on Raspberry Pi hardware",
-                    "Designing responsive and natural robotic movements",
-                    "Creating a power-efficient system for extended operation",
-                  ]}
-                  technologies={["OpenAI GPT", "Whisper", "Raspberry Pi", "Python", "Robotics", "Servo Motors"]}
-                  links={[
-                    {
-                      label: "Project Website",
-                      url: "https://aliciang999.wixsite.com/my-site-3",
-                      icon: <ExternalLink className="h-4 w-4" />,
-                    },
-                  ]}
-                  images={["/images/WhiskersProduct.png"]}
-                  videos={["/videos/DTI Group 5_ Whiskers.mp4"]}
-                  mousePosition={mousePosition}
-                />
-              </TabsContent>
-            </Tabs>
-          </div>
+                <TabsContent value="lepaklah!" className="mt-0">
+                  <ProjectDetail
+                    title="LepakLah!"
+                    subtitle="AI Senior-Centric Mobile App"
+                    date="June 2024 - September 2024"
+                    description={
+                      <>
+                        <p className="mb-4">
+                          LepakLah! is a Flutter-based mobile application designed to help seniors at LionBefrienders access activity center
+                          slots more efficiently. The project won 3rd Place at Dell InnovateFest 2024, recognizing its
+                          innovative approach to addressing the needs of elderly users.
+                        </p>
+                        <p className="mb-4">
+                          The app features a senior-friendly interface with large, clear text and intuitive navigation. It
+                          allows users to browse, book, and manage activity slots at community centers, addressing the
+                          inefficiencies in the current manual booking systems by focusing on better user experience.
+                        </p>
+                        <p>
+                          A key feature of LepakLah! is its Buddy Matching Algorithm, which uses AI to connect seniors
+                          with similar interests, encouraging social interaction and community building among users.
+                        </p>
+                      
+                        <p>
+                          Alongside the Buddy Matching Algorithm, an Admin Dashboard was made to steamline operations 
+                          in active ageing centers, by providing features like trend detection, as well as AI-integrated activity creation for the elderly.
+                        </p>
+                      </>
+                    }
+                    challenges={[
+                      "Designing an interface accessible to elderly users",
+                      "Developing an effective matching algorithm for buddy connections",
+                      "Ensuring robust backend infrastructure with RedHat OpenShift",
+                      "Implementing secure user authentication for a vulnerable user group",
+                    ]}
+                    technologies={["Flutter", "Python", "AI", "Docker", "Kubernetes", "RedHat OpenShift", "Figma"]}
+                    links={[
+                      { label: "Project Overview", url: "https://www.linkedin.com/in/magenta-ong/details/projects/", icon: <ExternalLink className="h-4 w-4" /> },
+                      { label: "GitHub Repository", url: "https://github.com/magentaong/dell-innovatefest-2024", icon: <Github className="h-4 w-4" /> },
+                    ]}
+                    images={["/images/2025-03-11 13.59.40.jpg"]}
+                    videos={["/videos/FigmaPrototype1.mp4"]}
+                    mousePosition={mousePosition}
+                  />
+                </TabsContent>
+
+                <TabsContent value="whiskers" className="mt-0">
+                  <ProjectDetail
+                    title="Whiskers"
+                    subtitle="Interactive Robo-Cat"
+                    date="January 2024 - April 2024"
+                    description={
+                      <>
+                        <p className="mb-4">
+                          Whiskers is an innovative interactive robotic cat that combines AI chatbot capabilities with
+                          physical robotic responses. The project integrates OpenAI&apos;s GPT models with Whisper for
+                          speech-to-text conversion, enabling natural conversation with the robot.
+                        </p>
+                        <p className="mb-4">
+                          The hardware is built around a Raspberry Pi 4, which controls various sensors and actuators to
+                          create lifelike movements and responses. The robot can respond to touch, voice, and visual
+                          stimuli, creating an engaging and interactive experience. 
+                        </p>
+                        <p>
+                          Whiskers demonstrates the potential of combining conversational AI with robotics to create
+                          companions that can provide both entertainment and practical assistance.
+                        </p>
+                        <p className="mb-4"></p>
+                        <p>
+                          The aim of Whiskers is to promote interactivity in a site where there&apos;s low engagement but high traffic. We analysed the site and used Design Thinking approach in order to come up with this solution. 
+                        </p>
+                      </>
+                    }
+                    challenges={[
+                      "Integrating speech recognition in noisy environments",
+                      "Optimizing AI model performance on Raspberry Pi hardware",
+                      "Designing responsive and natural robotic movements",
+                      "Creating a power-efficient system for extended operation",
+                    ]}
+                    technologies={["OpenAI GPT", "Whisper", "Raspberry Pi", "Python", "Robotics", "Servo Motors"]}
+                    links={[
+                      {
+                        label: "Project Website",
+                        url: "https://aliciang999.wixsite.com/my-site-3",
+                        icon: <ExternalLink className="h-4 w-4" />,
+                      },
+                    ]}
+                    images={["/images/WhiskersProduct.png"]}
+                    videos={["/videos/DTI Group 5_ Whiskers.mp4"]}
+                    mousePosition={mousePosition}
+                  />
+                </TabsContent>
+              </Tabs>
+            </div>
+          
         </div>
       </main>
     </div>
+  )
+}
+
+export default function ProjectsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProjectsPageContent />
+    </Suspense>
   )
 }
 
