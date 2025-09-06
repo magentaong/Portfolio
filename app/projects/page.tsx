@@ -122,7 +122,7 @@ export default function ProjectsPage() {
                 onClick={() => setActiveProject("tasktales")}
               />
             </motion.div> 
-            
+
             <motion.div variants={item}>
               <ProjectSelector
                 id="stackoverflow"
@@ -229,7 +229,7 @@ export default function ProjectsPage() {
                   { label: "GitHub Repository", url: "https://github.com/aaj1510/tasktales", icon: <Github className="h-4 w-4" /> },
                 ]}
                 images={["/images/StackOverflow.png"]}
-                videos={["videos/StackOverflow.MOV"]}
+                videos={["videos/StackOverflow.mp4"]}
                 mousePosition={mousePosition}
               />
             </TabsContent>
