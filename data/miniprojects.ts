@@ -36,7 +36,7 @@ export const miniProjects: MiniProject[] = [
     tags: ["HTML", "CSS", "JS"],
     github: "magentaong.github.io",
     date: "Apr 2024",
-    video: "/videos/miniprojects/calculator.mp4",
+    video: "/videos/miniprojects/Calculator.mp4",
     status: "complete",
     learned: [
       "Working with third-party APIs (OpenFoodFacts)",
@@ -50,7 +50,7 @@ export const miniProjects: MiniProject[] = [
     tags: ["Godot"],
     github: "https://magentaong.itch.io/fragments",
     date: "Oct 2025",
-    video: "/videos/miniprojects/frags.mp4",
+    video: "/videos/miniprojects/Frags.mp4",
     status: "complete",
     learned: [
     "Structuring scenes and nodes using Godot's scenes",
@@ -78,7 +78,7 @@ export const miniProjects: MiniProject[] = [
     tags: ["CSS", "HTML"],
     github: "https://github.com/magentaong/",
     date: "Dec 2023",
-    video: "/videos/miniprojects/naruto.mp4",
+    video: "/videos/miniprojects/Naruto.mp4",
     status: "complete",
     learned: [
     "Responsive CSS, difference between class and ID selector", 
