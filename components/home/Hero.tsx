@@ -8,20 +8,14 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { useTypewriter, Cursor } from "react-simple-typewriter"
 
-const container = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.1 } },
-}
-const item = {
-  hidden: { y: 20, opacity: 0 },
-  show: { y: 0, opacity: 1 },
+const container = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } },}
+const item = { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1 },}
+
+type Props = { onViewWork: () => void
+mousePosition: { x: number; y: number }
 }
 
-type Props = {
-  onViewWork: () => void
-  mousePosition: { x: number; y: number }
-}
-
+// hehe the mouse thing everyone does
 export default function Hero({ onViewWork, mousePosition }: Props) {
   const [text] = useTypewriter({
     words: ["Aspiring Full Stack Developer", "UI/UX Designer", "Problem Solver", "Creative Thinker"],
@@ -51,7 +45,7 @@ export default function Hero({ onViewWork, mousePosition }: Props) {
             </motion.p>
             <motion.div variants={item} className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="relative z-10 overflow-hidden group">
-                <Link href="/Magenta_Ong_Resume_1.pdf" target="_blank" download>
+                <Link href="/Resume_Summer_2026" target="_blank" download>
                   <span className="absolute inset-0 w-0 h-full bg-orange-600 transition-all duration-300 group-hover:w-full" />
                   <span className="relative flex items-center">
                     <Download className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
@@ -88,8 +82,7 @@ export default function Hero({ onViewWork, mousePosition }: Props) {
             style={{
               transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px) rotate(${mousePosition.x * 5}deg)`,
               transition: "transform 0.1s ease-out",
-            }}
-          >
+            }}>
             <Image src="/placeholder.svg?height=400&width=400" alt="Magenta Ong" fill className="object-cover" priority />
             <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 to-transparent opacity-60 mix-blend-overlay" />
           </motion.div>

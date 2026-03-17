@@ -12,6 +12,8 @@ import About from "@/components/home/About"
 import Projects from "@/components/home/Projects"
 import Skills from "@/components/home/Skills"
 import Contact from "@/components/home/Contact"
+import MiniProjects from "@/components/home/MiniProjects"
+import DevLog from "@/components/home/DevLog"
 
 export default function Home() {
   const { theme, setTheme } = useTheme()
@@ -59,11 +61,31 @@ export default function Home() {
                 { label: "Skills", ref: skillsRef },
                 { label: "Contact", ref: contactRef },
               ].map(({ label, ref }) => (
-                <button key={label} onClick={() => scrollToSection(ref)} className="transition-colors hover:text-orange-500 relative group">
+                <button
+                  key={label}
+                  onClick={() => scrollToSection(ref)}
+                  className="transition-colors hover:text-orange-500 relative group"
+                >
                   {label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all group-hover:w-full" />
                 </button>
               ))}
+
+              {/* Divider */}
+              <span className="text-muted-foreground/30 select-none">|</span>
+
+              {/* Page links */}
+              <Link
+                href="/miniprojects"
+                className="transition-colors hover:text-orange-500 relative group"
+              >
+                Mini Projects
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all group-hover:w-full" />
+              </Link>
+              <Link href="/devlog" className="transition-colors hover:text-orange-500 relative group">
+                Dev Logs
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all group-hover:w-full" />
+              </Link>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="h-9 w-9 z-20 relative overflow-hidden group">
               <span className="absolute inset-0 w-full h-full bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-full" />
@@ -78,6 +100,8 @@ export default function Home() {
         <Hero onViewWork={() => scrollToSection(projectsRef)} mousePosition={mousePosition} />
         <About />
         <Projects sectionRef={projectsRef} />
+        <MiniProjects />
+        <DevLog />
         <Skills sectionRef={skillsRef} />
         <Contact sectionRef={contactRef} />
       </main>
