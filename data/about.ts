@@ -28,13 +28,13 @@ export const aboutCards: AboutCard[] = [
   {
     icon: "experience",
     title: "Experience",
-    text: "Software Engineer People's Association,  GenEd, CPF Board",
+    text: "Software Engineer (Citizen Developer) at People's Association, Software Engineer at GenEd, CPF Board",
     extra: "",
   },
   {
     icon: "leadership",
     title: "Leadership",
-    text: "House Guardian Senator (EXCO) and Housing Representative (SAC)",
+    text: "House Guardian Senator (EXCO) and Housing Representative (SAC), Vice Chairperson in JC",
     extra: "md:col-span-2 lg:col-span-1",
   },
 ]

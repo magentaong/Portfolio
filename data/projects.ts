@@ -1,35 +1,7 @@
 import { Project } from "@/types/project"
 
 export const projects: Project[] = [
-  {
-    slug: "gened",
-    title: "GenEd",
-    subtitle: "AI-Powered Learning Platform",
-    date: "January 2025 - Present",
-    description: [
-      "GenEd is an innovative AI-driven Learning Management System (LMS) that was awarded the SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. The platform is designed to revolutionize the way students find and engage with educational content.",
-      "The core innovation of GenEd is its ability to tailor courses to individual learning preferences. Using GenAI, GenEd aims to make learning accessible to all, by providing tailored content to individual needs, and streamlining content generation to suit users.",
-      "For educators, GenEd provides powerful tools to streamline course creation and management, with AI assistance for content generation.",
-    ],
-    challenges: [
-      "Ensuring reliability of content generated",
-      "Ensuring data privacy and security for educational data",
-      "Designing an intuitive interface for both students and educators",
-      "Designing proper flows to cater to users with different needs",
-    ],
-    technologies: ["AI/ML", "EdTech", "LMS", "MongoDB", "React"],
-    images: ["/images/GenEd.png"],
-    videos: ["/videos/GenEdPrototype.mp4"],
-    links: [
-      { label: "Project Website", url: "/projects/GenEd", icon: "external" },
-      { label: "GitHub Repository", url: "/projects/GenEd", icon: "github" },
-    ],
-    cardImage: "/images/GenEd.png",
-    cardDescription:
-      "Awarded SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. Developing an AI-driven LMS enabling students to find or create courses tailored to learning preferences while assisting teachers in streamlining courses efficiently.",
-    cardTags: ["AI/ML", "EdTech", "LMS", "MongoDB", "React"],
-    cardLink: "/projects",
-  },
+  
   {
     slug: "compostkaki",
     title: "CompostKaki",
@@ -79,6 +51,35 @@ export const projects: Project[] = [
     cardDescription:
       "Built a Next.js web app for team task tracking with authentication via Clerk. Uses PostgreSQL for database management and Vercel for continuous deployment. Designed a real-time dashboard to visualize task progress.",
     cardTags: ["Next.js", "PostgreSQL", "Clerk", "Vercel"],
+    cardLink: "/projects",
+  },
+  {
+    slug: "gened",
+    title: "GenEd",
+    subtitle: "AI-Powered Learning Platform",
+    date: "Jan 2025 - Jan 2026",
+    description: [
+      "GenEd is an innovative AI-driven Learning Management System (LMS) that was awarded the SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. The platform is designed to revolutionize the way students find and engage with educational content.",
+      "The core innovation of GenEd is its ability to tailor courses to individual learning preferences. Using GenAI, GenEd aims to make learning accessible to all, by providing tailored content to individual needs, and streamlining content generation to suit users.",
+      "For educators, GenEd provides powerful tools to streamline course creation and management, with AI assistance for content generation.",
+    ],
+    challenges: [
+      "Ensuring reliability of content generated",
+      "Ensuring data privacy and security for educational data",
+      "Designing an intuitive interface for both students and educators",
+      "Designing proper flows to cater to users with different needs",
+    ],
+    technologies: ["AI/ML", "EdTech", "LMS", "MongoDB", "React"],
+    images: ["/images/GenEd.png"],
+    videos: ["/videos/GenEdPrototype.mp4"],
+    links: [
+      { label: "Project Website", url: "/projects/GenEd", icon: "external" },
+      { label: "GitHub Repository", url: "/projects/GenEd", icon: "github" },
+    ],
+    cardImage: "/images/GenEd.png",
+    cardDescription:
+      "Awarded SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. Developing an AI-driven LMS enabling students to find or create courses tailored to learning preferences while assisting teachers in streamlining courses efficiently.",
+    cardTags: ["AI/ML", "EdTech", "LMS", "MongoDB", "React"],
     cardLink: "/projects",
   },
   {
