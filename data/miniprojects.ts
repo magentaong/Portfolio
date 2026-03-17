@@ -7,7 +7,7 @@ export const miniProjects: MiniProject[] = [
     tags: ["React", "Appwrite", "Vite", "TailwindCSS"],
     github: "magentaong.github.io/MovieMaybe",
     date: "Feb 2025",
-    video: "/videos/miniprojects/moviemaybe.mov",
+    video: "/videos/miniprojects/moviemaybe.mp4",
     status: "complete",
     learned: [
       "React Hooks, useState, useEffect for dynamic UI and lifecycle logic",
