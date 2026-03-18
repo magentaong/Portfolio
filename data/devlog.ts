@@ -22,8 +22,8 @@ export const devLogEntries: DevLogEntry[] = [
   {
     id: "003",
     date: "March 18, 2026",
-    title: "Added a photos section to this portfolio",
-    body: "Added a photo section as well as a few of the photos I've taken in Japan, Taiwan and Hongkong, this section was inspired by pinterest, so the grid layout followed the masonry grid layout that pinterest has as well.",
+    title: "Added a photos section to this portfolio, and a cat :)",
+    body: "Added a photo section as well as a few of the photos I've taken in Japan, Taiwan and Hongkong, this section was inspired by pinterest, so the grid layout followed the masonry grid layout that pinterest has as well. Referenced code from https://github.com/adryd325/oneko.js, and added a cat that follows ur cursor (which is a fish I drew), you can also drag and drop the cat and the cat will fall to the end of the page. Really fun",
     project: "Portfolio",
     tags: ["Next.js", "TypeScript", "Refactor"],
     mood: "grind",
