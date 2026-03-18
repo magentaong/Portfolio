@@ -86,6 +86,10 @@ export default function Home() {
                 Dev Logs
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all group-hover:w-full" />
               </Link>
+              <Link href="/photos" className="transition-colors hover:text-orange-500 relative group">
+                Photos
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all group-hover:w-full" />
+              </Link>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="h-9 w-9 z-20 relative overflow-hidden group">
               <span className="absolute inset-0 w-full h-full bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-full" />
