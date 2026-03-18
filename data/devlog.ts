@@ -19,4 +19,13 @@ export const devLogEntries: DevLogEntry[] = [
     tags: ["Next.js", "TypeScript", "Refactor"],
     mood: "grind",
   },
+  {
+    id: "003",
+    date: "March 18, 2026",
+    title: "Added a photos section to this portfolio",
+    body: "Added a photo section as well as a few of the photos I've taken in Japan, Taiwan and Hongkong, this section was inspired by pinterest, so the grid layout followed the masonry",
+    project: "Portfolio",
+    tags: ["Next.js", "TypeScript", "Refactor"],
+    mood: "grind",
+  },
 ]
