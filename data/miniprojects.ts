@@ -86,4 +86,18 @@ export const miniProjects: MiniProject[] = [
     "I learnt a lot of CSS here."
   ]
   },
+  {
+    title: "Flip It!",
+    description: "Press the button to flip the bottle.. that's literally it. Did this to learn useState and useEffect, one of the first few react and tailwind projects I've done. You can try it out in the github link, linked to the mini icon above^^.",
+    tags: ["React", "Tailwind"],
+    github: "https://magentaong.github.io/flipit/",
+    date: "Apr 2024",
+    video: "/videos/miniprojects/flipit.mp4",
+    status: "complete",
+    learned: [
+    "Understanding when to use inline styles vs Tailwind classes for animations", 
+    "Managing time-based animations using useEffect and intervals",
+    "React state and event handling"
+  ]
+  },
 ]

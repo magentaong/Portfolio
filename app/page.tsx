@@ -109,9 +109,11 @@ export default function Home() {
         <Skills sectionRef={skillsRef} />
         <Contact sectionRef={contactRef} />
       </main>
-
       <footer className="border-t py-8 relative z-10">
         <div className="container">
+          <p className="text-center text-s text-muted-foreground/40 mb-6 italic">
+            Thanks for dropping by! Have you tried dropping the cat?
+          </p>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div>
               <p className="text-center text-sm text-muted-foreground md:text-left">© {new Date().getFullYear()} Magenta Ong. All rights reserved.</p>

@@ -93,7 +93,7 @@ export default function MiniProjectsPage() {
             </Button>
           </div>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Small builds, experiments, and weekend mini projects, or things I don't think is a full fledged project. A lot of these are not perfect (or may even be just beginner stuffs) BUT you might find some hidden gems here, also some I might continue to work on some for fun.
+            Small builds, experiments, and weekend mini projects, or things I don't think is a full fledged project. A lot of these are not perfect (or may even be just beginner stuffs) BUT you might find some hidden gems here, also some I might continue to work on some for fun. Most of these have a live demo too, linked to the github icon.
           </p>
         </motion.div>
         {/* Tag filters */}
