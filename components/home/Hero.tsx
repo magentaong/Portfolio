@@ -83,7 +83,6 @@ export default function Hero({ onViewWork, mousePosition }: Props) {
               transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px) rotate(${mousePosition.x * 5}deg)`,
               transition: "transform 0.1s ease-out",
             }}>
-            <Image src="/placeholder.svg?height=400&width=400" alt="Magenta Ong" fill className="object-cover" priority />
             <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 to-transparent opacity-60 mix-blend-overlay" />
           </motion.div>
         </motion.div>
