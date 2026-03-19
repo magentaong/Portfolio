@@ -20,6 +20,18 @@ export const photos: Photo[] = [
     aspectRatio: "portrait",
   },
   {
+    src: "/images/photos/Hongkong/HK-3.jpg",
+    alt: "Rooms of Kowloon Walled City",
+    location: "Hong Kong",
+    aspectRatio: "portrait",
+  },
+  {
+    src: "/images/photos/Hongkong/HK-6.JPG",
+    alt: "Foggy clouds",
+    location: "Hong Kong",
+    aspectRatio: "portrait",
+  },
+  {
     src: "/images/photos/Japan/Japan-2.jpg",
     alt: "Kumano Tachi Taisha",
     location: "Japan",
@@ -44,8 +56,26 @@ export const photos: Photo[] = [
     aspectRatio: "landscape",
   },
   {
+    src: "/images/photos/Japan/Japan-12.jpg",
+    alt: "Trees in Japan",
+    location: "Japan",
+    aspectRatio: "portrait",
+  },
+  {
     src: "/images/photos/Japan/Japan-6.JPG",
     alt: "Kenrokuen Garden Mini Waterfall",
+    location: "Japan",
+    aspectRatio: "landscape",
+  },
+  {
+    src: "/images/photos/Japan/Japan-10.jpg",
+    alt: "Kenrokuen Garden Waters",
+    location: "Japan",
+    aspectRatio: "landscape",
+  },
+  {
+    src: "/images/photos/Japan/Japan-11.jpg",
+    alt: "Sunset Kimonos",
     location: "Japan",
     aspectRatio: "landscape",
   },
@@ -76,6 +106,30 @@ export const photos: Photo[] = [
   {
     src: "/images/photos/Taiwan/Taiwan-2.JPG",
     alt: "The Ideal Minecraft House",
+    location: "Taiwan",
+    aspectRatio: "landscape",
+  },
+  {
+    src: "/images/photos/Taiwan/Taiwan-3.jpg",
+    alt: "Roads of Taiwan",
+    location: "Taiwan",
+    aspectRatio: "portrait",
+  },
+  {
+    src: "/images/photos/Taiwan/Taiwan-4.JPG",
+    alt: "Street art in Taiwan",
+    location: "Taiwan",
+    aspectRatio: "portrait",
+  },
+  {
+    src: "/images/photos/Taiwan/Taiwan-5.JPG",
+    alt: "Building in Taiwan",
+    location: "Taiwan",
+    aspectRatio: "portrait",
+  },
+  {
+    src: "/images/photos/Taiwan/Taiwan-6.JPG",
+    alt: "Skylines of Taiwan",
     location: "Taiwan",
     aspectRatio: "landscape",
   },// TODO: Add the other pictures :O 
