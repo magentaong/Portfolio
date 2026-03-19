@@ -56,7 +56,7 @@ export const photos: Photo[] = [
     aspectRatio: "landscape",
   },
   {
-    src: "/images/photos/Japan/Japan-12.jpg",
+    src: "/images/photos/Japan/Japan-12.JPG",
     alt: "Trees in Japan",
     location: "Japan",
     aspectRatio: "portrait",
