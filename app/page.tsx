@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { Github, Mail, Linkedin, Moon, Sun } from "lucide-react"
+import { Github, Mail, Linkedin, Moon, Sun, Menu, X} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "next-themes"
 import FloatingBalls from "@/components/floating-balls"
@@ -18,6 +18,7 @@ import DevLog from "@/components/home/DevLog"
 export default function Home() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const aboutRef = useRef<HTMLElement>(null)
@@ -53,8 +54,10 @@ export default function Home() {
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-2xl font-bold text-orange-500">Portfolio</span>
           </Link>
-          <nav className="flex items-center gap-6">
-            <div className="hidden md:flex space-x-6 text-sm font-medium">
+
+          <nav className="flex items-center gap-3">
+            {/* Desktop nav */}
+            <div className="hidden md:flex space-x-6 text-sm font-medium items-center">
               {[
                 { label: "About", ref: aboutRef },
                 { label: "My Work", ref: projectsRef },
@@ -70,15 +73,8 @@ export default function Home() {
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all group-hover:w-full" />
                 </button>
               ))}
-
-              {/* Divider */}
               <span className="text-muted-foreground/30 select-none">|</span>
-
-              {/* Page links */}
-              <Link
-                href="/miniprojects"
-                className="transition-colors hover:text-orange-500 relative group"
-              >
+              <Link href="/miniprojects" className="transition-colors hover:text-orange-500 relative group">
                 Mini Projects
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all group-hover:w-full" />
               </Link>
@@ -91,13 +87,51 @@ export default function Home() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all group-hover:w-full" />
               </Link>
             </div>
+
+            {/* Theme toggle */}
             <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="h-9 w-9 z-20 relative overflow-hidden group">
               <span className="absolute inset-0 w-full h-full bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-full" />
-              {mounted && theme === "dark" ? <Sun className="h-4 w-4 transition-transform group-hover:rotate-45 duration-300" /> : <Moon className="h-4 w-4 transition-transform group-hover:rotate-45 duration-300" />}
+              {mounted && theme === "dark"
+                ? <Sun className="h-4 w-4 transition-transform group-hover:rotate-45 duration-300" />
+                : <Moon className="h-4 w-4 transition-transform group-hover:rotate-45 duration-300" />
+              }
               <span className="sr-only">Toggle theme</span>
+            </Button>
+
+            {/* Mobile hamburger */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden h-9 w-9"
+              onClick={() => setMenuOpen((o) => !o)}
+            >
+              {menuOpen
+                ? <X className="h-5 w-5" />
+                : <Menu className="h-5 w-5" />
+              }
             </Button>
           </nav>
         </div>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div className="md:hidden border-t bg-background/95 backdrop-blur px-4 py-4 flex flex-col gap-4 text-sm font-medium">
+            {[
+              { label: "About", action: () => { scrollToSection(aboutRef); setMenuOpen(false) } },
+              { label: "My Work", action: () => { scrollToSection(projectsRef); setMenuOpen(false) } },
+              { label: "Skills", action: () => { scrollToSection(skillsRef); setMenuOpen(false) } },
+              { label: "Contact", action: () => { scrollToSection(contactRef); setMenuOpen(false) } },
+            ].map(({ label, action }) => (
+              <button key={label} onClick={action} className="text-left hover:text-orange-500 transition-colors">
+                {label}
+              </button>
+            ))}
+            <div className="h-px bg-orange-500/20" />
+            <Link href="/miniprojects" onClick={() => setMenuOpen(false)} className="hover:text-orange-500 transition-colors">Mini Projects</Link>
+            <Link href="/devlog" onClick={() => setMenuOpen(false)} className="hover:text-orange-500 transition-colors">Dev Logs</Link>
+            <Link href="/photos" onClick={() => setMenuOpen(false)} className="hover:text-orange-500 transition-colors">Photos</Link>
+          </div>
+        )}
       </header>
 
       <main className="flex-1">

@@ -87,10 +87,7 @@ export default function PhotosPage() {
         </motion.div>
 
         {/* grid */}
-        <motion.div
-          layout
-          className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
-        >
+        <motion.div layout className="columns-2 md:columns-2 lg:columns-3 gap-3 space-y-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((photo: Photo, index: number) => (
               <motion.div
