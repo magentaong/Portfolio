@@ -37,7 +37,7 @@ export default function Contact({ sectionRef }: Props) {
                 <div className="space-y-4">
                   {[
                     { icon: <Mail className="h-5 w-5 text-orange-500" />, label: "Email", value: "ongmagenta@gmail.com" },
-                    { icon: <Linkedin className="h-5 w-5 text-orange-500" />, label: "LinkedIn", value: "magenta-ong-766378307" },
+                    { icon: <Linkedin className="h-5 w-5 text-orange-500" />, label: "LinkedIn", value: "magenta-ong" },
                     { icon: <Github className="h-5 w-5 text-orange-500" />, label: "GitHub", value: "magentaong" },
                   ].map(({ icon, label, value }) => (
                     <div key={label} className="flex items-center gap-3">
