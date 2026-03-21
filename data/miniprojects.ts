@@ -39,9 +39,7 @@ export const miniProjects: MiniProject[] = [
     video: "/videos/miniprojects/Calculator.mp4",
     status: "complete",
     learned: [
-      "Working with third-party APIs (OpenFoodFacts)",
-    "Implementing barcode scanning in a web app",
-    "Handling incomplete or inconsistent API food data",   
+      "DOM manipulation, Event Handling, and CSS Styling."  
     ],
   },
 {

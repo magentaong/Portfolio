@@ -355,13 +355,17 @@ export class Neko {
     this.dragAnimationLastTimestamp = null;
     this.isMouseMoving = false;
 
-    if (this.nekoElement) {
-      this.nekoElement.style.cursor = "grabbing";
-    }
+    if (this.nekoElement) this.nekoElement.style.cursor = "grabbing";
 
     this.setSprite("alert", 0);
     this.render();
     event.preventDefault();
+
+    const onMouseUp = () => {
+      this.handleMouseUp();
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+    document.addEventListener("mouseup", onMouseUp);
   };
 
   private handleMouseUp = () => {
@@ -394,19 +398,18 @@ export class Neko {
 
     this.nekoElement.addEventListener("click", () => {
       if (!this.wasDragged) {
-        this.isFollowing = !this.isFollowing;
-        if (this.isFollowing) {
-          this.isReturningToOrigin = false;
-        } else {
-          this.isReturningToOrigin = true;
-        }
+        this.isFollowing = true;
+        this.isReturningToOrigin = false;
+        this.isFalling = false;
       }
     });
 
     this.nekoElement.addEventListener("mousedown", this.handleMouseDown);
-    document.addEventListener("mouseup", this.handleMouseUp);
+    // remove: document.addEventListener("mouseup", this.handleMouseUp);
     document.addEventListener("mousemove", this.handleMouseMove);
   }
+
+  
 
   animationLoop() {
     const loop = (timestamp: number) => {
@@ -661,6 +664,6 @@ export class Neko {
         window.cancelAnimationFrame(this.animationFrameId);
         }
         document.removeEventListener("mousemove", this.handleMouseMove);
-        document.removeEventListener("mouseup", this.handleMouseUp);
+        
     }
 }

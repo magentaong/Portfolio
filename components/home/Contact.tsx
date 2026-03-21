@@ -59,7 +59,7 @@ export default function Contact({ sectionRef }: Props) {
                       </Link>
                     </Button>
                     <Button asChild variant="outline" size="lg" className="rounded-full group overflow-hidden">
-                      <Link href="https://www.linkedin.com/in/magenta-ong-766378307" target="_blank">
+                      <Link href="https://www.linkedin.com/in/magenta-ong" target="_blank">
                         <span className="absolute inset-0 w-0 h-full bg-orange-500/10 transition-all duration-300 group-hover:w-full" />
                         <span className="relative flex items-center"><Linkedin className="mr-2 h-5 w-5 group-hover:text-orange-500 transition-colors" />LinkedIn</span>
                       </Link>

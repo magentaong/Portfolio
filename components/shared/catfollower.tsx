@@ -11,7 +11,7 @@ export default function CatFollower() {
       nekoName: "neko",
       nekoImageUrl: "/images/ghost.png",
       initialPosX: window.innerWidth - 48,
-      initialPosY: window.innerHeight - 48
+      initialPosY: window.innerHeight - 48,
     })
     neko.init()
     neko.isFollowing = true
@@ -26,10 +26,11 @@ export default function CatFollower() {
 
     const handleMouseUp = () => {
       if (!neko.isDragging) return
+      if (!neko.wasDragged) return
       setTimeout(() => {
-        // freeze wherever it was dropped
         neko.isFollowing = false
-        neko.isFalling = false
+        neko.isFalling = true
+        neko.fallVelocity = 0
         neko.isReturningToOrigin = false
         neko.idleAnimation = null
         neko.idleAnimationFrame = 0
