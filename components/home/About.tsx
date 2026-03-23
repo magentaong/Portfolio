@@ -21,7 +21,7 @@ export default function About() {
       viewport={{ once: true, margin: "-100px" }}
       className="py-20 bg-muted/30 relative z-10 gradient-bg"
     >
-      <div className="container">
+      <div className="container px-4">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
             About <span className="text-orange-500">Me</span>

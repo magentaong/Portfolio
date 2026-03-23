@@ -21,7 +21,7 @@ export default function Contact({ sectionRef }: Props) {
       viewport={{ once: true, margin: "-100px" }}
       className="py-20 relative z-10 gradient-bg"
     >
-      <div className="container max-w-5xl mx-auto px-0">
+      <div className="container max-w-5xl mx-auto px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
             Get In <span className="text-orange-500">Touch</span>
@@ -29,7 +29,7 @@ export default function Contact({ sectionRef }: Props) {
           <p className="mb-8 text-muted-foreground md:text-xl">I&apos;m always open to new opportunities and collaborations</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto px-0">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
             <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 interactive-hover">
               <CardContent className="p-6">
@@ -71,8 +71,8 @@ export default function Contact({ sectionRef }: Props) {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
-            <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 m-2">
-              <CardContent className="p-6">
+            <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 m-0">
+              <CardContent className="p-4">
                 <h3 className="text-xl font-bold mb-4">Send Me a Message</h3>
                 <ContactForm />
               </CardContent>

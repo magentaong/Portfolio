@@ -72,8 +72,8 @@ export default function MiniProjects() {
   }
 
   return (
-    <section className="py-20 relative z-10">
-      <div className="container">
+    <section className="py-12 md:py-20 relative z-10">
+      <div className="container px-1">
 
         {/* Heading */}
         <motion.div
@@ -81,26 +81,26 @@ export default function MiniProjects() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="mx-auto max-w-2xl text-center mb-12">
+          className="mx-auto max-w-2xl text-center mb-8 md:mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-3">
             Mini <span className="text-orange-500">Projects</span>
           </h2>
-          <p className="text-muted-foreground md:text-lg">
+          <p className="text-muted-foreground md:text-lg px-8">
             Small builds, experiments, and weekend stuffs
           </p>
         </motion.div>
 
         {/* Card + Arrows */}
-        <div className="flex items-center justify-center gap-4 md:gap-8">
+        <div className="flex items-center justify-center gap-2 md:gap-8">
           {/* Left Arrow */}
           <button
             onClick={prev}
-            className="flex items-center justify-center h-10 w-10 rounded-full border border-orange-500/30 bg-background/60 backdrop-blur-sm hover:border-orange-500/60 hover:text-orange-500 transition-all shrink-0 hover:scale-110"
+            className="flex items-center justify-center h-6 w-6 md:h-10 md:w-10 rounded-full border border-orange-500/30 bg-background/60 backdrop-blur-sm hover:border-orange-500/60 hover:text-orange-500 transition-all shrink-0 hover:scale-110 "
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-3 w-3 md:h-5 md:w-5" />
           </button>
           {/* Card */}
-          <div className="relative w-full max-w-2xl max-h overflow-hidden">
+          <div className="relative w-full max-w-xl max-h overflow-hidden">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={`${current.title}-${index}`}
@@ -127,39 +127,33 @@ export default function MiniProjects() {
                     </span>
                 </div>
                 </div>
-                  {/* Status pill*/}
-                  <div className="absolute top-3 right-3">
-                    <span className={`text-xs px-3 py-1 rounded-full font-medium backdrop-blur-sm ${statusStyles[current.status]}`}>
-                      {statusLabel[current.status]}
-                    </span>
-                  </div>
 
                 {/* Content */}
-                <div className="p-6 md:p-8">
+                <div className="p-4 md:px-8">
                 <div className="flex items-start justify-between gap-4 mb-3">
                     <div>
-                    <h3 className="text-2xl font-bold">{current.title}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{current.date}</p>
+                    <h3 className="text-lg md:text-2xl font-bold">{current.title}</h3>
+                    <p className="text-xs md:text-sm text-muted-foreground mt-0.5 md:mt-1">{current.date}</p>
                     </div>
                     <div className="flex items-center gap-3 shrink-0 pt-1">
                     {current.github && (
                         <Link href={current.github} target="_blank" className="text-muted-foreground hover:text-orange-500 transition-colors hover:scale-110">
-                            <Github className="h-5 w-5" />
+                            <Github className="h-4 w-4 md:h-5 md:w-5" />
                         </Link>
                     )}
                     {current.link && (
                         <Link href={current.link} target="_blank" className="text-muted-foreground hover:text-orange-500 transition-colors hover:scale-110">
-                            <ExternalLink className="h-5 w-5" />
+                            <ExternalLink className="h-4 w-4 md:h-5 md:w-5" />
                         </Link>
                     )}
                     </div>
                 </div>
 
-                <p className="text-muted-foreground leading-relaxed mb-5">{current.description}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-4 md:line-clamp-none">{current.description}</p>
 
                 {/* What I learned */}
                 {current.learned && current.learned.length > 0 && (
-                    <div className="mb-5 rounded-lg bg-orange-500/5 border border-orange-500/20 p-4">
+                    <div className="mb-5 rounded-lg bg-orange-500/5 border border-orange-500/20 p-3 md:p-4">
                     <p className="text-xs font-semibold text-orange-500 uppercase tracking-wider mb-3">What I Learned</p>
                     <ul className="space-y-2">
                         {current.learned.map((item, i) => (
@@ -168,7 +162,7 @@ export default function MiniProjects() {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.08 }}
-                            className="flex items-start gap-2 text-sm text-muted-foreground"
+                            className="flex items-start gap-2 text-xs md:text-sm text-muted-foreground"
                         >
                             <span className="text-orange-500 mt-0.5 shrink-0">→</span>
                             {item}
@@ -178,7 +172,7 @@ export default function MiniProjects() {
                     </div>
                 )}
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 md:gap-2">
                     {current.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20">
                         {tag}
@@ -193,13 +187,13 @@ export default function MiniProjects() {
           {/* Right Arrow */}
           <button
             onClick={next}
-            className="flex items-center justify-center h-10 w-10 rounded-full border border-orange-500/30 bg-background/60 backdrop-blur-sm hover:border-orange-500/60 hover:text-orange-500 transition-all shrink-0 hover:scale-110">
-            <ChevronRight className="h-5 w-5" />
+            className="flex items-center justify-center h-6 w-6 md:h-10 md:w-10 rounded-full border border-orange-500/30 bg-background/60 backdrop-blur-sm hover:border-orange-500/60 hover:text-orange-500 transition-all shrink-0 hover:scale-110">
+            <ChevronRight className="h-3 w-3 md:h-5 md:w-5" />
           </button>
         </div>
 
         {/* Dots + Shuffle */}
-        <div className="flex flex-col items-center gap-4 mt-8">
+        <div className="flex flex-col items-center gap-3 md:gap-4 mt-6 md:mt-8">
 
           {/* Dot indicators */}
           <div className="flex items-center gap-2">

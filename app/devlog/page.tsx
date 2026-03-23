@@ -38,7 +38,7 @@ export default function DevLogPage() {
         </div>
       </header>
 
-      <main className="container py-12 md:py-20 max-w-3xl mx-auto">
+      <main className="container py-12 md:py-20 max-w-3xl mx-auto px-8">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

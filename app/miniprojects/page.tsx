@@ -64,7 +64,7 @@ export default function MiniProjectsPage() {
         </div>
       </header>
 
-      <main className="container py-12 md:py-20 max-w-5xl mx-auto">
+      <main className="container py-12 md:py-20 max-w-5xl mx-auto px-8">
 
         {/* Title */}
         <motion.div

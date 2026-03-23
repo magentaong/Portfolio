@@ -19,7 +19,7 @@ export default function DevLog() {
 
   return (
     <section className="py-20 relative z-10 bg-muted/30">
-      <div className="container max-w-3xl mx-auto">
+      <div className="container max-w-3xl mx-auto px-8">
 
         <motion.div initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -44,7 +44,7 @@ export default function DevLog() {
           </Link>
         </motion.div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           {recent.map((entry: DevLogEntry, index: number) => (
             <DevLogCard key={entry.id} entry={entry} index={index} />
           ))}

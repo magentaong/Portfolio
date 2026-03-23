@@ -25,7 +25,7 @@ export default function Projects({ sectionRef }: Props) {
       viewport={{ once: true, margin: "-100px" }}
       className="py-20 relative z-10"
     >
-      <div className="container px-0">
+      <div className="container px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
             My <span className="text-orange-500">Work</span>

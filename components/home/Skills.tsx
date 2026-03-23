@@ -19,7 +19,7 @@ export default function Skills({ sectionRef }: Props) {
       viewport={{ once: true, margin: "-100px" }}
       className="py-20 bg-muted/30 relative z-10 gradient-bg"
     >
-      <div className="container px-0">
+      <div className="container px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
             Skills & <span className="text-orange-500">Technologies</span>
@@ -28,7 +28,7 @@ export default function Skills({ sectionRef }: Props) {
         </div>
 
         <Tabs defaultValue="languages" className="mx-auto max-w-4xl">
-          <TabsList className="grid w-full grid-cols-4 h-full">
+          <TabsList className="grid w-full  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 h-full">
             <TabsTrigger value="languages">Languages</TabsTrigger>
             <TabsTrigger value="frameworks">Frameworks</TabsTrigger>
             <TabsTrigger value="data">Data</TabsTrigger>
@@ -61,7 +61,7 @@ function TimelineItem({ date, title, company, description }: TimelineEntry) {
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className="relative pl-8 pb-8 border-l border-orange-500/30 last:border-0 last:pb-0 group"
+      className="relative pl-8 pb-8 border-l border-orange-500/30 last:border-0 last:pb-0 group px-"
     >
       <div className="absolute left-0 top-0 flex items-center justify-center -translate-x-1/2 rounded-full bg-orange-500 p-1 group-hover:scale-125 transition-transform">
         <div className="h-2 w-2 rounded-full bg-background" />
