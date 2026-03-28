@@ -46,7 +46,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col bg-background relative overflow-hidden w-full min-h-[90vh]">
+    <div className="flex flex-col bg-background relative w-full min-h-[90vh]">
       <FloatingBalls count={15} />
 
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">

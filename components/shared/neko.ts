@@ -396,13 +396,18 @@ export class Neko {
   addEventListeners() {
     if (!this.nekoElement) return;
 
-    this.nekoElement.addEventListener("click", () => {
-      if (!this.wasDragged) {
-        this.isFollowing = true;
-        this.isReturningToOrigin = false;
-        this.isFalling = false;
-      }
-    });
+    this.nekoElement.addEventListener("click", (e) => {
+    if (this.wasDragged) {
+      this.wasDragged = false;
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
+
+    this.isFollowing = !this.isFollowing;
+    this.isReturningToOrigin = false;
+    this.isFalling = false;
+  });
 
     this.nekoElement.addEventListener("mousedown", this.handleMouseDown);
     // remove: document.addEventListener("mouseup", this.handleMouseUp);
@@ -633,8 +638,8 @@ export class Neko {
             }, 600);
 
             setTimeout(() => {
-            // resume chasing after landing animation
-            this.isFollowing = true;
+            // nah. 
+            this.isFollowing = false;
             this.isReturningToOrigin = false;
             this.idleAnimation = null;
             this.idleAnimationFrame = 0;
