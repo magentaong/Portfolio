@@ -18,7 +18,7 @@ mousePosition: { x: number; y: number }
 // hehe the mouse thing everyone does
 export default function Hero({ onViewWork, mousePosition }: Props) {
   const [text] = useTypewriter({
-    words: ["Aspiring Full Stack Developer", "UI/UX Designer", "Problem Solver", "Creative Thinker"],
+    words: ["FullStack Software Engineer", "Software Engineer", "Bug Finder", "Thinker"],
     loop: true,
     delaySpeed: 200,
   })

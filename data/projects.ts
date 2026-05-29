@@ -1,7 +1,6 @@
 import { Project } from "@/types/project"
 
 export const projects: Project[] = [
-  
   {
     slug: "compostkaki",
     title: "CompostKaki",
@@ -23,7 +22,7 @@ export const projects: Project[] = [
     cardDescription:
       "Developed CompostKaki, a community composting platform created to address Singapore's food waste challenge by empowering residents to participate in local composting initiatives. Developed during OGP's Build For Good Community Hackathon 2025.",
     cardTags: ["Next.js", "CRUD", "Sustainability", "Supabase"],
-    cardLink: "/projects",
+    cardLink: "https://compostkaki.vercel.app",
   },
   {
     slug: "tasksnipe",
@@ -44,14 +43,14 @@ export const projects: Project[] = [
     technologies: ["Next.js", "PostgreSQL", "Clerk", "Vercel", "Tailwind CSS", "TypeScript"],
     images: ["/images/TaskSnipe.png", "/images/TaskFigma.png"],
     links: [
-      { label: "Live Demo", url: "/Projects/TaskSnipe", icon: "external" },
-      { label: "GitHub Repository", url: "Projects/TaskSnipe", icon: "github" },
+      { label: "Live Demo", url: "/projects?active=tasksnipe", icon: "external" },
+      { label: "GitHub Repository", url: "/projects?active=tasksnipe", icon: "github" },
     ],
     cardImage: "/images/TaskSnipe.png",
     cardDescription:
       "Built a Next.js web app for team task tracking with authentication via Clerk. Uses PostgreSQL for database management and Vercel for continuous deployment. Designed a real-time dashboard to visualize task progress.",
     cardTags: ["Next.js", "PostgreSQL", "Clerk", "Vercel"],
-    cardLink: "/projects",
+    cardLink: "/projects?active=tasksnipe",
   },
   {
     slug: "gened",
@@ -73,14 +72,46 @@ export const projects: Project[] = [
     images: ["/images/GenEd.png"],
     videos: ["/videos/GenEdPrototype.mp4"],
     links: [
-      { label: "Project Website", url: "/projects/GenEd", icon: "external" },
-      { label: "GitHub Repository", url: "/projects/GenEd", icon: "github" },
+      { label: "Project Website", url: "/projects?active=gened", icon: "external" },
+      { label: "GitHub Repository", url: "/projects?active=gened", icon: "github" },
     ],
     cardImage: "/images/GenEd.png",
     cardDescription:
       "Awarded SUTD BabyShark Grant by SUTD Venture Innovation and Entrepreneurship. Developing an AI-driven LMS enabling students to find or create courses tailored to learning preferences while assisting teachers in streamlining courses efficiently.",
     cardTags: ["AI/ML", "EdTech", "LMS", "MongoDB", "React"],
-    cardLink: "/projects",
+    cardLink: "projects?active=gened",
+  },
+  {
+    slug: "befrienderscircle",
+    title: "BefriendersCircle",
+    subtitle: "A webapp based project as part of 50.003",
+    date: "May 2025 - Aug 2025",
+    description: [
+      "BefriendersCircle is a full-stack web platform built for SUTD's 50.003 Elements of Software Construction module",
+      "I took on a major development role across both frontend and backend, implementing core application flows, API routes, authentication logic, and test coverage for critical user journeys.",
+      "A big part of this project became learning how to make a web application reliable, where I wrote majority of the unit and integration tests, using Cypress for end-to-end testing, and Jest and Supertest for unit and integration testing.",
+      "To be frank, the final project direction could have been stronger, but I would say that the project became a huge technical leraning experience for me. It definitely helped me to strengthen my full-stack development and automated testing understanding. I also ended up calling my Cypress end to end scripts 'my monkeys' which definitely added to the fun in writing testing scripts."
+    ],
+    challenges: [
+      "Communication within the team was challenging at times, but after several attempts to align expectations and responsibilities, we managed to bring the project together.",
+      "Took ownership of messy full-stack integration work across React, Express, MongoDB, and JWT authentication.",
+      "Built and tested protected routes, resource flows, forum features, and backend API endpoints.",
+      "Used Cypress to simulate real user behaviour and catch bugs that normal manual testing would miss.",
+      "Became increasingly focused on test coverage and edge cases, to make sure that our project was more resilient and had expected behaviours.",
+      "Learned that passing tests is not the same as having a robust product; good tests need to represent real user behaviour, failure states, and awkward edge cases.",
+    ],
+    technologies: ["React", "TailwindCSS", "Node.js", "Express.js", "MongoDB", "JWT", "Jest", "Supertest", "Cypress"],
+    images: ["/images/BefriendersCircleBanner.png"],
+    videos: ["/videos/BefriendersPrototypeDemo.mp4"],
+    links: [
+      { label: "Latest Code", url: "https://github.com/magentaong/befrienderscircle", icon: "external" },
+      { label: "GitHub Repository", url: "https://github.com/magentaong/befrienderscircle", icon: "github" },
+    ],
+    cardImage: "/images/BefriendersCircleBanner.png",
+    cardDescription:
+      "Led full-stack development and testing work for BefriendersCircle, a caregiver support platform built for 50.003",
+    cardTags: ["React", "MongoDB", "Testing"],
+    cardLink: "https://github.com/magentaong/befrienderscircle",
   },
   {
     slug: "tasktales",
@@ -102,14 +133,14 @@ export const projects: Project[] = [
     images: ["/images/tasktalesfeatures.jpg"],
     videos: ["/videos/Team 43_Task Tales.mp4"],
     links: [
-      { label: "Latest Design", url: "https://github.com/aaj1510/tasktales", icon: "external" },
+      { label: "Latest Code", url: "https://github.com/aaj1510/tasktales", icon: "external" },
       { label: "GitHub Repository", url: "https://github.com/aaj1510/tasktales", icon: "github" },
     ],
     cardImage: "/images/tasktalesthumbnail.jpg",
     cardDescription:
       "Awarded Singtel Award for Honourable Mention as part of our school module for Information Systems. Developed a Java based android app to gamify tasks and help combat task paralysis.",
     cardTags: ["CRUD", "Java", "OOP"],
-    cardLink: "/projects",
+    cardLink: "https://github.com/aaj1510/tasktales",
   },
   {
     slug: "stackoverflow",
@@ -126,13 +157,13 @@ export const projects: Project[] = [
     images: ["/images/StackOverflow.png"],
     videos: ["videos/StackOverflow.mp4"],
     links: [
-      { label: "GitHub Repository", url: "https://github.com/", icon: "github" },
+      { label: "GitHub Repository", url: "https://github.com/FauxCrow/FPGA-Arcade-Game", icon: "github" },
     ],
     cardImage: "/images/StackOverflow.png",
     cardDescription:
       "Built a two player competitive stacking game on FPGA, where players take turns stacking shifting blocks to reach the top. Designed and implemented FSM, datapath and ALU operations to manage game state.",
     cardTags: ["FPGA", "Lucid", "ALU Operations"],
-    cardLink: "/projects",
+    cardLink: "https://github.com/FauxCrow/FPGA-Arcade-Game",
   },
   {
     slug: "freelancedeveloper",

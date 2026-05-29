@@ -14,13 +14,13 @@ export const metadata = {
     shortcut: "/favicon.ico",
     apple: "/favicon.ico", // Apple devices
   },
-  description: " Aspiring Full Stack Developer & UI/UX Designer. Passionate about building innovative web experiences.",
-  keywords: "Aspiring Full Stack Developer, UI/UX Designer, Magenta Ong, Web Development, Next.js Portfolio",
+  description: " Aspiring Full Stack Software Engineer. Passionate about building things that work.",
+  keywords: "Aspiring Full Stack Software Engineer, Backend Software Engineer, Magenta Ong, Web Development, Next.js Portfolio",
   robots: "index, follow",
   author: "Magenta Ong",
   openGraph: {
     title: "Magenta Ong | Portfolio",
-    description: "Aspiring Full Stack Developer & UI/UX Designer",
+    description: "Aspiring Full Stack Software Engineer",
     url: "https://magentaong.vercel.app",
     siteName: "Magenta Ong Portfolio",
     type: "website",
