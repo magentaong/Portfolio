@@ -28,13 +28,13 @@ export const aboutCards: AboutCard[] = [
   {
     icon: "experience",
     title: "Experience",
-    text: "Software Engineer (Citizen Developer) at People's Association, Software Engineer at GenEd, CPF Board",
+    text: "Backend Software Engineer Intern at foodpanda, Software Engineer (Volunteer) at People's Association, and former CPF Board Software Developer Intern",
     extra: "",
   },
   {
     icon: "leadership",
     title: "Leadership",
-    text: "House Guardian Senator (EXCO) and Housing Representative (SAC), Vice Chairperson in JC",
+    text: "Former House Guardian Senator (EXCO) and Housing Representative (SAC), Former Vice Chairperson in JC",
     extra: "md:col-span-2 lg:col-span-1",
   },
 ]
@@ -58,5 +58,11 @@ export const educationData: EducationEntry[] = [
     date: "2023 - 2027",
     degree: "B.Eng. in Computer Science and Design",
     badges: ["Computer Science", "Design", "Engineering"],
+  },
+  {
+    school: "The Chinese University of Hong Kong",
+    date: "2026",
+    degree: "International Asian Studies Programme, Exchange",
+    badges: ["Distributed Systems", "Computer Science", "Human Computer Interaction", "Machine Learning"],
   },
 ]

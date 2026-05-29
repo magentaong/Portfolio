@@ -30,9 +30,9 @@ export default function Skills({ sectionRef }: Props) {
         <Tabs defaultValue="languages" className="mx-auto max-w-4xl">
           <TabsList className="grid w-full  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 h-full">
             <TabsTrigger value="languages">Languages</TabsTrigger>
-            <TabsTrigger value="frameworks">Frameworks</TabsTrigger>
-            <TabsTrigger value="data">Data</TabsTrigger>
-            <TabsTrigger value="design">Design</TabsTrigger>
+            <TabsTrigger value="frontend">Frontend</TabsTrigger>
+            <TabsTrigger value="backend">Backend</TabsTrigger>
+            <TabsTrigger value="tools">Tools</TabsTrigger>
           </TabsList>
           {(Object.entries(skillData) as [keyof typeof skillData, string[]][]).map(([key, skills]) => (
             <TabsContent key={key} value={key} className="mt-6">

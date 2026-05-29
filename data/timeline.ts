@@ -6,6 +6,12 @@ export type TimelineEntry = {
 }
 
 export const timelineData: TimelineEntry[] = [
+  {
+    date: "May 2026 - Present",
+    title: "Backend Software Engineer Intern",
+    company: "foodpanda",
+    description: "Contributing to backend engineering work involving Go services, API integration, feature flagging, and service migration within a marketplace environment.",
+  },
     {
     date: "Sep 2025 - Present",
     title: "Software Engineer (Citizen Developer)",
@@ -22,7 +28,7 @@ export const timelineData: TimelineEntry[] = [
     date: "Mar 2025 - Present?",
     title: "Freelance Designer and Developer",
     company: "Self-Employed",
-    description: "Designing and developing custom portfolio websites for clients. Utilizing Next.js, Vercel, and Figma to create responsive and visually appealing web experiences.",
+    description: "Designing and developing custom websites for clients. Utilizing Next.js, Vercel, and Figma to create responsive and visually appealing web experiences.",
   },
   {
     date: "Aug 2023 - Sep 2025",
