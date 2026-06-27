@@ -52,7 +52,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 max-w-screen-2xl items-center justify-between md:px-8 sm:px-4">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-orange-500">Portfolio</span>
+            <span className="text-2xl font-bold text-orange-500">Magenta Ong</span>
           </Link>
 
           <nav className="flex items-center gap-3">

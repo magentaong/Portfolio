@@ -7,14 +7,7 @@ import { ArrowLeft } from "lucide-react"
 import { devLogEntries } from "@/data/devlog"
 import { DevLogEntry } from "@/types/devlog"
 import FloatingBalls from "@/components/floating-balls"
-import { CheckCircle, Skull, Zap, Cog } from "lucide-react"
-
-const moodConfig = {
-  good:{ icon: <CheckCircle className="h-3 w-3" />, label: "Good",style: "bg-green-500/10 text-green-500"},
-  stuck:{ icon: <Skull className="h-3 w-3" />, label: "Stuck", style: "bg-red-500/10 text-red-500"},
-  breakthrough: { icon: <Zap className="h-3 w-3" />, label: "Breakthrough", style: "bg-orange-500/10 text-orange-500"},
-  grind:{ icon: <Cog className="h-3 w-3" />, label: "Grind", style: "bg-blue-500/10 text-blue-400"},
-}
+import { moodConfig } from "@/lib/content-config"
 
 const allProjects = ["All", ...Array.from(new Set(devLogEntries.map((e) => e.project).filter(Boolean)))] as string[]
 
@@ -50,7 +43,7 @@ export default function DevLogPage() {
             Dev <span className="text-orange-500">Log</span>
           </h1>
           <p className="text-muted-foreground text-lg">
-            A running journal of what I&apos;m currently experimenting or updating
+            A running journal of experiments, fixes, side quests, and small discoveries.
           </p>
         </motion.div>
 

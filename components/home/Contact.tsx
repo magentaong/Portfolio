@@ -19,21 +19,23 @@ export default function Contact({ sectionRef }: Props) {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true, margin: "-100px" }}
-      className="py-20 relative z-10 gradient-bg"
+      className="py-20 relative z-10"
     >
       <div className="container max-w-5xl mx-auto px-8">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
             Get In <span className="text-orange-500">Touch</span>
           </h2>
-          <p className="mb-8 text-muted-foreground md:text-xl">I&apos;m always open to new opportunities and collaborations</p>
+          <p className="mb-8 text-muted-foreground md:text-xl">
+            Internships, project chats, freelance portfolios, or anything that starts with &quot;I have this idea&quot;.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto px-0">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
-            <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 interactive-hover">
+            <Card className="bg-background border-orange-500/20 interactive-hover">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-4">Contact Information</h3>
+                <h3 className="text-xl font-bold mb-4">Find Me Here</h3>
                 <div className="space-y-4">
                   {[
                     { icon: <Mail className="h-5 w-5 text-orange-500" />, label: "Email", value: "ongmagenta@gmail.com" },
@@ -50,7 +52,7 @@ export default function Contact({ sectionRef }: Props) {
                   ))}
                 </div>
                 <div className="mt-8">
-                  <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
+                  <h3 className="text-xl font-bold mb-4">Elsewhere</h3>
                   <div className="flex gap-4">
                     <Button asChild variant="outline" size="lg" className="rounded-full group overflow-hidden">
                       <Link href="https://github.com/magentaong" target="_blank">
@@ -71,7 +73,7 @@ export default function Contact({ sectionRef }: Props) {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
-            <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 m-0">
+            <Card className="bg-background/80 border-orange-500/20 m-0">
               <CardContent className="p-4">
                 <h3 className="text-xl font-bold mb-4">Send Me a Message</h3>
                 <ContactForm />
