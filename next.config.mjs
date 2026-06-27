@@ -1,4 +1,6 @@
 export default {
-    reactStrictMode: true,
-  };
-  
+  reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+}

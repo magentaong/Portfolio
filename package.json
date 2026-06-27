@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint app components data lib scripts types",
+    "doctor": "npx react-doctor@latest",
+    "validate:content": "node scripts/validate-content.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
