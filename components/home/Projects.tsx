@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import Image from "next/image"
-import { ExternalLink, ChevronRight, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { projects } from "@/data/projects"
-import { Project } from "@/types/project"
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { ExternalLink, ChevronRight, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { projects } from "@/data/projects";
+import { Project } from "@/types/project";
 
 type Props = {
-  sectionRef: React.RefObject<HTMLElement>
-}
+  sectionRef: React.RefObject<HTMLElement>;
+};
 
 export default function Projects({ sectionRef }: Props) {
   return (
@@ -30,13 +30,21 @@ export default function Projects({ sectionRef }: Props) {
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
             My <span className="text-orange-500">Work</span>
           </h2>
-          <p className="mb-8 text-muted-foreground md:text-xl">A showcase of my recent work and ongoing projects</p>
+          <p className="mb-8 text-muted-foreground md:text-xl">
+            A showcase of my recent work and ongoing projects
+          </p>
         </div>
 
         <div className="flex justify-center">
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-fit">
-            {projects.map((p: Project, index: number) => (
-              <motion.div key={p.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: index * 0.05 }} viewport={{ once: true }}>
+            {projects.slice(0, 6).map((p: Project, index: number) => (
+              <motion.div
+                key={p.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                viewport={{ once: true }}
+              >
                 <ProjectCard
                   title={p.title}
                   subtitle={p.subtitle}
@@ -65,51 +73,94 @@ export default function Projects({ sectionRef }: Props) {
         </div>
       </div>
     </motion.section>
-  )
+  );
 }
 
 type ProjectCardProps = {
-  title: string
-  subtitle: string
-  description: string
-  image: string
-  link: string
-  tags: string[]
-  date: string
-  slug: string
-}
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  link: string;
+  tags: string[];
+  date: string;
+  slug: string;
+};
 
-function ProjectCard({ title, subtitle, description, image, link, tags, date, slug }: ProjectCardProps) {
+function ProjectCard({
+  title,
+  subtitle,
+  description,
+  image,
+  link,
+  tags,
+  date,
+  slug,
+}: ProjectCardProps) {
   return (
-    <Card className="group flex flex-col overflow-hidden bg-background/60 backdrop-blur-sm border-orange-500/20 hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 h-full">
+    <Card className="group flex flex-col overflow-hidden bg-background/80 border-orange-500/20 hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 h-full">
       <div className="aspect-video overflow-hidden relative">
-        <Image src={image || "/placeholder.svg"} alt={title} width={400} height={300} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        <Image
+          src={image || "/placeholder.svg"}
+          alt={title}
+          width={400}
+          height={300}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
           <h3 className="text-xl font-bold text-white">{title}</h3>
           <p className="text-sm text-white/80">{subtitle}</p>
         </div>
-        <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium">{date}</div>
+        <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-medium">
+          {date}
+        </div>
       </div>
       <CardContent className="p-6 flex flex-col flex-grow">
         <div className="space-y-3 flex flex-col flex-grow justify-between">
           <div>
-            <h3 className="text-xl font-bold text-orange-500 group-hover:translate-x-1 transition-transform">{title}</h3>
+            <h3 className="text-xl font-bold text-orange-500 group-hover:translate-x-1 transition-transform">
+              {title}
+            </h3>
             <p className="text-sm text-muted-foreground">{subtitle}</p>
           </div>
           <p className="text-sm">{description}</p>
           <div className="flex flex-wrap gap-2 pt-2">
-            {tags.map((tag) => <Badge key={tag} variant="secondary" className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20">{tag}</Badge>)}
+            {tags.map((tag) => (
+              <Badge
+                key={tag}
+                variant="secondary"
+                className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20"
+              >
+                {tag}
+              </Badge>
+            ))}
           </div>
           <div className="pt-4 flex gap-2">
-            <Button variant="outline" size="sm" asChild className="border-orange-500/30 hover:border-orange-500/60 group-hover:bg-orange-500 group-hover:text-white transition-colors">
-              <Link href={link} target="_blank">View Project<ExternalLink className="ml-2 h-3 w-3" /></Link>
+            <Button
+              variant="outline"
+              size="sm"
+              asChild
+              className="border-orange-500/30 hover:border-orange-500/60 group-hover:bg-orange-500 group-hover:text-white transition-colors"
+            >
+              <Link href={link} target="_blank">
+                View Project
+                <ExternalLink className="ml-2 h-3 w-3" />
+              </Link>
             </Button>
-            <Button variant="outline" size="sm" asChild className="border-orange-500/30 hover:border-orange-500/60 transition-colors">
-              <Link href={`/projects?active=${slug}`}>Details<ChevronRight className="ml-2 h-3 w-3" /></Link>
+            <Button
+              variant="outline"
+              size="sm"
+              asChild
+              className="border-orange-500/30 hover:border-orange-500/60 transition-colors"
+            >
+              <Link href={`/projects?active=${slug}`}>
+                Details
+                <ChevronRight className="ml-2 h-3 w-3" />
+              </Link>
             </Button>
           </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

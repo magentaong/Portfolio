@@ -1,27 +1,22 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { devLogEntries } from "@/data/devlog"
-import { DevLogEntry } from "@/types/devlog"
-import { CheckCircle, Skull, Zap, Cog } from "lucide-react"
-
-const moodConfig = {
-  good:{ icon: <CheckCircle className="h-3 w-3" />, label: "Good",style: "bg-green-500/10 text-green-500"},
-  stuck:{ icon: <Skull className="h-3 w-3" />, label: "Stuck", style: "bg-red-500/10 text-red-500"},
-  breakthrough: { icon: <Zap className="h-3 w-3" />, label: "Breakthrough", style: "bg-orange-500/10 text-orange-500"},
-  grind:{ icon: <Cog className="h-3 w-3" />, label: "Grind", style: "bg-blue-500/10 text-blue-400"},
-}
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { devLogEntries } from "@/data/devlog";
+import { DevLogEntry } from "@/types/devlog";
+import { moodConfig } from "@/lib/content-config";
 
 export default function DevLog() {
-  const recent = [...devLogEntries].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3) //sort by the most recent dates
+  const recent = [...devLogEntries]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3); //sort by the most recent dates
 
   return (
     <section className="py-20 relative z-10 bg-muted/30">
       <div className="container max-w-3xl mx-auto px-8">
-
-        <motion.div initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
@@ -32,7 +27,7 @@ export default function DevLog() {
               Dev <span className="text-orange-500">Log</span>
             </h2>
             <p className="text-muted-foreground">
-              What I&apos;m building and breaking, and yapping about 
+              What I&apos;m building and breaking, and yapping about
             </p>
           </div>
           <Link
@@ -49,52 +44,67 @@ export default function DevLog() {
             <DevLogCard key={entry.id} entry={entry} index={index} />
           ))}
         </div>
-
       </div>
     </section>
-  )
+  );
 }
 
 function DevLogCard({ entry, index }: { entry: DevLogEntry; index: number }) {
-  const mood = moodConfig[entry.mood]
+  const mood = moodConfig[entry.mood];
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="group rounded-xl border border-orange-500/20 bg-background/60 backdrop-blur-sm p-6 hover:border-orange-500/50 transition-all duration-300 hover:shadow-md hover:shadow-orange-500/10">
+      className="group rounded-xl border border-orange-500/20 bg-background/60 backdrop-blur-sm p-6 hover:border-orange-500/50 transition-all duration-300 hover:shadow-md hover:shadow-orange-500/10"
+    >
       {/* Top row */}
       <div className="flex items-start justify-between gap-4 mb-3">
         <div className="flex items-center gap-3">
-          <span className="text-xs text-muted-foreground font-mono">{entry.date}</span>
+          <span className="text-xs text-muted-foreground font-mono">
+            {entry.date}
+          </span>
           {entry.project && (
             <>
               <span className="text-muted-foreground/30">·</span>
-              <span className="text-xs text-orange-500 font-medium">{entry.project}</span>
+              <span className="text-xs text-orange-500 font-medium">
+                {entry.project}
+              </span>
             </>
           )}
         </div>
-        <span className={`text-xs px-2 py-1 rounded-full font-medium shrink-0 flex items-center gap-1.5 ${moodConfig[entry.mood].style}`}>
-            {moodConfig[entry.mood].icon}
-            {moodConfig[entry.mood].label}
+        <span
+          className={`text-xs px-2 py-1 rounded-full font-medium shrink-0 flex items-center gap-1.5 ${moodConfig[entry.mood].style}`}
+        >
+          {mood.icon}
+          {mood.label}
         </span>
       </div>
 
       {/* Title */}
-      <h3 className="font-bold text-lg mb-2 group-hover:text-orange-500 transition-colors">{entry.title}</h3>
+      <h3 className="font-bold text-lg mb-2 group-hover:text-orange-500 transition-colors">
+        {entry.title}
+      </h3>
 
       {/* Body */}
-      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">{entry.body}</p>
+      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+        {entry.body}
+      </p>
 
       {/* Tags */}
       {entry.tags && entry.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mt-4">
           {entry.tags.map((tag) => (
-            <span key={tag} className="text-xs px-2 py-0.5 rounded-full border border-orange-500/20 text-muted-foreground">{tag}</span>
+            <span
+              key={tag}
+              className="text-xs px-2 py-0.5 rounded-full border border-orange-500/20 text-muted-foreground"
+            >
+              {tag}
+            </span>
           ))}
         </div>
       )}
     </motion.div>
-  )
+  );
 }

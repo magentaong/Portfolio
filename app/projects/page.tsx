@@ -65,9 +65,11 @@ function ProjectsPageContent() {
           className="max-w-4xl mx-auto text-center mb-16"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="text-orange-500">Projects</span>
+            Project <span className="text-orange-500">Notes</span>
           </h1>
-          <p className="text-muted-foreground text-lg">Detailed showcase of my work and technical projects</p>
+          <p className="text-muted-foreground text-lg">
+            What I built, what got messy, and what each project taught me.
+          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-[300px_1fr] gap-8 mt-12">
@@ -105,7 +107,7 @@ function ProjectsPageContent() {
           </motion.div>
 
           {/* Detail Panel */}
-          <div className="bg-background/60 backdrop-blur-sm rounded-lg border border-orange-500/20 p-6">
+          <div className="bg-background/80 rounded-lg border border-orange-500/20 p-6">
             <ProjectDetail project={activeProjectData} mousePosition={mousePosition} />
           </div>
         </div>
@@ -170,7 +172,11 @@ function ProjectDetail({
         ))}
         {project.videos?.map((video, index) => (
           <div key={index} className="overflow-hidden rounded-lg border border-orange-500/20 bg-muted">
-            <video controls className="w-full h-auto max-h-[300px] object-fit rounded-lg shadow-lg">
+            <video
+              controls
+              muted={video === "/videos/StackOverflow.mp4"}
+              className="w-full h-auto max-h-[300px] object-fit rounded-lg shadow-lg"
+            >
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
             </video>

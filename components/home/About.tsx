@@ -1,16 +1,21 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Award, BookOpen, Briefcase } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { aboutCards, leadershipData, educationData, AboutCard } from "@/data/about"
+import { motion } from "framer-motion";
+import { Award, BookOpen, Briefcase } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  aboutCards,
+  leadershipData,
+  educationData,
+  AboutCard,
+} from "@/data/about";
 
 const iconMap = {
   education: <BookOpen className="h-5 w-5 text-orange-500" />,
   experience: <Briefcase className="h-5 w-5 text-orange-500" />,
   leadership: <Award className="h-5 w-5 text-orange-500" />,
-}
+};
 
 export default function About() {
   return (
@@ -27,7 +32,9 @@ export default function About() {
             About <span className="text-orange-500">Me</span>
           </h2>
           <p className="mb-8 text-muted-foreground md:text-xl">
-            Computer Science and Design student at Singapore University of Technology and Design (SUTD)
+            Computer Science and Design student at Singapore University of
+            Technology and Design (SUTD), I like a lot of things, and computers
+            and design happen to be one of them.
           </p>
         </div>
 
@@ -62,9 +69,11 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-background/60 backdrop-blur-sm rounded-lg p-6 border border-orange-500/20 hover:border-orange-500/50 transition-all group"
+            className="bg-background rounded-lg p-6 border border-orange-500/20 hover:border-orange-500/50 transition-all group"
           >
-            <h3 className="text-2xl font-bold mb-6 group-hover:text-orange-500 transition-colors">Leadership Experience</h3>
+            <h3 className="text-2xl font-bold mb-6 group-hover:text-orange-500 transition-colors">
+              Leadership Experience
+            </h3>
             <div className="space-y-4">
               {leadershipData.map(({ title, date, description }) => (
                 <div key={title} className="flex items-start gap-4">
@@ -86,9 +95,11 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-background/60 backdrop-blur-sm rounded-lg p-6 border border-orange-500/20 hover:border-orange-500/50 transition-all group"
+            className="bg-background rounded-lg p-6 border border-orange-500/20 hover:border-orange-500/50 transition-all group"
           >
-            <h3 className="text-2xl font-bold mb-6 group-hover:text-orange-500 transition-colors">Education</h3>
+            <h3 className="text-2xl font-bold mb-6 group-hover:text-orange-500 transition-colors">
+              Education
+            </h3>
             {educationData.map(({ school, date, degree, badges }) => (
               <div key={school} className="flex items-start gap-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-500/10 mt-1">
@@ -100,7 +111,12 @@ export default function About() {
                   <p className="mt-1">{degree}</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {badges.map((b) => (
-                      <Badge key={b} className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20">{b}</Badge>
+                      <Badge
+                        key={b}
+                        className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20"
+                      >
+                        {b}
+                      </Badge>
                     ))}
                   </div>
                 </div>
@@ -110,5 +126,5 @@ export default function About() {
         </div>
       </div>
     </motion.section>
-  )
+  );
 }

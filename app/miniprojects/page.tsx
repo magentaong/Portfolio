@@ -10,18 +10,7 @@ import { Button } from "@/components/ui/button"
 import { miniProjects } from "@/data/miniprojects"
 import { MiniProject } from "@/types/miniprojects"
 import FloatingBalls from "@/components/floating-balls"
-
-const statusStyles = {
-  "complete": "bg-green-500/10 text-green-500",
-  "in-progress": "bg-orange-500/10 text-orange-500",
-  "abandoned": "bg-muted text-muted-foreground",
-}
-
-const statusLabel = {
-  "complete": "Complete",
-  "in-progress": "In Progress",
-  "abandoned": "Abandoned",
-}
+import { statusLabel, statusStyles } from "@/lib/content-config"
 
 const allTags = ["All", ...Array.from(new Set(miniProjects.flatMap((p) => p.tags)))]
 
@@ -93,7 +82,7 @@ export default function MiniProjectsPage() {
             </Button>
           </div>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Small builds, experiments, and weekend mini projects, or things I don't think is a full fledged project. A lot of these are not perfect (or may even be just beginner stuffs) BUT you might find some hidden gems here, also some I might continue to work on some for fun. Most of these have a live demo too, linked to the github icon.
+            Small builds, experiments, and things that are not quite full projects. Some are beginner work, some are side quests, and a few might become real tools if I keep poking at them.
           </p>
         </motion.div>
         {/* Tag filters */}
@@ -154,14 +143,24 @@ function MiniProjectCard({ project, index }: { project: MiniProject; index: numb
       
       {/* Video */}
       <div className="relative w-full aspect-video overflow-hidden bg-muted">
-        <video
-          src={project.video}   
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        {project.video ? (
+          <video
+            src={project.video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <Image
+            src={project.image ?? "/images/portfolio-preview.png"}
+            alt={`${project.title} preview`}
+            width={800}
+            height={450}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        )}
         <div className="absolute top-3 right-3">
           <span className={`text-xs px-3 py-1 rounded-full font-medium backdrop-blur-sm ${statusStyles[project.status]}`}>
             {statusLabel[project.status]}
