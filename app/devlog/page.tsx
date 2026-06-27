@@ -1,22 +1,25 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
-import { devLogEntries } from "@/data/devlog"
-import { DevLogEntry } from "@/types/devlog"
-import FloatingBalls from "@/components/floating-balls"
-import { moodConfig } from "@/lib/content-config"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { devLogEntries } from "@/data/devlog";
+import { DevLogEntry } from "@/types/devlog";
+import FloatingBalls from "@/components/floating-balls";
+import { moodConfig } from "@/lib/content-config";
 
-const allProjects = ["All", ...Array.from(new Set(devLogEntries.map((e) => e.project).filter(Boolean)))] as string[]
+const allProjects = [
+  "All",
+  ...Array.from(new Set(devLogEntries.map((e) => e.project).filter(Boolean))),
+] as string[];
 
 export default function DevLogPage() {
-  const [activeProject, setActiveProject] = useState("All")
+  const [activeProject, setActiveProject] = useState("All");
 
   const filtered = [...devLogEntries]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .filter((e) => activeProject === "All" || e.project === activeProject)
+    .filter((e) => activeProject === "All" || e.project === activeProject);
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,7 +27,10 @@ export default function DevLogPage() {
 
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 max-w-screen-xl items-center">
-          <Link href="/" className="flex items-center space-x-2 text-muted-foreground hover:text-orange-500 transition-colors">
+          <Link
+            href="/"
+            className="flex items-center space-x-2 text-muted-foreground hover:text-orange-500 transition-colors"
+          >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Home</span>
           </Link>
@@ -32,7 +38,6 @@ export default function DevLogPage() {
       </header>
 
       <main className="container py-12 md:py-20 max-w-3xl mx-auto px-8">
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,7 +48,8 @@ export default function DevLogPage() {
             Dev <span className="text-orange-500">Log</span>
           </h1>
           <p className="text-muted-foreground text-lg">
-            A running journal of experiments, fixes, side quests, and small discoveries.
+            A running journal of experiments, fixes, side quests, and small
+            discoveries.
           </p>
         </motion.div>
 
@@ -90,17 +96,23 @@ export default function DevLogPage() {
                   {/* Top row */}
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex items-center gap-3 flex-wrap">
-                      <span className="text-xs text-muted-foreground font-mono">{entry.date}</span>
+                      <span className="text-xs text-muted-foreground font-mono">
+                        {entry.date}
+                      </span>
                       {entry.project && (
                         <>
                           <span className="text-muted-foreground/30">·</span>
-                          <span className="text-xs text-orange-500 font-medium">{entry.project}</span>
+                          <span className="text-xs text-orange-500 font-medium">
+                            {entry.project}
+                          </span>
                         </>
                       )}
                     </div>
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium shrink-0 flex items-center gap-1.5 ${moodConfig[entry.mood].style}`}>
-                        {moodConfig[entry.mood].icon}
-                        {moodConfig[entry.mood].label}
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full font-medium shrink-0 flex items-center gap-1.5 ${moodConfig[entry.mood].style}`}
+                    >
+                      {moodConfig[entry.mood].icon}
+                      {moodConfig[entry.mood].label}
                     </span>
                   </div>
 
@@ -108,14 +120,17 @@ export default function DevLogPage() {
                     {entry.title}
                   </h3>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="whitespace-pre-line text-sm text-muted-foreground leading-relaxed">
                     {entry.body}
                   </p>
 
                   {entry.tags && entry.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mt-4">
                       {entry.tags.map((tag) => (
-                        <span key={tag} className="text-xs px-2 py-0.5 rounded-full border border-orange-500/20 text-muted-foreground">
+                        <span
+                          key={tag}
+                          className="text-xs px-2 py-0.5 rounded-full border border-orange-500/20 text-muted-foreground"
+                        >
                           {tag}
                         </span>
                       ))}
@@ -126,8 +141,7 @@ export default function DevLogPage() {
             ))}
           </div>
         </div>
-
       </main>
     </div>
-  )
+  );
 }

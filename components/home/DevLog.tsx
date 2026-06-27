@@ -88,8 +88,8 @@ function DevLogCard({ entry, index }: { entry: DevLogEntry; index: number }) {
       </h3>
 
       {/* Body */}
-      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-        {entry.body}
+      <p className="whitespace-pre-line text-sm text-muted-foreground leading-relaxed line-clamp-3">
+        {entry.body.replace(/\\n/g, "\n")}
       </p>
 
       {/* Tags */}
