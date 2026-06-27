@@ -5,7 +5,8 @@ export type MiniProject = {
   link?: string
   github?: string
   date: string
-  video: string
+  video?: string
+  image?: string
   status: "complete" | "in-progress" | "abandoned" 
   learned?: string[]
 }

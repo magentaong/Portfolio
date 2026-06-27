@@ -1,22 +1,22 @@
 export type LeadershipEntry = {
-  title: string
-  date: string
-  description: string
-}
+  title: string;
+  date: string;
+  description: string;
+};
 
 export type EducationEntry = {
-  school: string
-  date: string
-  degree: string
-  badges: string[]
-}
+  school: string;
+  date: string;
+  degree: string;
+  badges: string[];
+};
 
 export type AboutCard = {
-  icon: "education" | "experience" | "leadership"
-  title: string
-  text: string
-  extra?: string
-}
+  icon: "education" | "experience" | "leadership";
+  title: string;
+  text: string;
+  extra?: string;
+};
 
 export const aboutCards: AboutCard[] = [
   {
@@ -28,7 +28,7 @@ export const aboutCards: AboutCard[] = [
   {
     icon: "experience",
     title: "Experience",
-    text: "Backend Software Engineer Intern at foodpanda, Software Engineer (Volunteer) at People's Association, and former CPF Board Software Developer Intern",
+    text: "Backend Software Engineer Intern at foodpanda, Citizen Developer with People's Association, and CPF Board Software Developer Intern",
     extra: "",
   },
   {
@@ -37,20 +37,22 @@ export const aboutCards: AboutCard[] = [
     text: "Former House Guardian Senator (EXCO) and Housing Representative (SAC), Former Vice Chairperson in JC",
     extra: "md:col-span-2 lg:col-span-1",
   },
-]
+];
 
 export const leadershipData: LeadershipEntry[] = [
   {
     title: "House Guardian Senator (EXCO) & Housing Representative (SAC)",
     date: "2024 - 2026",
-    description: "Served on a 6-member executive committee responsible for leading and coordinating activities for a 50-member organisation. Took care of the welfare of 1100+ residents in hostel. Represented student body regarding housing issues.",
+    description:
+      "Served on a 6-member executive committee coordinating activities for a 50-member organisation, while representing housing concerns for 1100+ hostel residents.",
   },
   {
     title: "Vice Chairperson (Junior College)",
     date: "2021 - 2022",
-    description: "Coordinated service-learning projects and enhanced classroom spirit. Awarded Class Service Award for outstanding leadership contributions.",
+    description:
+      "Coordinated service-learning projects and enhanced classroom spirit. Awarded Class Service Award for outstanding leadership contributions.",
   },
-]
+];
 
 export const educationData: EducationEntry[] = [
   {
@@ -63,6 +65,11 @@ export const educationData: EducationEntry[] = [
     school: "The Chinese University of Hong Kong",
     date: "2026",
     degree: "International Asian Studies Programme, Exchange",
-    badges: ["Distributed Systems", "Computer Science", "Human Computer Interaction", "Machine Learning"],
+    badges: [
+      "Distributed Systems",
+      "Computer Science",
+      "Human Computer Interaction",
+      "Machine Learning",
+    ],
   },
-]
+];

@@ -1,4 +1,4 @@
-import { DevLogEntry } from "@/types/devlog"
+import { DevLogEntry } from "@/types/devlog";
 
 export const devLogEntries: DevLogEntry[] = [
   {
@@ -64,4 +64,40 @@ export const devLogEntries: DevLogEntry[] = [
     tags: ["Next.js", "TypeScript"],
     mood: "good",
   },
-]
+  {
+    id: "008",
+    date: "Jun 6, 2026",
+    title: "Went down another rabbit hole",
+    body: "I developed yet another mini project instead of focusing on the main ones. It is a terminal-based Python app that reads markdown notes and generates a TODO list from what is written there. The design philosophy is deterministic tasks first, LLMs only as a last resort. Initially I built it to explore MCP servers and local LLMs, but somehow I ended up deep in customisation, making the script run exactly how I like it while keeping it modular enough for others. Long-term goal: local MCP server, write-back support, and maybe rewriting it in Go if installation becomes annoying.",
+    project: "Obby",
+    tags: [],
+    mood: "grind",
+  },
+  {
+    id: "009",
+    date: "Jun 6, 2026",
+    title: "Found this tool called React Doctor",
+    body: "I was scrolling Instagram and found this CI tool called React Doctor. I got intrigued, got distracted from my main task, and side quested again by running it on this portfolio repo. Unfortunately it only runs on new PRs in CI, but you can also run it in terminal. It gave me a 60-something score, so I am not too happy about that and will be spending some time cleaning the code up.",
+    project: "Portfolio",
+    tags: ["React Doctor", "CI/CD", "React"],
+    mood: "good",
+  },
+  {
+    id: "010",
+    date: "Jun 12, 2026",
+    title: "Started making this portfolio less template-ish",
+    body: "After staring at the homepage for too long, I realised some parts sounded like they were written by a very polite brochure. The devlogs felt more like me, so I started using that as the north star I guess.. anyways React Doctor gave this portfolio code a score of 60 so I thought it'll be good for me to improve it.",
+    project: "Portfolio",
+    tags: ["Portfolio", "Content", "Refactor"],
+    mood: "breakthrough",
+  },
+  {
+    id: "011",
+    date: "Jun 15, 2026",
+    title: "Why does Go not have a framework?",
+    body: "This was something that I've been asking myself while migrating the backend system for TaskSnipe, from Javascript (Which i now realised was a bad idea cause it made me just want to get things working) to Go, initially I thought that Javascript was just the easiest way to go around it, I can just get features working without caring too much about the lower-level structure of backend. \n But now I realise that a lot of complexity hides behind frameworks, which isn't exactly the best for developer growth, even though it is definitely a stepping stone in trying to understand the higher level works of how things are connected. However, I believe that in order to truly understanding what is happening, we have to dive deeper. To be fair, this isn't exactly a rant about Javascript being bad, it's more like Javascript provides frameworks which makes developer life easier, but as engineers, something that's quite important as well is the understanding of what's happening under the hood. \n Stumbling into Go pretty much helped with that. At first, I kept searching for a Go equivalent framework, but over time I've come to realise that it's simply Go's (haha simplyGo) design philosophy. While Go does provide certain frameworks like Gin or Chi, it doesn't really feel like the language depends on them? \n Instead of everything being \"Magic\" something built to work, I get to define the rules and structure, which is something I really enjoy. Everything doesn't feel as much like a Blackbox, and it started feeling like something I own. Also Go packages are amazing man. \n All in all, I think the question to be asking is not \"Why does Go not have a framework\", but instead \"How do I move from just getting features to work to understanding the architecture behind them?\"",
+    project: "Learning",
+    tags: ["Go", "Backend"],
+    mood: "good",
+  },
+];
