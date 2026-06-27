@@ -1,40 +1,55 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowLeft, Github, ExternalLink, Shuffle} from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { miniProjects } from "@/data/miniprojects"
-import { MiniProject } from "@/types/miniprojects"
-import FloatingBalls from "@/components/floating-balls"
-import { statusLabel, statusStyles } from "@/lib/content-config"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft, Github, ExternalLink, Shuffle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { miniProjects } from "@/data/miniprojects";
+import { MiniProject } from "@/types/miniprojects";
+import FloatingBalls from "@/components/floating-balls";
 
-const allTags = ["All", ...Array.from(new Set(miniProjects.flatMap((p) => p.tags)))]
+const statusStyles = {
+  complete: "bg-green-500/10 text-green-500",
+  "in-progress": "bg-orange-500/10 text-orange-500",
+  abandoned: "bg-muted text-muted-foreground",
+};
+
+const statusLabel = {
+  complete: "Complete",
+  "in-progress": "In Progress",
+  abandoned: "Abandoned",
+};
+
+const allTags = [
+  "All",
+  ...Array.from(new Set(miniProjects.flatMap((p) => p.tags))),
+];
 
 export default function MiniProjectsPage() {
-  const [activeTag, setActiveTag] = useState("All")
-  const [items, setItems] = useState<MiniProject[]>(miniProjects)
-  const [isShuffling, setIsShuffling] = useState(false)
+  const [activeTag, setActiveTag] = useState("All");
+  const [items, setItems] = useState<MiniProject[]>(miniProjects);
+  const [isShuffling, setIsShuffling] = useState(false);
 
   const handleShuffle = () => {
-    setIsShuffling(true)
+    setIsShuffling(true);
     setTimeout(() => {
-      const arr = [...miniProjects]  // ← always from original, not items
+      const arr = [...miniProjects]; // ← always from original, not items
       for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1))
-        ;[arr[i], arr[j]] = [arr[j], arr[i]]
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
       }
-      setItems(arr)
-      setIsShuffling(false)
-    }, 300)
-  }
+      setItems(arr);
+      setIsShuffling(false);
+    }, 300);
+  };
 
-  const filtered = activeTag === "All"
-    ? items
-    : items.filter((p) => p.tags.includes(activeTag))
+  const filtered =
+    activeTag === "All"
+      ? items
+      : items.filter((p) => p.tags.includes(activeTag));
 
   return (
     <div className="min-h-screen bg-background">
@@ -54,7 +69,6 @@ export default function MiniProjectsPage() {
       </header>
 
       <main className="container py-12 md:py-20 max-w-5xl mx-auto px-8">
-
         {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -82,7 +96,12 @@ export default function MiniProjectsPage() {
             </Button>
           </div>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Small builds, experiments, and weekend mini projects, or things I don't think is a full fledged project. A lot of these are not perfect (or may even be just beginner stuffs) BUT you might find some hidden gems here, also some I might continue to work on some for fun. Most of these have a live demo too, linked to the github icon.
+            Small builds, experiments, and weekend mini projects, or things I
+            don't think is a full fledged project. A lot of these are not
+            perfect (or may even be just beginner stuffs) BUT you might find
+            some hidden gems here, also some I might continue to work on some
+            for fun. Most of these have a live demo too, linked to the github
+            icon.
           </p>
         </motion.div>
         {/* Tag filters */}
@@ -110,7 +129,11 @@ export default function MiniProjectsPage() {
         <motion.div layout className="grid gap-6 sm:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {filtered.map((project: MiniProject, index: number) => (
-              <MiniProjectCard key={project.title} project={project} index={index} />
+              <MiniProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+              />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -124,13 +147,18 @@ export default function MiniProjectsPage() {
             No projects found
           </motion.p>
         )}
-
       </main>
     </div>
-  )
+  );
 }
 
-function MiniProjectCard({ project, index }: { project: MiniProject; index: number }) {
+function MiniProjectCard({
+  project,
+  index,
+}: {
+  project: MiniProject;
+  index: number;
+}) {
   return (
     <motion.div
       layout
@@ -140,29 +168,20 @@ function MiniProjectCard({ project, index }: { project: MiniProject; index: numb
       transition={{ duration: 0.3, delay: index * 0.05 }}
       className="group flex flex-col rounded-xl border border-orange-500/20 bg-background/60 backdrop-blur-sm overflow-hidden hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 hover:-translate-y-1"
     >
-      
       {/* Video */}
       <div className="relative w-full aspect-video overflow-hidden bg-muted">
-        {project.video ? (
-          <video
-            src={project.video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <Image
-            src={project.image ?? "/images/portfolio-preview.png"}
-            alt={`${project.title} preview`}
-            width={800}
-            height={450}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        )}
+        <video
+          src={project.video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
         <div className="absolute top-3 right-3">
-          <span className={`text-xs px-3 py-1 rounded-full font-medium backdrop-blur-sm ${statusStyles[project.status]}`}>
+          <span
+            className={`text-xs px-3 py-1 rounded-full font-medium backdrop-blur-sm ${statusStyles[project.status]}`}
+          >
             {statusLabel[project.status]}
           </span>
         </div>
@@ -175,16 +194,26 @@ function MiniProjectCard({ project, index }: { project: MiniProject; index: numb
             <h3 className="text-xl font-bold group-hover:text-orange-500 transition-colors">
               {project.title}
             </h3>
-            <p className="text-xs text-muted-foreground mt-0.5">{project.date}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {project.date}
+            </p>
           </div>
           <div className="flex items-center gap-3 shrink-0 pt-1">
             {project.github && (
-              <Link href={project.github} target="_blank" className="text-muted-foreground hover:text-orange-500 transition-colors hover:scale-110">
+              <Link
+                href={project.github}
+                target="_blank"
+                className="text-muted-foreground hover:text-orange-500 transition-colors hover:scale-110"
+              >
                 <Github className="h-4 w-4" />
               </Link>
             )}
             {project.link && (
-              <Link href={project.link} target="_blank" className="text-muted-foreground hover:text-orange-500 transition-colors hover:scale-110">
+              <Link
+                href={project.link}
+                target="_blank"
+                className="text-muted-foreground hover:text-orange-500 transition-colors hover:scale-110"
+              >
                 <ExternalLink className="h-4 w-4" />
               </Link>
             )}
@@ -203,7 +232,10 @@ function MiniProjectCard({ project, index }: { project: MiniProject; index: numb
             </p>
             <ul className="space-y-1.5">
               {project.learned.map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                <li
+                  key={i}
+                  className="flex items-start gap-2 text-sm text-muted-foreground"
+                >
                   <span className="text-orange-500 mt-0.5 shrink-0">→</span>
                   {item}
                 </li>
@@ -215,12 +247,16 @@ function MiniProjectCard({ project, index }: { project: MiniProject; index: numb
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mt-auto">
           {project.tags.map((tag) => (
-            <Badge key={tag} variant="secondary" className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20">
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20"
+            >
               {tag}
             </Badge>
           ))}
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
