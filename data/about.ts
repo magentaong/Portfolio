@@ -28,7 +28,7 @@ export const aboutCards: AboutCard[] = [
   {
     icon: "experience",
     title: "Experience",
-    text: "Backend Software Engineer Intern at foodpanda, Citizen Developer with People's Association, and CPF Board Software Developer Intern",
+    text: "Backend Software Engineer Intern at foodpanda, Software Engineer with People's Association, and CPF Board Software Developer Intern",
     extra: "",
   },
   {
