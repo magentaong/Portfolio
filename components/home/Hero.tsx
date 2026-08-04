@@ -1,15 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Mail, Linkedin, Download, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 
 type Props = {
   onViewWork: () => void;
-  mousePosition: { x: number; y: number };
 };
 
 const springPop = {
@@ -32,7 +38,48 @@ const cardPop = (delay: number) => ({
   },
 });
 
-export default function Hero({ onViewWork, mousePosition }: Props) {
+export default function Hero({ onViewWork }: Props) {
+  const prefersReducedMotion = useReducedMotion();
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const cardX = useSpring(useTransform(pointerX, [-0.5, 0.5], [-10, 10]), {
+    stiffness: 180,
+    damping: 20,
+    mass: 0.35,
+  });
+  const cardY = useSpring(useTransform(pointerY, [-0.5, 0.5], [-10, 10]), {
+    stiffness: 180,
+    damping: 20,
+    mass: 0.35,
+  });
+  const cardRotate = useSpring(
+    useTransform(pointerX, [-0.5, 0.5], [-1, 1]),
+    {
+      stiffness: 180,
+      damping: 20,
+      mass: 0.35,
+    },
+  );
+
+  useEffect(() => {
+    if (
+      prefersReducedMotion ||
+      !window.matchMedia("(pointer: fine)").matches
+    ) {
+      pointerX.set(0);
+      pointerY.set(0);
+      return;
+    }
+
+    const trackPointer = (event: MouseEvent) => {
+      pointerX.set(event.clientX / window.innerWidth - 0.5);
+      pointerY.set(event.clientY / window.innerHeight - 0.5);
+    };
+
+    window.addEventListener("mousemove", trackPointer, { passive: true });
+    return () => window.removeEventListener("mousemove", trackPointer);
+  }, [pointerX, pointerY, prefersReducedMotion]);
+
   const [text] = useTypewriter({
     words: [
       "Backend Software Engineer Intern",
@@ -159,12 +206,15 @@ export default function Hero({ onViewWork, mousePosition }: Props) {
             initial="hidden"
             animate="show"
             className="relative mx-auto w-full max-w-lg"
-            style={{
-              transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px) rotate(${mousePosition.x * 2}deg)`,
-              transition: "transform 0.12s ease-out",
-            }}
           >
-            <div className="relative rounded-3xl border border-orange-500/30 bg-background/90 p-4 shadow-xl shadow-orange-500/10 backdrop-blur-sm">
+            <motion.div
+              className="relative rounded-3xl border border-orange-500/30 bg-background/90 p-4 shadow-xl shadow-orange-500/10 backdrop-blur-sm"
+              style={
+                prefersReducedMotion
+                  ? undefined
+                  : { x: cardX, y: cardY, rotate: cardRotate }
+              }
+            >
               <div className="mb-4 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-wide text-muted-foreground">
@@ -274,7 +324,7 @@ export default function Hero({ onViewWork, mousePosition }: Props) {
                   </span>
                 </p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

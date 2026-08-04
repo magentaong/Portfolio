@@ -100,4 +100,22 @@ export const devLogEntries: DevLogEntry[] = [
     tags: ["Go", "Backend"],
     mood: "good",
   },
+  {
+    id: "012",
+    date: "Jun 20, 2026",
+    title: "Food for thought: Writing bad code is good for job security",
+    body: "",
+    project: "",
+    tags: [],
+    mood: "good",
+  },
+  {
+    id: "012",
+    date: "Jun 29, 2026",
+    title: "",
+    body: "",
+    project: "",
+    tags: [],
+    mood: "good",
+  },
 ];

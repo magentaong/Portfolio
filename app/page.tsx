@@ -19,7 +19,6 @@ export default function Home() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const aboutRef = useRef<HTMLElement>(null)
   const projectsRef = useRef<HTMLElement>(null)
@@ -31,14 +30,6 @@ export default function Home() {
     if (window.location.hash === "#projects") {
       document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
     }
-  }, [])
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX / window.innerWidth - 0.5, y: e.clientY / window.innerHeight - 0.5 })
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
@@ -135,7 +126,7 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
-        <Hero onViewWork={() => scrollToSection(projectsRef)} mousePosition={mousePosition} />
+        <Hero onViewWork={() => scrollToSection(projectsRef)} />
         <About />
         <Projects sectionRef={projectsRef} />
         <MiniProjects />

@@ -227,7 +227,7 @@ export const projects: Project[] = [
   {
     slug: "freelancedeveloper",
     title: "Freelance Developer",
-    subtitle: "Custom portfolio sites for real clients",
+    subtitle: "Custom sites and landing pages for clients",
     date: "March 2025 - Present",
     description: [
       "I design and build custom portfolio websites for clients who want something more personal than a template. Most of the work is figuring out what they want to be remembered for, then turning that into a site structure, visual direction, and build plan.",
@@ -241,10 +241,7 @@ export const projects: Project[] = [
       "Making sure the final site sounds like the client, not like generic portfolio copy.",
     ],
     technologies: ["React", "Tailwind CSS", "Figma", "Vercel"],
-    images: [
-      "/images/IMAGE 2025-03-13 06:48:43.jpg",
-      "/images/Screenshot 2025-03-13 at 9.45.49\u202fAM.png",
-    ],
+    images: ["/images/IMAGE 2025-03-13 06:48:43.jpg", "/images/digibase.jpg"],
     videos: [],
     links: [
       {
@@ -260,8 +257,8 @@ export const projects: Project[] = [
     ],
     cardImage: "/images/IMAGE 2025-03-13 06:48:43.jpg",
     cardDescription:
-      "Designing and building custom portfolio sites in Figma, Next.js, and Tailwind for clients who want the site to sound like them.",
-    cardTags: ["Next.js", "Tailwind CSS", "Figma"],
+      "Designing and building custom portfolio sites in Figma, React, and Tailwind for clients who want the site to sound like them.",
+    cardTags: ["React", "Tailwind CSS", "Figma"],
     cardLink: "https://aloykoh.vercel.app",
   },
   {
