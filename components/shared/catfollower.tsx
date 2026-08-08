@@ -2,50 +2,45 @@
 
 import { useEffect, useRef } from "react"
 import { Neko } from "@/components/shared/neko"
+import { usePointerCompanion } from "@/components/shared/PointerCompanion"
 
 export default function CatFollower() {
   const nekoRef = useRef<Neko | null>(null)
+  const { active, config } = usePointerCompanion()
 
   useEffect(() => {
-    const neko = new Neko({
-      nekoName: "neko",
-      nekoImageUrl: "/images/ghost.png",
-      initialPosX: window.innerWidth - 48,
-      initialPosY: window.innerHeight - 48,
-    })
-    neko.init()
-    neko.isFollowing = true
-    nekoRef.current = neko
+    if (!active) {
+      nekoRef.current = null
+      return
+    }
 
     const handleMouseMove = (e: MouseEvent) => {
+      const neko = nekoRef.current
+      if (!neko) return
       const offset = 80
       const angle = Math.atan2(e.clientY - neko.posY, e.clientX - neko.posX)
       neko.mouseX = e.clientX - Math.cos(angle) * offset
       neko.mouseY = e.clientY - Math.sin(angle) * offset
     }
 
-    const handleMouseUp = () => {
-      if (!neko.isDragging) return
-      if (!neko.wasDragged) return
-      setTimeout(() => {
-        neko.isFollowing = false
-        neko.isFalling = true
-        neko.fallVelocity = 0
-        neko.isReturningToOrigin = false
-        neko.idleAnimation = null
-        neko.idleAnimationFrame = 0
-      }, 50)
-    }
-
+    const neko = new Neko({
+      nekoName: "neko",
+      nekoImageUrl: config.catSrc,
+      controlLabel: config.catControlLabel,
+      initialPosX: window.innerWidth - 48,
+      initialPosY: window.innerHeight - 48,
+    })
+    neko.init()
+    neko.isFollowing = true
+    nekoRef.current = neko
     document.addEventListener("mousemove", handleMouseMove)
-    document.addEventListener("mouseup", handleMouseUp)
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove)
-      document.removeEventListener("mouseup", handleMouseUp)
       neko.destroy()
+      nekoRef.current = null
     }
-  }, [])
+  }, [active, config.catControlLabel, config.catSrc])
 
   return null
 }

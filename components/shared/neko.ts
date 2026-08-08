@@ -4,7 +4,8 @@ const NEKO_HALF_WIDTH = NEKO_WIDTH / 2;
 const NEKO_HALF_HEIGHT = NEKO_HEIGHT / 2;
 const NEKO_SPEED = 20;
 const FRAME_RATE = 300;
-const Z_INDEX = Number.MAX_SAFE_INTEGER;
+// Keep the easter egg above page content, but below navigation and dialogs.
+const Z_INDEX = 45;
 const ALERT_TIME = 3;
 const IDLE_THRESHOLD = 3;
 const IDLE_ANIMATION_CHANCE = 1 / 20;
@@ -37,6 +38,7 @@ export class Neko {
   isReducedMotion: boolean;
   nekoImageUrl: string;
   nekoName: string;
+  controlLabel: string;
   isDragging: boolean;
   lastMouseX: number;
   lastMouseY: number;
@@ -47,20 +49,25 @@ export class Neko {
   currentScratchSprite: string | null = null;
   isFalling: boolean = false;
   fallVelocity: number = 0;
+  dragMouseUpHandler: (() => void) | null = null;
+  landingTimeoutIds: number[] = [];
 
   constructor({
     nekoName,
     nekoImageUrl,
+    controlLabel,
     initialPosX,
     initialPosY,
   }: {
     nekoName: string;
     nekoImageUrl: string;
+    controlLabel: string;
     initialPosX?: number;
     initialPosY?: number;
   }) {
     this.nekoName = nekoName;
     this.nekoImageUrl = nekoImageUrl;
+    this.controlLabel = controlLabel;
     this.posX = initialPosX !== undefined ? initialPosX : NEKO_HALF_WIDTH;
     this.posY = initialPosY !== undefined ? initialPosY : NEKO_HALF_HEIGHT;
     this.initialPosX = initialPosX !== undefined ? initialPosX : this.posX;
@@ -204,11 +211,13 @@ export class Neko {
     });
   }
 
-  async createNekoElement() {
+  createNekoElement() {
     this.nekoElement = document.createElement("div");
 
     this.nekoElement.id = this.nekoName;
-    this.nekoElement.ariaHidden = "true";
+    this.nekoElement.role = "button";
+    this.nekoElement.tabIndex = 0;
+    this.nekoElement.ariaLabel = this.controlLabel;
     this.nekoElement.style.width = `${NEKO_WIDTH}px`;
     this.nekoElement.style.height = `${NEKO_HEIGHT}px`;
     this.nekoElement.style.position = "fixed";
@@ -219,25 +228,19 @@ export class Neko {
     this.nekoElement.style.zIndex = Z_INDEX.toString();
     this.nekoElement.style.backgroundImage = `url("${this.nekoImageUrl}")`;
     this.nekoElement.style.cursor = "grab";
+    document.body.appendChild(this.nekoElement);
 
-    try {
-      const transparentImageUrl = await Neko.makeTransparent(
-        this.nekoImageUrl,
-        BACKGROUND_TARGET_COLOR
-      );
-
-      if (this.nekoElement) {
+    void Neko.makeTransparent(
+      this.nekoImageUrl,
+      BACKGROUND_TARGET_COLOR,
+    )
+      .then((transparentImageUrl) => {
+        if (!this.nekoElement) return;
         this.nekoElement.style.backgroundImage = `url("${transparentImageUrl}")`;
-      }
-
-      if (this.nekoElement) {
-        document.body.appendChild(this.nekoElement);
-      } else {
-        throw new Error("Neko element is null, cannot append to document.");
-      }
-    } catch (err) {
-      console.error("Failed to process the image:", err);
-    }
+      })
+      .catch(() => {
+        // Keep the original sprite when canvas processing is unavailable.
+      });
 
     const idleSprite = this.spriteSets["idle"]
       ? this.spriteSets["idle"][0]
@@ -361,10 +364,18 @@ export class Neko {
     this.render();
     event.preventDefault();
 
+    if (this.dragMouseUpHandler) {
+      document.removeEventListener("mouseup", this.dragMouseUpHandler);
+    }
+
     const onMouseUp = () => {
       this.handleMouseUp();
       document.removeEventListener("mouseup", onMouseUp);
+      if (this.dragMouseUpHandler === onMouseUp) {
+        this.dragMouseUpHandler = null;
+      }
     };
+    this.dragMouseUpHandler = onMouseUp;
     document.addEventListener("mouseup", onMouseUp);
   };
 
@@ -386,6 +397,7 @@ export class Neko {
 
     // start falling after drop
     if (this.wasDragged) {
+        this.clearLandingTimers();
         this.isFalling = true;
         this.fallVelocity = 0;
         this.isFollowing = false;
@@ -393,24 +405,36 @@ export class Neko {
     }
     };
 
-  addEventListeners() {
-    if (!this.nekoElement) return;
-
-    this.nekoElement.addEventListener("click", (e) => {
+  private handleClick = (event: MouseEvent) => {
     if (this.wasDragged) {
       this.wasDragged = false;
-      e.stopPropagation();
-      e.preventDefault();
+      event.stopPropagation();
+      event.preventDefault();
       return;
     }
 
+    this.toggleFollowing();
+  };
+
+  private handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    this.toggleFollowing();
+  };
+
+  private toggleFollowing() {
+    this.clearLandingTimers();
     this.isFollowing = !this.isFollowing;
     this.isReturningToOrigin = false;
     this.isFalling = false;
-  });
+  }
 
+  addEventListeners() {
+    if (!this.nekoElement) return;
+
+    this.nekoElement.addEventListener("click", this.handleClick);
+    this.nekoElement.addEventListener("keydown", this.handleKeyDown);
     this.nekoElement.addEventListener("mousedown", this.handleMouseDown);
-    // remove: document.addEventListener("mouseup", this.handleMouseUp);
     document.addEventListener("mousemove", this.handleMouseMove);
   }
 
@@ -607,6 +631,24 @@ export class Neko {
         this.posX -= (diffX / distance) * NEKO_SPEED;
         this.posY -= (diffY / distance) * NEKO_SPEED;
   }
+
+    clearLandingTimers() {
+        for (const timeoutId of this.landingTimeoutIds) {
+        window.clearTimeout(timeoutId);
+        }
+        this.landingTimeoutIds = [];
+    }
+
+    scheduleLandingFrame(callback: () => void, delay: number) {
+        const timeoutId = window.setTimeout(() => {
+        this.landingTimeoutIds = this.landingTimeoutIds.filter(
+            (candidate) => candidate !== timeoutId,
+        );
+        callback();
+        }, delay);
+        this.landingTimeoutIds.push(timeoutId);
+    }
+
     fall() {
         const floorY = window.innerHeight - NEKO_HALF_HEIGHT;
 
@@ -622,22 +664,22 @@ export class Neko {
             this.idleTime = 0;
 
             // bounce up slightly
-            setTimeout(() => {
+            this.scheduleLandingFrame(() => {
             this.setSprite("tired", 0);
             this.render();
             }, 0);
 
-            setTimeout(() => {
+            this.scheduleLandingFrame(() => {
             this.setSprite("alert", 0);
             this.render();
             }, 300);
 
-            setTimeout(() => {
+            this.scheduleLandingFrame(() => {
             this.setSprite("scratchSelf", 0);
             this.render();
             }, 600);
 
-            setTimeout(() => {
+            this.scheduleLandingFrame(() => {
             // nah. 
             this.isFollowing = false;
             this.isReturningToOrigin = false;
@@ -661,14 +703,27 @@ export class Neko {
         }
     destroy() {
         if (this.nekoElement) {
+        this.nekoElement.removeEventListener("click", this.handleClick);
+        this.nekoElement.removeEventListener("keydown", this.handleKeyDown);
         this.nekoElement.removeEventListener("mousedown", this.handleMouseDown);
         this.nekoElement.remove();
         this.nekoElement = null;
         }
-        if (this.animationFrameId) {
+
+        if (this.dragMouseUpHandler) {
+        document.removeEventListener("mouseup", this.dragMouseUpHandler);
+        this.dragMouseUpHandler = null;
+        }
+        if (this.mouseMoveTimeoutId !== null) {
+        window.clearTimeout(this.mouseMoveTimeoutId);
+        this.mouseMoveTimeoutId = null;
+        }
+        this.clearLandingTimers();
+
+        if (this.animationFrameId !== null) {
         window.cancelAnimationFrame(this.animationFrameId);
+        this.animationFrameId = null;
         }
         document.removeEventListener("mousemove", this.handleMouseMove);
-        
     }
 }
