@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, Mail, Linkedin, Download, ChevronRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import {
   motion,
   useMotionValue,
@@ -11,61 +11,96 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
+import type { Project } from "@/types/project";
+import type { MiniProject } from "@/types/miniprojects";
+import type { DevLogEntry } from "@/types/devlog";
+import { homeContent } from "@/data/home";
+import { miniProjectsPage } from "@/data/miniprojects";
+import { siteData } from "@/data/site";
 
-type Props = {
-  onViewWork: () => void;
+const framePaddingClasses = {
+  none: "",
+  tight: "p-[3%]",
+  roomy: "p-[7%]",
+} as const;
+
+function resolveCurrentBuildFrame(project: Project) {
+  const currentBuild = project.presentation?.currentBuild;
+  const projectHero = project.presentation?.hero;
+  const archivePreview = project.archive?.preview;
+  const fit =
+    currentBuild?.fit ??
+    projectHero?.fit ??
+    archivePreview?.fit ??
+    project.media.cover.fit ??
+    "cover";
+  const padding =
+    currentBuild?.padding ??
+    projectHero?.padding ??
+    archivePreview?.padding ??
+    (fit === "contain" ? "roomy" : "none");
+
+  return {
+    background:
+      currentBuild?.background ??
+      projectHero?.background ??
+      archivePreview?.background ??
+      "#222228",
+    imageClassName: `${
+      fit === "contain" ? "object-contain" : "object-cover"
+    } ${framePaddingClasses[padding]}`,
+    position:
+      currentBuild?.position ??
+      projectHero?.position ??
+      archivePreview?.position ??
+      project.media.cover.position ??
+      "center",
+  };
+}
+
+type HeroProps = {
+  currentProject?: Project;
+  currentMiniProject?: MiniProject;
+  latestNote?: DevLogEntry;
 };
 
-const springPop = {
-  hidden: { opacity: 0, scale: 0.88, y: 32 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 280, damping: 22 },
-  },
-};
-
-const cardPop = (delay: number) => ({
-  hidden: { opacity: 0, scale: 0.82, y: 20 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 320, damping: 20, delay },
-  },
-});
-
-export default function Hero({ onViewWork }: Props) {
+export default function Hero({
+  currentProject,
+  currentMiniProject,
+  latestNote,
+}: HeroProps) {
   const prefersReducedMotion = useReducedMotion();
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
-  const cardX = useSpring(useTransform(pointerX, [-0.5, 0.5], [-10, 10]), {
-    stiffness: 180,
-    damping: 20,
-    mass: 0.35,
+  const objectX = useSpring(useTransform(pointerX, [-0.5, 0.5], [-12, 12]), {
+    stiffness: 170,
+    damping: 21,
+    mass: 0.4,
   });
-  const cardY = useSpring(useTransform(pointerY, [-0.5, 0.5], [-10, 10]), {
-    stiffness: 180,
-    damping: 20,
-    mass: 0.35,
+  const objectY = useSpring(useTransform(pointerY, [-0.5, 0.5], [-10, 10]), {
+    stiffness: 170,
+    damping: 21,
+    mass: 0.4,
   });
-  const cardRotate = useSpring(
-    useTransform(pointerX, [-0.5, 0.5], [-1, 1]),
-    {
-      stiffness: 180,
-      damping: 20,
-      mass: 0.35,
-    },
-  );
+  const objectRotate = useSpring(useTransform(pointerX, [-0.5, 0.5], [-1, 1]), {
+    stiffness: 170,
+    damping: 21,
+    mass: 0.4,
+  });
+  const currentMiniProjectLink = currentMiniProject?.links?.[0];
+  const currentMiniProjectHref =
+    currentMiniProjectLink?.href ??
+    (currentMiniProject
+      ? `${miniProjectsPage.pathname}#${currentMiniProject.slug}`
+      : miniProjectsPage.pathname);
+  const currentMiniProjectOpensNewTab =
+    currentMiniProjectLink?.target === "blank";
+  const currentProjectFrame = currentProject
+    ? resolveCurrentBuildFrame(currentProject)
+    : null;
 
   useEffect(() => {
-    if (
-      prefersReducedMotion ||
-      !window.matchMedia("(pointer: fine)").matches
-    ) {
+    if (prefersReducedMotion || !window.matchMedia("(pointer: fine)").matches) {
       pointerX.set(0);
       pointerY.set(0);
       return;
@@ -80,252 +115,223 @@ export default function Hero({ onViewWork }: Props) {
     return () => window.removeEventListener("mousemove", trackPointer);
   }, [pointerX, pointerY, prefersReducedMotion]);
 
-  const [text] = useTypewriter({
-    words: [
-      "Backend Software Engineer Intern",
-      "Full-stack Builder",
-      "Bug Finder",
-      "Side Quest Enjoyer",
-    ],
-    loop: true,
-    delaySpeed: 200,
-  });
-
   return (
-    <section className="relative overflow-hidden py-20 md:py-32 flex items-center min-h-[90vh]">
-      <div className="container relative z-10">
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-16 items-center">
-          {/* Left: text content */}
-          <div className="space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.05 }}
-              className="inline-block rounded-lg bg-muted px-3 py-1 text-sm"
-            >
-              Computer Science & Design Student
-            </motion.div>
+    <section className="relative min-h-[112svh] overflow-hidden bg-[#0b0b0e] pb-16 pt-28 text-[#f3efe7] md:pb-24 md:pt-32">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto mb-7 max-w-max text-center text-[11px] font-medium uppercase tracking-[0.2em] text-white/55"
+        >
+          {homeContent.hero.eyebrow}
+        </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.12 }}
-              className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl"
-            >
-              Hi, I&apos;m <span className="text-orange-500">Magenta Ong</span>
-            </motion.h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center text-[clamp(3.75rem,19vw,14rem)] font-semibold uppercase leading-[0.75] tracking-[-0.075em]"
+        >
+          <span className="block">
+            <span className="hero-name-box">
+              {homeContent.hero.name.boxed}
+            </span>
+            <span className="hero-name-remainder">
+              {homeContent.hero.name.remainder}
+            </span>
+            <span className="sr-only"> </span>
+          </span>
+          <span className="block">{homeContent.hero.name.secondLine}</span>
+        </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="max-w-[600px] text-xl text-muted-foreground h-8"
-            >
-              <span>{text}</span>
-              <Cursor cursorColor="#f97316" />
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.28 }}
-              className="max-w-[560px] text-muted-foreground leading-relaxed"
-            >
-              I like creating things that makes my life and others just a tad
-              bit easier.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.38, delay: 0.36 }}
-              className="flex flex-wrap gap-4"
-            >
-              <Button
-                asChild
-                size="lg"
-                className="relative z-10 overflow-hidden group"
-              >
-                <Link href="/Resume_Summer_2026.pdf" target="_blank" download>
-                  <span className="absolute inset-0 w-0 h-full bg-orange-600 transition-all duration-300 group-hover:w-full" />
-                  <span className="relative flex items-center">
-                    <Download className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
-                    Resume
-                  </span>
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={onViewWork}
-                className="relative z-10 overflow-hidden group"
-              >
-                <span className="absolute inset-0 w-0 h-full bg-orange-500 opacity-10 transition-all duration-300 group-hover:w-full" />
-                <span className="relative flex items-center">
-                  View My Work
-                  <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.44 }}
-              className="flex gap-4"
-            >
+        <div className="mt-16 grid items-end gap-10 lg:mt-24 lg:grid-cols-[0.68fr_1.7fr_0.68fr]">
+          <div className="order-2 max-w-xs lg:order-1 lg:pb-10">
+            <p className="text-sm leading-relaxed text-white/62">
+              {homeContent.hero.summary}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium">
               <Link
-                href="https://github.com/magentaong"
+                href={siteData.links.resume.href}
                 target="_blank"
-                className="text-muted-foreground hover:text-orange-500 transition-all duration-300 hover:scale-110"
+                rel="noopener noreferrer"
+                className="group inline-flex min-h-11 items-center gap-1.5 text-white transition-colors hover:text-[var(--folio-accent)] focus-visible:outline-[#f3efe7]"
               >
-                <Github className="h-6 w-6" />
-                <span className="sr-only">GitHub</span>
+                {siteData.links.resume.label}
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
               <Link
-                href="https://www.linkedin.com/in/magenta-ong"
+                href={siteData.links.github.href}
                 target="_blank"
-                className="text-muted-foreground hover:text-orange-500 transition-all duration-300 hover:scale-110"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center text-white/60 transition-colors hover:text-white focus-visible:outline-[#f3efe7]"
               >
-                <Linkedin className="h-6 w-6" />
-                <span className="sr-only">LinkedIn</span>
+                {siteData.links.github.label} ↗
               </Link>
               <Link
-                href="mailto:ongmagenta@gmail.com"
-                className="text-muted-foreground hover:text-orange-500 transition-all duration-300 hover:scale-110"
+                href={siteData.links.linkedin.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center text-white/60 transition-colors hover:text-white focus-visible:outline-[#f3efe7]"
               >
-                <Mail className="h-6 w-6" />
-                <span className="sr-only">Email</span>
+                {siteData.links.linkedin.label} ↗
               </Link>
-            </motion.div>
+            </div>
           </div>
 
-          {/* Right: card with splash pop */}
           <motion.div
-            variants={springPop}
-            initial="hidden"
-            animate="show"
-            className="relative mx-auto w-full max-w-lg"
+            initial={{ opacity: 0, scale: 0.94, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.18,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="order-1 mx-auto w-full max-w-3xl lg:order-2"
           >
             <motion.div
-              className="relative rounded-3xl border border-orange-500/30 bg-background/90 p-4 shadow-xl shadow-orange-500/10 backdrop-blur-sm"
+              className="relative h-[360px] w-full sm:h-[470px]"
               style={
                 prefersReducedMotion
                   ? undefined
-                  : { x: cardX, y: cardY, rotate: cardRotate }
+                  : { x: objectX, y: objectY, rotate: objectRotate }
               }
             >
-              <div className="mb-4 flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                    Current builds
-                  </p>
-                  <h2 className="text-2xl font-bold">Obby & TaskSnipe</h2>
-                </div>
-                <span className="rounded-full border border-orange-500/30 px-3 py-1 text-xs text-orange-500">
-                  in progress
-                </span>
-              </div>
-
-              <div className="grid items-stretch gap-3 sm:grid-cols-2">
-                {/* Obby card */}
+              {currentProject && (
                 <motion.div
-                  variants={cardPop(0.18)}
-                  initial="hidden"
-                  animate="show"
-                  className="h-full"
+                  className="absolute right-0 top-0 z-10 w-[78%]"
                 >
                   <Link
-                    href="https://github.com/magentaong/obby"
-                    target="_blank"
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-orange-500/20 bg-muted transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/60"
+                    href={`/projects/${currentProject.slug}`}
+                    className="group block border border-white/15 bg-[#17171b] p-2 shadow-2xl shadow-black/40 focus-visible:outline-[#f3efe7] sm:p-3"
+                    aria-label={`View ${currentProject.title}`}
                   >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-background">
-                      <video
-                        src="/videos/miniprojects/Obby.mp4"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col bg-background/95 p-5">
-                      <p className="mb-2 text-xs uppercase tracking-wide text-orange-500">
-                        Obby
-                      </p>
-                      <h3 className="text-xl font-bold">
-                        Markdown notes into TODOs
-                      </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                        A Python CLI side quest for productivity in turning
-                        TODOs across messy notes into tasks.
-                      </p>
-                      <div className="mt-auto flex flex-wrap gap-2 pt-4">
-                        {["Python", "CLI", "Local LLMs"].map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-
-                {/* TaskSnipe card */}
-                <motion.div
-                  variants={cardPop(0.28)}
-                  initial="hidden"
-                  animate="show"
-                  className="h-full"
-                >
-                  <Link
-                    href="/projects?active=tasksnipe"
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-orange-500/20 bg-muted transition-all duration-300 hover:-translate-y-1 hover:border-orange-500/60"
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-background">
+                    <div
+                      className="relative aspect-[16/10] overflow-hidden"
+                      style={{
+                        backgroundColor: currentProjectFrame?.background,
+                      }}
+                    >
                       <Image
-                        src="/images/TaskSnipe.png"
-                        alt="TaskSnipe project preview"
-                        width={640}
-                        height={480}
+                        src={currentProject.media.cover.src}
+                        alt={currentProject.media.cover.alt}
+                        fill
                         priority
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(min-width: 1024px) 600px, 75vw"
+                        style={{ objectPosition: currentProjectFrame?.position }}
+                        className={`${currentProjectFrame?.imageClassName ?? "object-cover"} transition-transform duration-700 group-hover:scale-[1.025] group-focus-visible:scale-[1.025] motion-reduce:transition-none`}
                       />
                     </div>
-                    <div className="flex flex-1 flex-col bg-background/95 p-5">
-                      <p className="mb-2 text-xs uppercase tracking-wide text-orange-500">
-                        TaskSnipe
-                      </p>
-                      <h3 className="text-xl font-bold">Team task tracking</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                        Currently refactoring and migrating from Javascript to
-                        Go backend.
-                      </p>
+                    <div className="flex items-end justify-between gap-4 px-1 pb-1 pt-3">
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-white/55">
+                          {homeContent.hero.currentProjectLabel}
+                        </p>
+                        <p className="mt-1 text-sm font-semibold">
+                          {currentProject.title}
+                        </p>
+                      </div>
+                      {currentProject.home?.current?.note && (
+                        <span className="text-xs text-white/60">
+                          {currentProject.home.current.note} ↗
+                        </span>
+                      )}
                     </div>
                   </Link>
                 </motion.div>
-              </div>
+              )}
 
-              <div className="mt-4 flex flex-col gap-1 border-t border-orange-500/20 pt-4 text-sm sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-muted-foreground">
-                  Current:{" "}
-                  <span className="font-medium text-foreground">
-                    foodpanda backend intern
-                  </span>
-                </p>
-                <p className="text-muted-foreground">
-                  Building next:{" "}
-                  <span className="font-medium text-foreground">
-                    Obby + TaskSnipe
-                  </span>
-                </p>
-              </div>
+              {currentMiniProject && (
+                <motion.div
+                  className="absolute bottom-0 left-0 z-20 w-[58%]"
+                >
+                  <Link
+                    href={currentMiniProjectHref}
+                    target={
+                      currentMiniProjectOpensNewTab ? "_blank" : undefined
+                    }
+                    rel={
+                      currentMiniProjectOpensNewTab
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="group block border border-white/15 bg-[#f0ece4] p-2 text-[#111114] shadow-2xl shadow-black/50 focus-visible:outline-[#f3efe7] sm:p-3"
+                    aria-label={
+                      currentMiniProjectLink?.label ??
+                      `Find ${currentMiniProject.title} in mini projects`
+                    }
+                  >
+                    <div className="aspect-[4/3] overflow-hidden bg-[#d8d3ca]">
+                      {currentMiniProject.video ? (
+                        <video
+                          src={currentMiniProject.video}
+                          poster={currentMiniProject.image}
+                          autoPlay={!prefersReducedMotion}
+                          loop
+                          muted
+                          playsInline
+                          preload="metadata"
+                          aria-hidden="true"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                        />
+                      ) : (
+                        <Image
+                          src={
+                            currentMiniProject.image ??
+                            "/images/portfolio-preview.png"
+                          }
+                          alt={`${currentMiniProject.title} preview`}
+                          width={640}
+                          height={480}
+                          className="h-full w-full object-cover"
+                        />
+                      )}
+                    </div>
+                    <div className="flex items-end justify-between gap-3 px-1 pb-1 pt-3">
+                      <div>
+                        <p className="text-[9px] uppercase tracking-[0.18em] text-black/60">
+                          {homeContent.hero.currentMiniProjectLabel}
+                        </p>
+                        <p className="mt-1 text-sm font-semibold">
+                          {currentMiniProject.title}
+                        </p>
+                      </div>
+                      <span className="text-xs text-black/60">
+                        {homeContent.hero.currentMiniProjectNote} ↗
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              )}
+
             </motion.div>
           </motion.div>
+
+          <div className="order-3 lg:pb-10">
+            {latestNote && (
+              <Link
+                href={`/devlog#note-${latestNote.id}`}
+                className="group block border-t border-white/20 pt-4 focus-visible:outline-[#f3efe7]"
+              >
+                <p className="text-[10px] uppercase tracking-[0.18em] text-white/55">
+                  {homeContent.hero.latestNoteLabel} · {latestNote.date}
+                </p>
+                <p className="mt-3 text-sm font-medium leading-snug text-white/78 transition-colors group-hover:text-white">
+                  {latestNote.title}
+                </p>
+                <span className="mt-4 inline-block text-xs text-[var(--folio-accent)]">
+                  {homeContent.hero.readNoteLabel} ↗
+                </span>
+              </Link>
+            )}
+            <a
+              href="#about"
+              className="mt-10 inline-flex min-h-11 items-center gap-2 text-xs text-white/55 transition-colors hover:text-white focus-visible:outline-[#f3efe7]"
+            >
+              {homeContent.hero.keepScrollingLabel}
+              <ArrowDown className="h-3.5 w-3.5" />
+            </a>
+          </div>
         </div>
       </div>
     </section>

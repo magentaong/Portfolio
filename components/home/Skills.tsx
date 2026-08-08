@@ -1,107 +1,141 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { homeContent } from "@/data/home";
+import { siteData } from "@/data/site";
 import { skillData } from "@/data/skills";
 import { timelineData, TimelineEntry } from "@/data/timeline";
+import DoodleSlot from "@/components/shared/AuthoredDoodle";
 
-type Props = {
-  sectionRef: React.RefObject<HTMLElement>;
-};
+const featuredTimeline = homeContent.featuredExperienceIds
+  .map((id) => timelineData.find((entry) => entry.id === id))
+  .filter((entry): entry is TimelineEntry => Boolean(entry));
 
-export default function Skills({ sectionRef }: Props) {
+const skillRows = [
+  {
+    id: "languages",
+    title: homeContent.experience.skillLabels.languages,
+    values: skillData.languages,
+  },
+  {
+    id: "frontend",
+    title: homeContent.experience.skillLabels.frontend,
+    values: skillData.frontend,
+  },
+  {
+    id: "backend",
+    title: homeContent.experience.skillLabels.backend,
+    values: skillData.backend,
+  },
+  {
+    id: "tools",
+    title: homeContent.experience.skillLabels.tools,
+    values: skillData.tools,
+  },
+];
+
+export default function Skills() {
   return (
-    <motion.section
-      ref={sectionRef}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true, margin: "-100px" }}
-      className="py-20 bg-muted/30 relative z-10"
+    <section
+      id="experience"
+      className="bg-[var(--folio-panel)] py-24 text-[var(--folio-ink)] md:py-36"
     >
-      <div className="container px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-            Skills & <span className="text-orange-500">Technologies</span>
-          </h2>
-          <p className="mb-8 text-muted-foreground md:text-xl">
-            Tools I have used across coursework, internships, hackathons, and
-            side quests.
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="mb-16 border-t border-[var(--folio-rule)] pt-7 md:mb-24">
+          <p className="text-[10px] uppercase tracking-[0.16em] text-[var(--folio-muted)]">
+            {homeContent.experience.eyebrow}
           </p>
+          <h2 className="mt-2 text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-[0.88] tracking-[-0.065em]">
+            {homeContent.experience.title}
+          </h2>
         </div>
 
-        <Tabs defaultValue="languages" className="mx-auto max-w-4xl">
-          <TabsList className="grid w-full  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 h-full">
-            <TabsTrigger value="languages">Languages</TabsTrigger>
-            <TabsTrigger value="frontend">Frontend</TabsTrigger>
-            <TabsTrigger value="backend">Backend</TabsTrigger>
-            <TabsTrigger value="tools">Tools</TabsTrigger>
-          </TabsList>
-          {(
-            Object.entries(skillData) as [keyof typeof skillData, string[]][]
-          ).map(([key, skills]) => (
-            <TabsContent key={key} value={key} className="mt-6">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center">
-                {skills.map((s) => (
-                  <SkillTag key={s} name={s} />
-                ))}
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+        <div className="grid gap-14 lg:grid-cols-12 lg:items-start lg:gap-8">
+          <figure className="lg:col-span-5">
+            <div className="relative aspect-[4/3] overflow-hidden bg-[var(--folio-paper)]">
+              <Image
+                src={homeContent.experienceImage}
+                alt={homeContent.experience.imageAlt}
+                fill
+                sizes="(min-width: 1024px) 40vw, 90vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="mt-3 flex justify-between gap-4 text-[10px] text-[var(--folio-muted)]">
+              <span>{homeContent.experience.imageCaption[0]}</span>
+              <span>{homeContent.experience.imageCaption[1]}</span>
+            </figcaption>
+          </figure>
 
-        <div className="mt-16">
-          <h3 className="text-2xl font-bold mb-6 text-center">
-            Experience Timeline
-          </h3>
-          <div className="space-y-8">
-            {timelineData.map((t: TimelineEntry) => (
-              <TimelineItem key={t.title} {...t} />
+          <div className="lg:col-span-6 lg:col-start-7">
+            <details open className="group border-t border-[var(--folio-rule)]">
+              <summary className="flex list-none items-center justify-between gap-6 py-5 text-2xl font-semibold tracking-[-0.035em]">
+                {homeContent.experience.experienceLabel}
+                <span className="text-base font-normal text-[var(--folio-muted)] group-open:hidden">+</span>
+                <span className="hidden text-base font-normal text-[var(--folio-muted)] group-open:block">−</span>
+              </summary>
+              <div className="space-y-7 pb-8">
+                {featuredTimeline.map((entry) => (
+                  <div
+                    key={`${entry.date}-${entry.title}`}
+                    className="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-5"
+                  >
+                    <p className="text-[11px] text-[var(--folio-muted)]">{entry.date}</p>
+                    <div>
+                      <h3 className="text-sm font-semibold">{entry.title}</h3>
+                      <p className="mt-0.5 text-xs text-[var(--folio-muted)]">{entry.company}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-[var(--folio-muted)]">
+                        {entry.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+                <Link
+                  href={siteData.links.resume.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:text-[var(--folio-accent)]"
+                >
+                  {homeContent.experience.timelineLabel}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </details>
+
+            {skillRows.map((row) => (
+              <SkillRow key={row.id} {...row} />
             ))}
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 
-function TimelineItem({ date, title, company, description }: TimelineEntry) {
+function SkillRow({
+  id,
+  title,
+  values,
+}: {
+  id: string;
+  title: string;
+  values: string[];
+}) {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-      className="relative pl-8 pb-8 border-l border-orange-500/30 last:border-0 last:pb-0 group px-"
-    >
-      <div className="absolute left-0 top-0 flex items-center justify-center -translate-x-1/2 rounded-full bg-orange-500 p-1 group-hover:scale-125 transition-transform">
-        <div className="h-2 w-2 rounded-full bg-background" />
-      </div>
-      <div className="bg-background/60 backdrop-blur-sm rounded-lg p-4 border border-orange-500/20 group-hover:border-orange-500/50 transition-all group-hover:-translate-y-1 group-hover:shadow-md group-hover:shadow-orange-500/10">
-        <time className="text-sm font-medium text-orange-500">{date}</time>
-        <h3 className="text-lg font-bold mt-1 group-hover:text-orange-500 transition-colors">
-          {title}
-        </h3>
-        <p className="text-sm text-muted-foreground">{company}</p>
-        <p className="mt-2 text-sm">{description}</p>
-      </div>
-    </motion.div>
-  );
-}
-
-type SkillTagProps = { name: string };
-
-function SkillTag({ name }: SkillTagProps) {
-  return (
-    <motion.div
-      whileHover={{ y: -5, scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 300, damping: 10 }}
-      className="group relative overflow-hidden rounded-lg border border-orange-500/20 bg-background p-4 transition-all duration-300 hover:border-orange-500/50 hover:shadow-md hover:shadow-orange-500/10"
-    >
-      <div className="absolute inset-0 bg-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <h4 className="font-medium group-hover:text-orange-500 transition-colors">
-        {name}
-      </h4>
-    </motion.div>
+    <details className="doodle-trigger doodle-trigger--scoped group relative border-t border-[var(--folio-rule)] last:border-b">
+      <DoodleSlot
+        slot="home-experience-skill"
+        anchorId={id}
+        className="absolute right-8 top-0 h-[72px] w-[116px] justify-end overflow-visible sm:right-12 md:h-[84px] md:w-[150px]"
+      />
+      <summary className="doodle-primary-trigger relative z-10 flex min-h-11 list-none items-center justify-between gap-6 py-5 text-2xl font-semibold tracking-[-0.035em]">
+        {title}
+        <span className="text-base font-normal text-[var(--folio-muted)] group-open:hidden">+</span>
+        <span className="hidden text-base font-normal text-[var(--folio-muted)] group-open:block">−</span>
+      </summary>
+      <p className="max-w-xl pb-7 text-sm leading-7 text-[var(--folio-muted)]">
+        {values.join(" · ")}
+      </p>
+    </details>
   );
 }

@@ -8,6 +8,10 @@ module.exports = {
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+      mono: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -74,4 +78,3 @@ module.exports = {
   },
   plugins: [require("tailwindcss-animate")],
 }
-

@@ -1,110 +1,101 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { devLogEntries } from "@/data/devlog";
-import { DevLogEntry } from "@/types/devlog";
-import { moodConfig } from "@/lib/content-config";
+import { homeContent } from "@/data/home";
+import DoodleSlot from "@/components/shared/AuthoredDoodle";
+
+const publishedEntries = devLogEntries.filter(
+  (entry) => !entry.draft && entry.title.trim() && entry.body.trim(),
+);
+const featuredEntry = publishedEntries.find(
+  (entry) => entry.id === homeContent.featuredDevlogId,
+);
+const recentEntries = [...publishedEntries]
+  .filter((entry) => entry.id !== homeContent.featuredDevlogId)
+  .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+  .slice(0, 3);
+
+function excerpt(body: string, length = 520) {
+  const firstThought = body.split(/\n\s*\n/)[0].trim();
+  return firstThought.length > length
+    ? `${firstThought.slice(0, length).trimEnd()}…`
+    : firstThought;
+}
 
 export default function DevLog() {
-  const recent = [...devLogEntries]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 3); //sort by the most recent dates
+  if (!featuredEntry) return null;
 
   return (
-    <section className="py-20 relative z-10 bg-muted/30">
-      <div className="container max-w-3xl mx-auto px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="flex items-end justify-between mb-10"
-        >
-          <div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-2">
-              Dev <span className="text-orange-500">Log</span>
-            </h2>
-            <p className="text-muted-foreground">
-              What I&apos;m building and breaking, and yapping about
+    <section id="notes" className="bg-[var(--folio-cobalt-deep)] py-24 text-[#f3efe7] md:py-36">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="doodle-trigger doodle-trigger--scoped relative isolate flex items-end justify-between gap-6 border-t border-white/18 pt-7">
+          <DoodleSlot
+            slot="home-devlog-heading"
+            className="absolute right-0 top-0 h-24 w-36 -translate-y-[58%] overflow-visible [--folio-accent:var(--folio-accent-on-cobalt)] sm:right-32 sm:h-28 sm:w-44"
+          />
+          <div className="relative z-10 max-w-[calc(100%_-_4.5rem)] sm:max-w-none">
+            <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
+              {homeContent.devlog.eyebrow}
             </p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] md:text-5xl">
+              {homeContent.devlog.title}
+            </h2>
           </div>
           <Link
             href="/devlog"
-            className="text-sm text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1 group shrink-0"
+            className="doodle-primary-trigger group relative z-10 hidden items-center gap-2 text-xs text-white/55 transition-colors hover:text-white sm:inline-flex"
           >
-            All entries
-            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+            {homeContent.devlog.archiveLabel}
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
-        </motion.div>
+        </div>
 
-        <div className="space-y-4 ">
-          {recent.map((entry: DevLogEntry, index: number) => (
-            <DevLogCard key={entry.id} entry={entry} index={index} />
+        <article className="mt-20 grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-4">
+            <p className="text-[clamp(7rem,15vw,13rem)] font-medium leading-none tracking-[-0.08em]">
+              {featuredEntry.id}
+            </p>
+            <p className="mt-3 text-xs text-white/55">{featuredEntry.date}</p>
+          </div>
+
+          <div className="lg:col-span-7 lg:col-start-6">
+            <p className="text-[10px] uppercase tracking-[0.16em] text-[var(--folio-accent-on-cobalt)]">
+              {featuredEntry.project}
+            </p>
+            <h3 className="mt-4 max-w-3xl text-[clamp(2.6rem,6vw,6.4rem)] font-semibold leading-[0.94] tracking-[-0.055em]">
+              {featuredEntry.title}
+            </h3>
+            <p className="mt-9 max-w-2xl text-base leading-relaxed text-white/58 md:text-lg">
+              {excerpt(featuredEntry.body)}
+            </p>
+            <Link
+              href={`/devlog#note-${featuredEntry.id}`}
+              className="group mt-9 inline-flex items-center gap-3 text-sm font-semibold text-white transition-colors hover:text-[var(--folio-accent-on-cobalt)]"
+            >
+              {homeContent.devlog.continueLabel}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </article>
+
+        <div className="mt-24 border-t border-white/18 md:mt-36">
+          {recentEntries.map((entry) => (
+            <Link
+              key={entry.id}
+              href={`/devlog#note-${entry.id}`}
+              className="group grid gap-2 border-b border-white/18 py-5 transition-colors hover:text-[var(--folio-accent-on-cobalt)] sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:gap-6"
+            >
+              <span className="text-xs text-white/55">{entry.date}</span>
+              <span className="text-base font-medium sm:text-lg">
+                {entry.title}
+              </span>
+              <span className="hidden text-xs text-white/55 sm:block">
+                {entry.project || homeContent.devlog.noteFallback} ↗
+              </span>
+            </Link>
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function DevLogCard({ entry, index }: { entry: DevLogEntry; index: number }) {
-  const mood = moodConfig[entry.mood];
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      className="group rounded-xl border border-orange-500/20 bg-background/60 backdrop-blur-sm p-6 hover:border-orange-500/50 transition-all duration-300 hover:shadow-md hover:shadow-orange-500/10"
-    >
-      {/* Top row */}
-      <div className="flex items-start justify-between gap-4 mb-3">
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-muted-foreground font-mono">
-            {entry.date}
-          </span>
-          {entry.project && (
-            <>
-              <span className="text-muted-foreground/30">·</span>
-              <span className="text-xs text-orange-500 font-medium">
-                {entry.project}
-              </span>
-            </>
-          )}
-        </div>
-        <span
-          className={`text-xs px-2 py-1 rounded-full font-medium shrink-0 flex items-center gap-1.5 ${moodConfig[entry.mood].style}`}
-        >
-          {mood.icon}
-          {mood.label}
-        </span>
-      </div>
-
-      {/* Title */}
-      <h3 className="font-bold text-lg mb-2 group-hover:text-orange-500 transition-colors">
-        {entry.title}
-      </h3>
-
-      {/* Body */}
-      <p className="whitespace-pre-line text-sm text-muted-foreground leading-relaxed line-clamp-3">
-        {entry.body.replace(/\\n/g, "\n")}
-      </p>
-
-      {/* Tags */}
-      {entry.tags && entry.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mt-4">
-          {entry.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs px-2 py-0.5 rounded-full border border-orange-500/20 text-muted-foreground"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-    </motion.div>
   );
 }

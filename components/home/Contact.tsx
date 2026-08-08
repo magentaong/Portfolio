@@ -1,87 +1,70 @@
-"use client"
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { homeContent } from "@/data/home";
+import { siteData } from "@/data/site";
+import DoodleCopyControl from "@/components/shared/DoodleCopyControl";
 
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { Github, Mail, Linkedin } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import ContactForm from "@/components/ContactForm"
-
-type Props = {
-  sectionRef: React.RefObject<HTMLElement>
-}
-
-export default function Contact({ sectionRef }: Props) {
+export default function Contact() {
   return (
-    <motion.section
-      ref={sectionRef}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true, margin: "-100px" }}
-      className="py-20 relative z-10"
-    >
-      <div className="container max-w-5xl mx-auto px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-            Get In <span className="text-orange-500">Touch</span>
-          </h2>
-          <p className="mb-8 text-muted-foreground md:text-xl">
-            Internships, project chats, freelance portfolios, or anything that starts with &quot;I have this idea&quot;.
-          </p>
+    <footer id="contact" className="bg-[#0b0b0e] pb-8 pt-24 text-[#f3efe7] md:pt-36">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <p className="text-[10px] uppercase tracking-[0.16em] text-white/55">
+          {homeContent.contact.eyebrow}
+        </p>
+        <h2 className="mt-8 text-[clamp(5.2rem,15vw,14rem)] font-semibold leading-[0.76] tracking-[-0.075em]">
+          {homeContent.contact.title}
+        </h2>
+
+        <div className="doodle-trigger doodle-trigger--scoped relative mt-16 inline-block max-w-full pt-12 sm:pt-16">
+          <a
+            href={`mailto:${siteData.email}`}
+            className="doodle-primary-trigger group relative z-10 inline-flex max-w-full items-center gap-3 border-b border-white/30 pb-2 text-xl font-medium transition-colors hover:border-[var(--folio-accent)] hover:text-[var(--folio-accent)] sm:text-3xl"
+          >
+            <span className="truncate">{siteData.email}</span>
+            <ArrowUpRight className="h-5 w-5 shrink-0 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 sm:h-7 sm:w-7" />
+          </a>
+          <DoodleCopyControl
+            slot="home-contact-email"
+            value={siteData.email}
+            copy={siteData.emailCopy}
+            className="absolute right-0 top-0 z-20 h-16 w-14 sm:h-20 sm:w-16"
+          />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mx-auto px-0">
-          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
-            <Card className="bg-background border-orange-500/20 interactive-hover">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-4">Find Me Here</h3>
-                <div className="space-y-4">
-                  {[
-                    { icon: <Mail className="h-5 w-5 text-orange-500" />, label: "Email", value: "ongmagenta@gmail.com" },
-                    { icon: <Linkedin className="h-5 w-5 text-orange-500" />, label: "LinkedIn", value: "magenta-ong" },
-                    { icon: <Github className="h-5 w-5 text-orange-500" />, label: "GitHub", value: "magentaong" },
-                  ].map(({ icon, label, value }) => (
-                    <div key={label} className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">{icon}</div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">{label}</p>
-                        <p className="font-medium">{value}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-8">
-                  <h3 className="text-xl font-bold mb-4">Elsewhere</h3>
-                  <div className="flex gap-4">
-                    <Button asChild variant="outline" size="lg" className="rounded-full group overflow-hidden">
-                      <Link href="https://github.com/magentaong" target="_blank">
-                        <span className="absolute inset-0 w-0 h-full bg-orange-500/10 transition-all duration-300 group-hover:w-full" />
-                        <span className="relative flex items-center"><Github className="mr-2 h-5 w-5 group-hover:text-orange-500 transition-colors" />GitHub</span>
-                      </Link>
-                    </Button>
-                    <Button asChild variant="outline" size="lg" className="rounded-full group overflow-hidden">
-                      <Link href="https://www.linkedin.com/in/magenta-ong" target="_blank">
-                        <span className="absolute inset-0 w-0 h-full bg-orange-500/10 transition-all duration-300 group-hover:w-full" />
-                        <span className="relative flex items-center"><Linkedin className="mr-2 h-5 w-5 group-hover:text-orange-500 transition-colors" />LinkedIn</span>
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+        <div className="mt-24 flex flex-col gap-8 border-t border-white/16 pt-6 text-xs text-white/55 sm:flex-row sm:items-end sm:justify-between md:mt-36">
+          <div>
+            <p>© {new Date().getFullYear()} {siteData.brand}</p>
+            <p className="mt-1">{siteData.footer.note}</p>
+          </div>
 
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
-            <Card className="bg-background/80 border-orange-500/20 m-0">
-              <CardContent className="p-4">
-                <h3 className="text-xl font-bold mb-4">Send Me a Message</h3>
-                <ContactForm />
-              </CardContent>
-            </Card>
-          </motion.div>
+          <div className="flex gap-5">
+            <Link
+              href={siteData.links.github.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white"
+            >
+              {siteData.links.github.label} ↗
+            </Link>
+            <Link
+              href={siteData.links.linkedin.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white"
+            >
+              {siteData.links.linkedin.label} ↗
+            </Link>
+            <Link
+              href={siteData.links.resume.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white"
+            >
+              {siteData.links.resume.label} ↗
+            </Link>
+          </div>
         </div>
       </div>
-    </motion.section>
-  )
+    </footer>
+  );
 }

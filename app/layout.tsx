@@ -1,28 +1,37 @@
 import type React from "react"
+import type { Metadata } from "next"
 import "@/app/globals.css"
-import { Inter } from "next/font/google"
+import localFont from "next/font/local"
 import { ThemeProvider } from "@/components/theme-provider"
-import FishCursor from "@/components/shared/FishCursor"
-import CatFollower from "@/components/shared/catfollower"
+import { siteData } from "@/data/site"
 
-const inter = Inter({ subsets: ["latin"] })
+const accentPreferenceScript = `try{var accent=localStorage.getItem(${JSON.stringify(
+  siteData.accentPreference.storageKey,
+)});if(accent==="orange"||accent==="magenta"){document.documentElement.dataset.folioAccent=accent}}catch(error){}`
 
-export const metadata = {
-  title: "Magenta Ong | Portfolio",
+const spaceGrotesk = localFont({
+  src: "./fonts/SpaceGrotesk-Variable.ttf",
+  variable: "--font-space-grotesk",
+  weight: "300 700",
+  display: "swap",
+})
+
+export const metadata: Metadata = {
+  title: siteData.metadata.title,
   icons: {
-    icon: "/images/favicon.ico", // For older browsers
+    icon: "/favicon.ico",
     shortcut: "/favicon.ico",
-    apple: "/favicon.ico", // Apple devices
+    apple: "/favicon.ico",
   },
-  description: " Aspiring Full Stack Software Engineer. Passionate about building things that work.",
-  keywords: "Aspiring Full Stack Software Engineer, Backend Software Engineer, Magenta Ong, Web Development, Next.js Portfolio",
+  description: siteData.metadata.description,
+  keywords: siteData.metadata.keywords,
   robots: "index, follow",
-  author: "Magenta Ong",
+  authors: [{ name: siteData.brand }],
   openGraph: {
-    title: "Magenta Ong | Portfolio",
-    description: "Aspiring Full Stack Software Engineer",
-    url: "https://magentaong.vercel.app",
-    siteName: "Magenta Ong Portfolio",
+    title: siteData.metadata.title,
+    description: siteData.metadata.description,
+    url: siteData.metadata.siteUrl,
+    siteName: siteData.metadata.siteName,
     type: "website",
   },
 };
@@ -35,11 +44,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: accentPreferenceScript }} />
+      </head>
+      <body className={spaceGrotesk.variable}>
         
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <CatFollower />
-          <FishCursor />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
         
@@ -47,4 +57,3 @@ export default function RootLayout({
     </html>
   )
 }
-

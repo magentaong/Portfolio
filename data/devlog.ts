@@ -1,8 +1,44 @@
-import { DevLogEntry } from "@/types/devlog";
+import type { DevLogEntry, DevLogPageConfig } from "@/types/devlog";
 
-export const devLogEntries: DevLogEntry[] = [
+export const devlogPage = {
+  pathname: "/devlog",
+  eyebrow: "Notes since March 2026",
+  titleLines: ["Devlog"],
+  introduction: "Side projects and what I got distracted by that week.",
+  metadata: {
+    title: "Devlog | Magenta Ong",
+    description: "A development log which is updated if I remember about it :O",
+  },
+  labels: {
+    archiveAriaLabel: "Published devlog entries",
+    filterHeading: "Filed by project",
+    allProjects: "Everything",
+    resultSingular: "note shown",
+    resultPlural: "notes shown",
+    resultScope: "Filed under",
+    emptyState: "Nothing to see.",
+    note: "Note",
+    noteMarker: "N°",
+    project: "Project",
+    mood: "Mood",
+    tags: "Tags",
+    links: "Links",
+    marginNote: "Margin note",
+    transcription: "Transcription",
+    unfiledProject: "Unfiled",
+  },
+  moodLabels: {
+    good: "Good",
+    stuck: "Stuck",
+    breakthrough: "Breakthrough",
+    grind: "Grind",
+  },
+} satisfies DevLogPageConfig;
+
+export const devLogEntries = [
   {
     id: "001",
+    publishedAt: "2026-03-17",
     date: "March 17, 2026",
     title: "Added barcode scanning to isItVegetarian?",
     body: "Started out my afternoon by finishing up the weekend project, yes its Tuesday so its not really a weekend project anymore, but I managed to finish and deploy it so it works on mobile! Next weekend (hopefully) it'll be time to add feedback and adding of food items to OpenFoodFacts",
@@ -12,6 +48,7 @@ export const devLogEntries: DevLogEntry[] = [
   },
   {
     id: "002",
+    publishedAt: "2026-03-17",
     date: "March 17, 2026",
     title: "Refactored the entire portfolio",
     body: "Spent the day finally getting rid of my 1400++ line page.tsx by refactoring them into proper components. Also extracted all hardcoded data into data/ files so I never have to touch component files just to update content yayy!! This took forever, and should've been done wayy earlier, past me was insane for writing the code all in one page T^T. Also I added devlogs and mini projects yay!! FUTURE ME: ADD BLOG AND PHOTO(?) SECTIONN",
@@ -21,15 +58,24 @@ export const devLogEntries: DevLogEntry[] = [
   },
   {
     id: "003",
+    publishedAt: "2026-03-18",
     date: "March 18, 2026",
     title: "Added a photos section to this portfolio, and a cat :)",
-    body: "Added a photo section as well as a few of the photos I've taken in Japan, Taiwan and Hong Kong, this section was inspired by pinterest, so the grid layout followed the masonry grid layout that pinterest has as well. Referenced code from https://github.com/adryd325/oneko.js, and added a cat that follows ur cursor (which is a fish I drew), you can also drag and drop the cat and the cat will fall to the end of the page. Really fun",
+    body: "Added a photo section as well as a few of the photos I've taken in Japan, Taiwan and Hong Kong, this section was inspired by pinterest, so the grid layout followed the masonry grid layout that pinterest has as well. Referenced code from oneko.js, and added a cat that follows ur cursor (which is a fish I drew), you can also drag and drop the cat and the cat will fall to the end of the page. Really fun",
     project: "Portfolio",
     tags: ["Next.js", "TypeScript"],
     mood: "grind",
+    links: [
+      {
+        label: "oneko.js reference",
+        href: "https://github.com/adryd325/oneko.js",
+        target: "blank",
+      },
+    ],
   },
   {
     id: "004",
+    publishedAt: "2026-03-19",
     date: "March 19, 2026",
     title: "Made minor fixes and changes to the photo section and navbar.",
     body: "Was told that the cat is annoying, so i made it so when you click on it it goes to the bottom right corner. Click it again and it'll start following your cursor again. Also made the photo section have 2 columsn on mobile phone so it isn't as flat, added more photos while I'm at it, and made the navbar a hamburger menu on phone so people visiting this website on phone can navigate without cluttering the top of the screen. TODO: dig out my other mini projects and photos when i have time T^T",
@@ -39,6 +85,7 @@ export const devLogEntries: DevLogEntry[] = [
   },
   {
     id: "005",
+    publishedAt: "2026-03-30",
     date: "March 30, 2026",
     title: "Finally understood(?) Raft and how it works",
     body: "I spent the past week trying to catch up with Distributed Systems module here at CUHK, and for my final assignment I'm supposed to build Raft using Go. Tbh, I thought Raft was super scary initially, until my professor started talking about leader elections and how to decide if we're going to McDonald's or KFC, and using analogies like this to make things more approachable. I will say I think I understand it more now, and that I've managed to pass the test cases in the Raft assignment. Unforuntately due to policies I'm unable to show the code out here, but all in all, my main takeaway is 'Everything is simple as long as there's no failure' and that sendHeartBeats() needs very specific timing and can't be sent at random.",
@@ -48,15 +95,24 @@ export const devLogEntries: DevLogEntry[] = [
   },
   {
     id: "006",
+    publishedAt: "2026-05-10",
     date: "May 10, 2026",
     title: "Trying to rebuild foundations for Go backend",
-    body: "Started building a small Go backend project to understand how APIs are structured outside of the usual JavaScript/TypeScript comfort zone. I worked on simple restaurant and menu endpoints, played around with Gin, and slowly got used to handlers, structs, JSON responses, and route parameters. It's a really tiny project, but I plan to expand it while I build my fundamentals. Also, while doing this I stumbled upon docs for Effective Go https://go.dev/doc/effective_go, its very useful.",
+    body: "Started building a small Go backend project to understand how APIs are structured outside of the usual JavaScript/TypeScript comfort zone. I worked on simple restaurant and menu endpoints, played around with Gin, and slowly got used to handlers, structs, JSON responses, and route parameters. It's a really tiny project, but I plan to expand it while I build my fundamentals. Also, while doing this I stumbled upon docs for Effective Go, its very useful.",
     project: "Backend Notebook",
     tags: ["Go", "Gin", "REST API", "Backend"],
     mood: "grind",
+    links: [
+      {
+        label: "Effective Go",
+        href: "https://go.dev/doc/effective_go",
+        target: "blank",
+      },
+    ],
   },
   {
     id: "007",
+    publishedAt: "2026-05-30",
     date: "May 30, 2026",
     title: "Updated Portfolio after neglect",
     body: "Updating my portfolio again after leaving it neglected for about 2 months, cleaned up skills section, added BefriendersCircle, added more devlogs that were here, but I never got around to committing them, and.. would get around to adding my other mini projects here soon.. when they're at least more presentable .-. Oh also another TODO: add icons to skills so they look less basic.",
@@ -66,6 +122,7 @@ export const devLogEntries: DevLogEntry[] = [
   },
   {
     id: "008",
+    publishedAt: "2026-06-06",
     date: "Jun 6, 2026",
     title: "Went down another rabbit hole",
     body: "I developed yet another mini project instead of focusing on the main ones. It is a terminal-based Python app that reads markdown notes and generates a TODO list from what is written there. The design philosophy is deterministic tasks first, LLMs only as a last resort. Initially I built it to explore MCP servers and local LLMs, but somehow I ended up deep in customisation, making the script run exactly how I like it while keeping it modular enough for others. Long-term goal: local MCP server, write-back support, and maybe rewriting it in Go if installation becomes annoying.",
@@ -75,6 +132,7 @@ export const devLogEntries: DevLogEntry[] = [
   },
   {
     id: "009",
+    publishedAt: "2026-06-06",
     date: "Jun 6, 2026",
     title: "Found this tool called React Doctor",
     body: "I was scrolling Instagram and found this CI tool called React Doctor. I got intrigued, got distracted from my main task, and side quested again by running it on this portfolio repo. Unfortunately it only runs on new PRs in CI, but you can also run it in terminal. It gave me a 60-something score, so I am not too happy about that and will be spending some time cleaning the code up.",
@@ -84,15 +142,18 @@ export const devLogEntries: DevLogEntry[] = [
   },
   {
     id: "010",
+    publishedAt: "2026-06-12",
     date: "Jun 12, 2026",
     title: "Started making this portfolio less template-ish",
-    body: "After staring at the homepage for too long, I realised some parts sounded like they were written by a very polite brochure. The devlogs felt more like me, so I started using that as the north star I guess.. anyways React Doctor gave this portfolio code a score of 60 so I thought it'll be good for me to improve it.",
+    body: "After staring at the homepage for too long, I realised some parts just felt a bit lacklustre? The devlogs felt more like me, so I started using that as the north star I guess.. anyways React Doctor gave this portfolio code a score of 60 so I thought it'll be good for me to improve it.",
     project: "Portfolio",
     tags: ["Portfolio", "Content", "Refactor"],
     mood: "breakthrough",
+    ink: "blue",
   },
   {
     id: "011",
+    publishedAt: "2026-06-15",
     date: "Jun 15, 2026",
     title: "Why does Go not have a framework?",
     body: "This was something that I've been asking myself while migrating the backend system for TaskSnipe, from Javascript (Which i now realised was a bad idea cause it made me just want to get things working) to Go, initially I thought that Javascript was just the easiest way to go around it, I can just get features working without caring too much about the lower-level structure of backend. \n\n But now I realise that a lot of complexity hides behind frameworks, which isn't exactly the best for developer growth, even though it is definitely a stepping stone in trying to understand the higher level works of how things are connected. However, I believe that in order to truly understanding what is happening, we have to dive deeper. To be fair, this isn't exactly a rant about Javascript being bad, it's more like Javascript provides frameworks which makes developer life easier, but as engineers, something that's quite important as well is the understanding of what's happening under the hood. \n\n Stumbling into Go pretty much helped with that. At first, I kept searching for a Go equivalent framework, but over time I've come to realise that it's simply Go's (haha simplyGo) design philosophy. While Go does provide certain frameworks like Gin or Chi, it doesn't really feel like the language depends on them? \n\n Instead of everything being \"Magic\" something built to work, I get to define the rules and structure, which is something I really enjoy. Everything doesn't feel as much like a Blackbox, and it started feeling like something I own. Also Go packages are amazing man. \n\n All in all, I think the question to be asking is not \"Why does Go not have a framework\", but instead \"How do I move from just getting features to work to understanding the architecture behind them?\"",
@@ -102,20 +163,38 @@ export const devLogEntries: DevLogEntry[] = [
   },
   {
     id: "012",
+    publishedAt: "2026-06-20",
     date: "Jun 20, 2026",
     title: "Food for thought: Writing bad code is good for job security",
-    body: "",
-    project: "",
-    tags: [],
-    mood: "good",
+    body: "Literally what the title says, if the code is so bad only you understand and AI can't decode it then the company has to keep you.. no?",
+    project: "Portfolio",
+    tags: ["Portfolio"],
+    mood: "breakthrough",
   },
   {
-    id: "012",
+    id: "013",
+    publishedAt: "2026-06-29",
     date: "Jun 29, 2026",
-    title: "",
-    body: "",
-    project: "",
-    tags: [],
-    mood: "good",
+    title: "I'm continuing my mission to redo this portfolio design direction.",
+    body: "Technically, it doesn't make sense for me to keep going back to my portfolio page and redoing or refactoring the code just cause I feel like it, and I also shouldn't be too bothered about this and spend more time doing leetcode and focus more on other projects. But like I was having interviews and got a bit embarrassed when interviewers mention that they visited my portfolio page, cause I know that it was done in a 'get it done an over with' manner.. I guess it works but somehow it didn't feel right?",
+    tags: ["Portfolio"],
+    mood: "stuck",
+    marginNote: {
+      id: "note-013-tired-arrow",
+      src: "/images/doodles/devlog-tired-arrow.png",
+      alt: "A hand-drawn arrow pointing to T caret T with three stress marks",
+      width: 471,
+      height: 156,
+    },
   },
-];
+  {
+    id: "014",
+    publishedAt: "2026-06-20",
+    date: "Jun 20, 2026",
+    title: "Food for thought: Writing bad code is good for job security",
+    body: "Literally what the title says, if the code is so bad only you understand and AI can't decode it then the company has to keep you.. no?",
+    tags: ["Portfolio"],
+    mood: "breakthrough",
+    draft: true,
+  },
+] satisfies DevLogEntry[];

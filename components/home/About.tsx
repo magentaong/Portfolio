@@ -1,130 +1,78 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Award, BookOpen, Briefcase } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  aboutCards,
-  leadershipData,
-  educationData,
-  AboutCard,
-} from "@/data/about";
-
-const iconMap = {
-  education: <BookOpen className="h-5 w-5 text-orange-500" />,
-  experience: <Briefcase className="h-5 w-5 text-orange-500" />,
-  leadership: <Award className="h-5 w-5 text-orange-500" />,
-};
+import { useState } from "react";
+import Image from "next/image";
+import { homeContent } from "@/data/home";
+import DoodleSlot from "@/components/shared/AuthoredDoodle";
 
 export default function About() {
+  const [catHops, setCatHops] = useState(0);
+
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true, margin: "-100px" }}
-      className="py-20 bg-muted/30 relative z-10 gradient-bg"
+    <section
+      id="about"
+      className="bg-[var(--folio-paper)] py-24 text-[var(--folio-ink)] md:py-36"
     >
-      <div className="container px-4">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-            About <span className="text-orange-500">Me</span>
-          </h2>
-          <p className="mb-8 text-muted-foreground md:text-xl">
-            Computer Science and Design student at Singapore University of
-            Technology and Design (SUTD), I like a lot of things, and computers
-            and design happen to be one of them.
-          </p>
-        </div>
-
-        {/* Top cards */}
-        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {aboutCards.map((card: AboutCard, i: number) => (
-            <motion.div
-              key={card.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className={card.extra}
+      <div className="mx-auto grid max-w-[1440px] gap-14 px-5 sm:px-8 md:grid-cols-12 md:items-center lg:px-12">
+        <div className="md:col-span-5 md:col-start-2">
+          <figure className="relative">
+            <button
+              type="button"
+              aria-label={homeContent.introduction.photoCat.controlLabel}
+              onClick={() => setCatHops((count) => count + 1)}
+              className="group absolute -right-1 top-1 z-20 h-20 w-24 touch-manipulation focus-visible:outline-[var(--folio-focus)] sm:-right-3 md:h-24 md:w-28"
             >
-              <Card className="bg-background/60 backdrop-blur-sm border-orange-500/20 hover:border-orange-500/50 transition-all interactive-hover">
-                <CardContent className="p-6 min-h-[180px]">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
-                    {iconMap[card.icon]}
-                  </div>
-                  <h3 className="text-xl font-bold">{card.title}</h3>
-                  <p className="mt-2 text-muted-foreground">{card.text}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+              <DoodleSlot
+                slot="home-about-photo"
+                interactionCount={catHops}
+                className="absolute inset-0 overflow-visible"
+              />
+              <span className="absolute right-1 top-full -mt-1 -rotate-3 border-b-2 border-[var(--folio-cobalt)] bg-[var(--folio-doodle-paper)] px-1.5 py-0.5 text-[10px] font-semibold italic text-[var(--folio-cobalt)] transition-transform group-hover:-translate-y-0.5 group-focus-visible:-translate-y-0.5 motion-reduce:transition-none">
+                {homeContent.introduction.photoCat.visibleLabel}
+              </span>
+            </button>
+            <div className="relative aspect-[4/3] overflow-hidden bg-[var(--folio-panel)]">
+              <Image
+                src={homeContent.introduction.image}
+                alt={homeContent.introduction.imageAlt}
+                fill
+                sizes="(min-width: 768px) 38vw, 90vw"
+                className="object-cover"
+                style={{
+                  objectPosition: homeContent.introduction.imagePosition,
+                }}
+              />
+            </div>
+            <figcaption className="mt-3 flex justify-between gap-4 text-[11px] text-[var(--folio-muted)]">
+              <span>{homeContent.introduction.imageCaption[0]}</span>
+              <span>{homeContent.introduction.imageCaption[1]}</span>
+            </figcaption>
+          </figure>
         </div>
 
-        {/* Leadership + Education */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="bg-background rounded-lg p-6 border border-orange-500/20 hover:border-orange-500/50 transition-all group"
-          >
-            <h3 className="text-2xl font-bold mb-6 group-hover:text-orange-500 transition-colors">
-              Leadership Experience
-            </h3>
-            <div className="space-y-4">
-              {leadershipData.map(({ title, date, description }) => (
-                <div key={title} className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-500/10 mt-1">
-                    <Award className="h-5 w-5 text-orange-500" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold">{title}</h4>
-                    <p className="text-sm text-muted-foreground">{date}</p>
-                    <p className="mt-1">{description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+        <div className="md:col-span-5 md:col-start-8">
+          <p className="mb-8 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--folio-muted)]">
+            {homeContent.introduction.eyebrow}
+          </p>
+          <h2 className="text-balance text-[clamp(2.25rem,4.8vw,5rem)] font-semibold leading-[0.98] tracking-[-0.05em]">
+            {homeContent.introduction.headline}
+          </h2>
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-[var(--folio-muted)] md:text-lg">
+            {homeContent.introduction.body}
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="bg-background rounded-lg p-6 border border-orange-500/20 hover:border-orange-500/50 transition-all group"
-          >
-            <h3 className="text-2xl font-bold mb-6 group-hover:text-orange-500 transition-colors">
-              Education
-            </h3>
-            {educationData.map(({ school, date, degree, badges }) => (
-              <div key={school} className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-500/10 mt-1">
-                  <BookOpen className="h-5 w-5 text-orange-500" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold">{school}</h4>
-                  <p className="text-sm text-muted-foreground">{date}</p>
-                  <p className="mt-1">{degree}</p>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {badges.map((b) => (
-                      <Badge
-                        key={b}
-                        className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/20"
-                      >
-                        {b}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
+          <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-7 border-t border-[var(--folio-rule)] pt-6 text-sm">
+            {homeContent.introduction.facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="text-[10px] uppercase tracking-[0.15em] text-[var(--folio-muted)]">
+                  {fact.label}
+                </dt>
+                <dd className="mt-2 font-medium">{fact.value}</dd>
               </div>
             ))}
-          </motion.div>
+          </dl>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

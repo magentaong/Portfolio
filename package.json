@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint app components data lib scripts types",
     "doctor": "npx react-doctor@latest",
-    "validate:content": "node scripts/validate-content.mjs"
+    "validate:content": "node --no-warnings --experimental-strip-types scripts/validate-content.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",

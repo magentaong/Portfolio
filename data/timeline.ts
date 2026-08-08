@@ -1,4 +1,5 @@
 export type TimelineEntry = {
+  id: string;
   date: string;
   title: string;
   company: string;
@@ -7,6 +8,7 @@ export type TimelineEntry = {
 
 export const timelineData: TimelineEntry[] = [
   {
+    id: "foodpanda-backend",
     date: "May 2026 - Present",
     title: "Backend Software Engineer Intern",
     company: "foodpanda/DeliveryHero",
@@ -14,6 +16,7 @@ export const timelineData: TimelineEntry[] = [
       "Working on Go backend microservices, API integration, feature flagging, and service migration in a marketplace environment.",
   },
   {
+    id: "pa-citizen-developer",
     date: "Sep 2025 - Present",
     title: "Software Engineer (Citizen Developer)",
     company: "People's Association",
@@ -21,6 +24,7 @@ export const timelineData: TimelineEntry[] = [
       "Continuing CompostKaki with Mountbatten CIT under Sparks Division, turning the hackathon prototype into something community partners can keep using.",
   },
   {
+    id: "cpf-software-developer",
     date: "Sep 2025 - Dec 2025",
     title: "Software Developer Intern",
     company: "CPF Board",
@@ -28,6 +32,7 @@ export const timelineData: TimelineEntry[] = [
       "Worked on automation projects for repeatable HR processes, including workflows around leave approvals and day-to-day internal tasks.",
   },
   {
+    id: "freelance-developer",
     date: "Mar 2025 - Present?",
     title: "Freelance Designer and Developer",
     company: "Self-Employed",
@@ -35,6 +40,7 @@ export const timelineData: TimelineEntry[] = [
       "Designing and developing custom portfolio websites with Figma, Next.js, Tailwind CSS, and Vercel.",
   },
   {
+    id: "private-tutor",
     date: "Aug 2023 - Sep 2025",
     title: "Private Tutor",
     company: "Physics, Chemistry, Math, Programming",
@@ -42,6 +48,7 @@ export const timelineData: TimelineEntry[] = [
       "Students achieved 100% A-grades in H2 Physics/Math, avg. 6.5-grade improvement in O-Level Physics. Simplified programming concepts through hands-on mini projects.",
   },
   {
+    id: "steamunity-design-mentor",
     date: "Dec 2024 - Mar 2025",
     title: "Design Mentor",
     company: "Steamunity",
@@ -49,6 +56,7 @@ export const timelineData: TimelineEntry[] = [
       "Mentored 4 secondary and 2 polytechnic students in design thinking, guiding prototyping and solution development.",
   },
   {
+    id: "le-cafe-staff",
     date: "Dec 2022 - July 2023",
     title: "Staff",
     company: "L.E. Cafe Confectionery and Pastry",
