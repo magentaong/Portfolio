@@ -57,7 +57,7 @@ export default function FishCursor() {
     <div
       ref={fishRef}
       aria-hidden="true"
-      className="pointer-events-none fixed z-40 select-none"
+      className="pointer-events-none fixed z-[90] select-none"
       style={{
         left: 0,
         top: 0,

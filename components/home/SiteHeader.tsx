@@ -46,7 +46,7 @@ export default function SiteHeader() {
         {siteData.accessibility.skipToContent}
       </a>
 
-      <header className="absolute inset-x-0 top-0 z-50 text-[#f3efe7] sticky">
+      <header className="sticky inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0b0b0e]/95 text-[#f3efe7] shadow-[0_1px_0_rgba(16,16,20,0.2)] backdrop-blur-md supports-[backdrop-filter]:bg-[#0b0b0e]/88">
         <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12 ">
           <Link
             href="/"
@@ -101,7 +101,7 @@ export default function SiteHeader() {
                   </a>
                 ))}
                 <PointerCompanionToggle />
-                <div className="mt-2 flex items-center justify-between gap-4 border-t border-white/15 pt-4">
+                <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto_2.75rem] items-end gap-3 border-t border-white/15 pt-4">
                   <Link
                     href={siteData.links.projectArchive.href}
                     onClick={() => setMenuOpen(false)}
@@ -109,6 +109,10 @@ export default function SiteHeader() {
                   >
                     {siteData.links.projectArchive.label} ↓
                   </Link>
+                  <DoodleSlot
+                    slot="navigation-menu-corner"
+                    className="-mb-1 justify-self-center overflow-visible"
+                  />
                   <button
                     type="button"
                     onClick={toggleTheme}
@@ -123,10 +127,6 @@ export default function SiteHeader() {
                   </button>
                 </div>
               </div>
-              <DoodleSlot
-                slot="navigation-menu-corner"
-                className="absolute -bottom-7 right-5 overflow-visible"
-              />
             </nav>
           </div>
         )}
