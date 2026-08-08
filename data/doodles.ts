@@ -376,7 +376,7 @@ export const doodleLibrary: DoodleLibrary = {
       id: "navigation-leaf-ghost",
       assetId: "leaf-ghost",
       slot: "navigation-menu-corner",
-      displayWidth: { base: 48, md: 58 },
+      displayWidth: { base: 42, md: 48 },
       rotation: 3,
       ink: "accent",
       motion: "pop-in",
