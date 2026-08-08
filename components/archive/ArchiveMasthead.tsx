@@ -1,5 +1,6 @@
 import type { ArchivePageConfig } from "@/types/archive";
 import { siteData } from "@/data/site";
+import ArchiveBackLink from "@/components/archive/ArchiveBackLink";
 
 export default function ArchiveMasthead({
   page,
@@ -9,6 +10,9 @@ export default function ArchiveMasthead({
   return (
     <section className="overflow-hidden bg-[#0b0b0e] pb-20 pt-32 text-[#f3efe7] md:pb-28 md:pt-36">
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="mb-5">
+          <ArchiveBackLink link={page.backLink} />
+        </div>
         <div className="border-t border-white/20 pt-5 text-[10px] uppercase tracking-[0.18em] text-white/55">
           <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
             <span className="text-[var(--folio-accent)]">

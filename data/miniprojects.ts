@@ -2,6 +2,7 @@ import type { MiniProject, MiniProjectsPageConfig } from "@/types/miniprojects";
 
 export const miniProjectsPage = {
   pathname: "/miniprojects",
+  backLink: { label: "Back to small things", href: "/#small-projects" },
   eyebrow: "Experiments / 2023—now",
   titleLines: ["Mini", "projects"],
   introduction:

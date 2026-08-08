@@ -1,5 +1,6 @@
 import type { DevLogPageConfig } from "@/types/devlog";
 import DoodleSlot from "@/components/shared/AuthoredDoodle";
+import ArchiveBackLink from "@/components/archive/ArchiveBackLink";
 
 export default function DevlogOpening({ page }: { page: DevLogPageConfig }) {
   return (
@@ -11,6 +12,9 @@ export default function DevlogOpening({ page }: { page: DevLogPageConfig }) {
 
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         <div className="md:ml-auto md:w-10/12 lg:w-9/12">
+          <div className="mb-4">
+            <ArchiveBackLink link={page.backLink} />
+          </div>
           <div className="grid grid-cols-[0.75rem_minmax(0,1fr)] bg-[#f3efe7] text-[#101014]">
             <span aria-hidden="true" className="bg-[var(--folio-accent)]" />
 

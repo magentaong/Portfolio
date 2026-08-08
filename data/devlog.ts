@@ -2,6 +2,7 @@ import type { DevLogEntry, DevLogPageConfig } from "@/types/devlog";
 
 export const devlogPage = {
   pathname: "/devlog",
+  backLink: { label: "Back to notes", href: "/#notes" },
   eyebrow: "Notes since March 2026",
   titleLines: ["Devlog"],
   introduction: "Side projects and what I got distracted by that week.",
