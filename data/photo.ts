@@ -2,6 +2,7 @@ import type { Photo, PhotoPageConfig } from "@/types/photo";
 
 export const photoPage = {
   pathname: "/photos",
+  backLink: { label: "Back to photos", href: "/#photos" },
   eyebrow: "Touching Grass",
   titleLines: ["Photos", "I took"],
   introduction: "Things and places I've taken photos of :)",

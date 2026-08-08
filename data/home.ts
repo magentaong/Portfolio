@@ -176,6 +176,6 @@ export const homeContent = {
   },
   contact: {
     eyebrow: "Internships · project chats · freelance work · strange ideas",
-    title: "Say hellos",
+    title: "Say hello",
   },
 } satisfies HomeContent;

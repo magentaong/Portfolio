@@ -2,6 +2,7 @@ import type { Project, ProjectsPageConfig } from "@/types/project";
 
 export const projectsPage = {
   pathname: "/projects",
+  backLink: { label: "Back to selected work", href: "/#work" },
   eyebrow: "Projects",
   titleLines: ["Projects"],
   introduction:
