@@ -38,11 +38,10 @@ const locationLabels = new Map(
 );
 
 function firstPhotoForSlot(slot: HomePhotoSlotConfig) {
+  const acceptedAspectRatios = new Set(slot.acceptedAspectRatios);
   return (
     photos.find((photo) => photo.homeSlot === slot.id) ??
-    photos.find((photo) =>
-      slot.acceptedAspectRatios.includes(photo.aspectRatio),
-    )
+    photos.find((photo) => acceptedAspectRatios.has(photo.aspectRatio))
   );
 }
 
@@ -61,12 +60,13 @@ function nextPhotoForSlot(
   visiblePhotoIds: Set<string>,
 ) {
   const currentIndex = photos.findIndex((photo) => photo.id === currentPhotoId);
+  const acceptedAspectRatios = new Set(slot.acceptedAspectRatios);
 
   for (let offset = 1; offset <= photos.length; offset += 1) {
     const candidate =
       photos[(currentIndex + offset + photos.length) % photos.length];
     if (
-      slot.acceptedAspectRatios.includes(candidate.aspectRatio) &&
+      acceptedAspectRatios.has(candidate.aspectRatio) &&
       !visiblePhotoIds.has(candidate.id)
     ) {
       return candidate;
@@ -113,7 +113,7 @@ export default function PhotoStrip() {
   const [selection, setSelection] = useState<HomePhotoSelection>(
     initialPhotoSelection,
   );
-  const [nextSlotId, setNextSlotId] = useState<HomePhotoSlotId>(
+  const nextSlotIdRef = useRef<HomePhotoSlotId>(
     photoPage.homeStrip.slots[0]?.id ?? "lead",
   );
   const [phase, setPhase] = useState<PhotoStripPhase>("idle");
@@ -150,7 +150,7 @@ export default function PhotoStrip() {
   const showAnotherPhoto = () => {
     if (phase !== "idle") return;
 
-    const replacement = replacementFrom(selection, nextSlotId);
+    const replacement = replacementFrom(selection, nextSlotIdRef.current);
     if (!replacement) return;
 
     const { nextPhoto, nextSlotId: followingSlotId, slot } = replacement;
@@ -158,7 +158,7 @@ export default function PhotoStrip() {
       locationLabels.get(nextPhoto.locationId) ?? nextPhoto.locationId;
     const commitReplacement = (reveal: boolean) => {
       setSelection((current) => ({ ...current, [slot.id]: nextPhoto.id }));
-      setNextSlotId(followingSlotId);
+      nextSlotIdRef.current = followingSlotId;
       setRevealedSlotId(reveal ? slot.id : null);
       setStatusMessage(
         `${photoPage.homeStrip.newPhotoStatusLead}: ${

@@ -1,7 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Photo, PhotoPageConfig } from "@/types/photo";
@@ -44,13 +49,24 @@ export default function PhotosArchive({
   photos: Photo[];
 }) {
   const groups = useMemo<LocationGroup[]>(() => {
-    return page.locations
-      .map((location) => ({
+    const photosByLocation = new Map<string, Photo[]>();
+    for (const photo of photos) {
+      const locationPhotos = photosByLocation.get(photo.locationId) ?? [];
+      locationPhotos.push(photo);
+      photosByLocation.set(photo.locationId, locationPhotos);
+    }
+
+    const populatedGroups: LocationGroup[] = [];
+    for (const location of page.locations) {
+      const locationPhotos = photosByLocation.get(location.id) ?? [];
+      if (locationPhotos.length === 0) continue;
+      populatedGroups.push({
         id: location.id,
         label: location.label,
-        photos: photos.filter((photo) => photo.locationId === location.id),
-      }))
-      .filter((group) => group.photos.length > 0);
+        photos: locationPhotos,
+      });
+    }
+    return populatedGroups;
   }, [page.locations, photos]);
   const locationLabels = useMemo(
     () => new Map(page.locations.map((location) => [location.id, location.label])),
@@ -96,31 +112,6 @@ export default function PhotosArchive({
       return (current + 1) % orderedPhotos.length;
     });
   }, [orderedPhotos.length]);
-
-  useEffect(() => {
-    if (activePhotoIndex === null) return;
-
-    const background = Array.from(
-      document.querySelectorAll<HTMLElement>("body header, #main-content, body footer"),
-    );
-    const previousAriaHidden = background.map((element) =>
-      element.getAttribute("aria-hidden"),
-    );
-
-    background.forEach((element) => {
-      element.setAttribute("inert", "");
-      element.setAttribute("aria-hidden", "true");
-    });
-
-    return () => {
-      background.forEach((element, index) => {
-        element.removeAttribute("inert");
-        const previousValue = previousAriaHidden[index];
-        if (previousValue === null) element.removeAttribute("aria-hidden");
-        else element.setAttribute("aria-hidden", previousValue);
-      });
-    };
-  }, [activePhotoIndex]);
 
   return (
     <section className="bg-[var(--folio-paper)] py-20 md:py-28">
@@ -204,19 +195,16 @@ export default function PhotosArchive({
       </div>
 
       {activePhoto && activePhotoIndex !== null
-        ? createPortal(
-            <PhotoLightbox
-              page={page}
-              photo={activePhoto}
-              location={locationLabels.get(activePhoto.locationId) ?? activePhoto.locationId}
-              index={activePhotoIndex}
-              count={orderedPhotos.length}
-              onClose={closePhoto}
-              onPrevious={showPrevious}
-              onNext={showNext}
-            />,
-            document.body,
-          )
+        ? <PhotoLightbox
+            page={page}
+            photo={activePhoto}
+            location={locationLabels.get(activePhoto.locationId) ?? activePhoto.locationId}
+            index={activePhotoIndex}
+            count={orderedPhotos.length}
+            onClose={closePhoto}
+            onPrevious={showPrevious}
+            onNext={showNext}
+          />
         : null}
     </section>
   );
@@ -292,70 +280,57 @@ function PhotoLightbox({
   onPrevious: () => void;
   onNext: () => void;
 }) {
-  const dialogRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousCallbackRef = useRef(onPrevious);
+  const nextCallbackRef = useRef(onNext);
 
   useEffect(() => {
+    previousCallbackRef.current = onPrevious;
+    nextCallbackRef.current = onNext;
+  }, [onNext, onPrevious]);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    if (!dialog.open) dialog.showModal();
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        onClose();
-        return;
-      }
-
       if (event.key === "ArrowLeft") {
         event.preventDefault();
-        onPrevious();
+        previousCallbackRef.current();
         return;
       }
 
       if (event.key === "ArrowRight") {
         event.preventDefault();
-        onNext();
+        nextCallbackRef.current();
         return;
       }
 
-      if (event.key !== "Tab") return;
-
-      const focusable = Array.from(
-        dialogRef.current?.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
-        ) ?? [],
-      );
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (!first || !last) return;
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      if (dialog.open) dialog.close();
     };
-  }, [onClose, onNext, onPrevious]);
+  }, []);
 
   return (
-    <div
+    <dialog
       ref={dialogRef}
-      role="dialog"
-      aria-modal="true"
       aria-label={`${page.lightbox.dialog}: ${photo.alt}`}
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
       }}
-      className="photo-lightbox fixed inset-0 z-[120] grid min-h-[100dvh] grid-rows-[auto_minmax(0,1fr)_auto] bg-[#08080a] text-[#f3efe7]"
+      className="photo-lightbox fixed inset-0 z-[120] m-0 h-[100dvh] max-h-none w-screen max-w-none grid-rows-[auto_minmax(0,1fr)_auto] border-0 bg-[#08080a] text-[#f3efe7] open:grid backdrop:bg-black/70"
     >
       <div className="flex items-center justify-between border-b border-white/20 pb-3 text-[10px] uppercase tracking-[0.16em] text-white/55">
         <p>{location}</p>
@@ -410,6 +385,6 @@ function PhotoLightbox({
           {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
         </p>
       </div>
-    </div>
+    </dialog>
   );
 }

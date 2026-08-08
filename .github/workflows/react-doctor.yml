@@ -1,6 +1,8 @@
 name: React Doctor
 
 on:
+  push:
+    branches: [main]
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
 
@@ -8,6 +10,7 @@ permissions:
   contents: read
   pull-requests: write
   issues: write
+  statuses: write
 
 concurrency:
   group: react-doctor-${{ github.event.pull_request.number || github.ref }}
@@ -20,4 +23,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0 # so React Doctor can diff against the merge-base for new-vs-existing
-      - uses: millionco/react-doctor@v1
+      - uses: millionco/react-doctor@v2
+        with:
+          blocking: warning
+          scope: full

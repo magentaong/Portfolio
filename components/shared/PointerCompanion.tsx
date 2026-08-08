@@ -104,21 +104,18 @@ export function PointerCompanionProvider({
   const toggle = useCallback(() => {
     if (availability !== "available") return;
 
-    setPreferenceEnabled((current) => {
-      const next = !current;
+    const next = !preferenceEnabled;
+    setPreferenceEnabled(next);
 
-      try {
-        window.localStorage.setItem(
-          config.storageKey,
-          next ? ENABLED_VALUE : DISABLED_VALUE,
-        );
-      } catch {
-        // The document state still updates when storage is unavailable.
-      }
-
-      return next;
-    });
-  }, [availability, config.storageKey]);
+    try {
+      window.localStorage.setItem(
+        config.storageKey,
+        next ? ENABLED_VALUE : DISABLED_VALUE,
+      );
+    } catch {
+      // The document state still updates when storage is unavailable.
+    }
+  }, [availability, config.storageKey, preferenceEnabled]);
 
   const value = useMemo(
     () => ({
@@ -200,11 +197,4 @@ export function PointerCompanionHeaderControl() {
       {config.compactLabel}
     </button>
   );
-}
-
-export function PointerCompanionHint() {
-  const { active, config } = usePointerCompanion();
-
-  if (!active) return null;
-  return <p className="text-center">{config.hint}</p>;
 }

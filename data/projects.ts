@@ -304,8 +304,7 @@ export const projects: Project[] = [
         body: [
           "For students, the main struggle is that courses out there are not personalised and catered for the general public. A student might excel in mathematical reasoning, but fail at explaining the concept in words, vice versa. But a course is more likely to focus on the mathematical logic rather than explanation, when sometimes what a student needs is to know how to explain their thoughts. This is where GenEd comes in, it's meant to be personalised towards a student's learning style and habits as well as preferences, making microlearning (and learning) more accessible and fun.",
         ],
-        artifactIds: ["gened-course-prompt"],
-        layout: "artifact-first",
+        layout: "text-only",
       },
       {
         id: "structured-generation",
