@@ -1,13 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
+import Script from "next/script"
 import "@/app/globals.css"
 import localFont from "next/font/local"
 import { ThemeProvider } from "@/components/theme-provider"
 import { siteData } from "@/data/site"
-
-const accentPreferenceScript = `try{var accent=localStorage.getItem(${JSON.stringify(
-  siteData.accentPreference.storageKey,
-)});if(accent==="orange"||accent==="magenta"){document.documentElement.dataset.folioAccent=accent}}catch(error){}`
 
 const spaceGrotesk = localFont({
   src: "./fonts/SpaceGrotesk-Variable.ttf",
@@ -44,15 +41,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: accentPreferenceScript }} />
-      </head>
       <body className={spaceGrotesk.variable}>
-        
+        <Script
+          src="/scripts/accent-preference.js"
+          strategy="beforeInteractive"
+          data-storage-key={siteData.accentPreference.storageKey}
+        />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
-        
       </body>
     </html>
   )

@@ -82,7 +82,7 @@ export default function ProjectChapters({
       .filter((section): section is HTMLElement => Boolean(section));
 
     const activateHashTarget = () => {
-      const hashId = decodeURIComponent(window.location.hash.slice(1));
+      const hashId = safeDecodeHash(window.location.hash.slice(1));
       const target = sections.find((section) => section.id === hashId);
       if (!target) return;
 
@@ -100,56 +100,57 @@ export default function ProjectChapters({
     activateHashTarget();
     window.addEventListener("hashchange", activateHashTarget);
 
+    let observer: IntersectionObserver | null = null;
+
     if (!("IntersectionObserver" in window)) {
       setVisibleIds(new Set(chapters.map((chapter) => chapter.id)));
-      return () => {
-        window.cancelAnimationFrame(motionFrame);
-        window.removeEventListener("hashchange", activateHashTarget);
-      };
+    } else {
+      const currentEntries = new Map<string, IntersectionObserverEntry>();
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            currentEntries.set(entry.target.id, entry);
+          }
+
+          const probe = window.innerHeight * 0.28;
+          const intersecting = Array.from(currentEntries.values())
+            .filter((entry) => entry.isIntersecting)
+            .sort(
+              (first, second) =>
+                Math.abs(first.boundingClientRect.top - probe) -
+                Math.abs(second.boundingClientRect.top - probe),
+            );
+
+          if (intersecting[0]) {
+            setActiveId(
+              intersecting[0].target.getAttribute("data-chapter-id") ?? "",
+            );
+          }
+
+          setVisibleIds((current) => {
+            const next = new Set(current);
+            let changed = false;
+            for (const entry of intersecting) {
+              const id = entry.target.getAttribute("data-chapter-id");
+              if (id && !next.has(id)) {
+                next.add(id);
+                changed = true;
+              }
+            }
+            return changed ? next : current;
+          });
+        },
+        { rootMargin: "-20% 0px -55%", threshold: [0.05, 0.35] },
+      );
+
+      for (const section of sections) observer.observe(section);
     }
 
-    const currentEntries = new Map<string, IntersectionObserverEntry>();
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          currentEntries.set(entry.target.id, entry);
-        }
-
-        const probe = window.innerHeight * 0.28;
-        const intersecting = Array.from(currentEntries.values())
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (first, second) =>
-              Math.abs(first.boundingClientRect.top - probe) -
-              Math.abs(second.boundingClientRect.top - probe),
-          );
-
-        if (intersecting[0]) {
-          setActiveId(intersecting[0].target.getAttribute("data-chapter-id") ?? "");
-        }
-
-        setVisibleIds((current) => {
-          const next = new Set(current);
-          let changed = false;
-          for (const entry of intersecting) {
-            const id = entry.target.getAttribute("data-chapter-id");
-            if (id && !next.has(id)) {
-              next.add(id);
-              changed = true;
-            }
-          }
-          return changed ? next : current;
-        });
-      },
-      { rootMargin: "-20% 0px -55%", threshold: [0.05, 0.35] },
-    );
-
-    sections.forEach((section) => observer.observe(section));
     return () => {
       window.cancelAnimationFrame(motionFrame);
       window.removeEventListener("hashchange", activateHashTarget);
-      observer.disconnect();
+      observer?.disconnect();
     };
   }, [chapters, slug]);
 
@@ -203,198 +204,18 @@ export default function ProjectChapters({
         </aside>
 
         <div className="min-w-0 lg:col-span-8 lg:col-start-5">
-          {chapters.map((chapter) => {
-            const chapterArtifacts = (chapter.artifactIds ?? [])
-              .map((id) => artifacts.get(id))
-              .filter((artifact): artifact is ChapterArtifact => Boolean(artifact));
-            const hasArtifacts = chapterArtifacts.length > 0;
-            const hasDocumentArtifacts = chapterArtifacts.some(isDocumentArtifact);
-            const usesArtifactSequence =
-              hasArtifacts && chapter.layout === "artifact-sequence";
-            const usesEvidenceStack =
-              hasDocumentArtifacts &&
-              chapter.layout !== "text-only" &&
-              !usesArtifactSequence;
-            const usesSplitLayout =
-              hasArtifacts &&
-              chapter.layout !== "text-only" &&
-              !usesArtifactSequence &&
-              !usesEvidenceStack;
-            const visible = visibleIds.has(chapter.id);
-            const headingId = `${chapterDomId(slug, chapter.id)}-heading`;
-
-            return (
-              <article
-                key={chapter.id}
-                id={chapterDomId(slug, chapter.id)}
-                data-chapter-id={chapter.id}
-                tabIndex={-1}
-                aria-labelledby={headingId}
-                className="scroll-mt-8 border-t border-[var(--folio-rule)] py-12 first:pt-8 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--folio-focus)] md:py-16"
-              >
-                <div
-                  className={
-                    usesSplitLayout
-                      ? "grid gap-9 xl:grid-cols-12 xl:items-start"
-                      : ""
-                  }
-                >
-                  <div
-                    className={
-                      usesSplitLayout
-                        ? chapter.layout === "artifact-first"
-                          ? "min-w-0 xl:col-span-5 xl:col-start-8"
-                          : "min-w-0 xl:col-span-5"
-                        : "min-w-0 max-w-[68ch]"
-                    }
-                  >
-                    <h2
-                      id={headingId}
-                      className="max-w-[16ch] text-[clamp(2.1rem,3.2vw,3.5rem)] font-semibold leading-[0.96] tracking-[-0.05em] [overflow-wrap:anywhere]"
-                    >
-                      {chapter.title}
-                    </h2>
-                    <div className="mt-6 space-y-5 text-base leading-7 text-[var(--folio-muted)]">
-                      {chapter.body.map((paragraph, index) => (
-                        <p key={`${chapter.id}-paragraph-${index}`}>{paragraph}</p>
-                      ))}
-                    </div>
-
-                    {chapter.annotation && (
-                      <aside
-                        aria-label={labels.annotation}
-                        className={`mt-8 max-w-[14rem] ${
-                          chapter.annotation.placement === "right-margin"
-                            ? "ml-auto"
-                            : ""
-                        }`}
-                      >
-                        <Image
-                          src={chapter.annotation.src}
-                          alt={chapter.annotation.alt}
-                          width={chapter.annotation.width}
-                          height={chapter.annotation.height}
-                          aria-describedby={
-                            chapter.annotation.transcription
-                              ? `project-mark-${chapter.annotation.id}`
-                              : undefined
-                          }
-                          className="h-auto w-full"
-                        />
-                        {chapter.annotation.transcription && (
-                          <p
-                            id={`project-mark-${chapter.annotation.id}`}
-                            className="sr-only"
-                          >
-                            {labels.transcription}: {chapter.annotation.transcription}
-                          </p>
-                        )}
-                        {chapter.annotation.caption && (
-                          <p className="mt-2 text-xs leading-relaxed text-[var(--folio-muted)]">
-                            {chapter.annotation.caption}
-                          </p>
-                        )}
-                      </aside>
-                    )}
-                  </div>
-
-                  {usesSplitLayout && (
-                    <div
-                      className={`min-w-0 space-y-8 ${
-                        chapter.layout === "artifact-first"
-                          ? "xl:col-span-6 xl:col-start-1 xl:row-start-1"
-                          : "xl:col-span-6 xl:col-start-7"
-                      }`}
-                    >
-                      {chapterArtifacts.map((artifact) => (
-                        <ChapterArtifactFigure
-                          key={artifact.value.id}
-                          artifact={artifact}
-                          visible={visible}
-                          videoFallback={labels.videoFallback}
-                          fallbackPoster={fallbackPoster}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {usesArtifactSequence && (
-                  <div
-                    role="group"
-                    aria-labelledby={headingId}
-                    tabIndex={0}
-                    onKeyDown={(event) => {
-                      if (
-                        event.target !== event.currentTarget ||
-                        (event.key !== "ArrowLeft" &&
-                          event.key !== "ArrowRight")
-                      ) {
-                        return;
-                      }
-
-                      event.preventDefault();
-                      event.currentTarget.scrollBy({
-                        left:
-                          event.currentTarget.clientWidth *
-                          (event.key === "ArrowRight" ? 0.88 : -0.88),
-                        behavior: "auto",
-                      });
-                    }}
-                    className="project-artifact-sequence mt-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--folio-focus)] md:mt-12"
-                  >
-                    {chapterArtifacts.map((artifact) => (
-                      <div
-                        key={artifact.value.id}
-                        className="project-artifact-sequence-item min-w-0"
-                        data-layout={artifact.value.layout ?? "column"}
-                      >
-                        {isDocumentArtifact(artifact) ? (
-                          <DocumentArtifactFigure
-                            image={artifact.value}
-                            visible={visible}
-                            openLabel={labels.openDocument}
-                            onOpen={openDocument}
-                          />
-                        ) : (
-                          <ChapterArtifactFigure
-                            artifact={artifact}
-                            visible={visible}
-                            videoFallback={labels.videoFallback}
-                            fallbackPoster={fallbackPoster}
-                          />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {usesEvidenceStack && (
-                  <div className="mt-10 min-w-0 space-y-10 md:mt-12 md:space-y-12">
-                    {chapterArtifacts.map((artifact) =>
-                      isDocumentArtifact(artifact) ? (
-                        <DocumentArtifactFigure
-                          key={artifact.value.id}
-                          image={artifact.value}
-                          visible={visible}
-                          openLabel={labels.openDocument}
-                          onOpen={openDocument}
-                        />
-                      ) : (
-                        <ChapterArtifactFigure
-                          key={artifact.value.id}
-                          artifact={artifact}
-                          visible={visible}
-                          videoFallback={labels.videoFallback}
-                          fallbackPoster={fallbackPoster}
-                        />
-                      ),
-                    )}
-                  </div>
-                )}
-              </article>
-            );
-          })}
+          {chapters.map((chapter) => (
+            <ProjectChapterArticle
+              key={chapter.id}
+              slug={slug}
+              chapter={chapter}
+              artifacts={artifacts}
+              labels={labels}
+              fallbackPoster={fallbackPoster}
+              visible={visibleIds.has(chapter.id)}
+              onOpenDocument={openDocument}
+            />
+          ))}
         </div>
       </div>
 
@@ -412,6 +233,78 @@ export default function ProjectChapters({
         />
       )}
     </section>
+  );
+}
+
+function ProjectChapterArticle({
+  slug,
+  chapter,
+  artifacts,
+  labels,
+  fallbackPoster,
+  visible,
+  onOpenDocument,
+}: {
+  slug: string;
+  chapter: ProjectChapter;
+  artifacts: Map<string, ChapterArtifact>;
+  labels: ProjectChapterLabels;
+  fallbackPoster: string;
+  visible: boolean;
+  onOpenDocument: (image: ProjectDocumentImage, trigger: HTMLButtonElement) => void;
+}) {
+  const chapterArtifacts = (chapter.artifactIds ?? [])
+    .map((id) => artifacts.get(id))
+    .filter((artifact): artifact is ChapterArtifact => Boolean(artifact));
+  const hasArtifacts = chapterArtifacts.length > 0;
+  const hasDocumentArtifacts = chapterArtifacts.some(isDocumentArtifact);
+  const usesArtifactSequence = hasArtifacts && chapter.layout === "artifact-sequence";
+  const usesEvidenceStack = hasDocumentArtifacts && chapter.layout !== "text-only" && !usesArtifactSequence;
+  const usesSplitLayout = hasArtifacts && chapter.layout !== "text-only" && !usesArtifactSequence && !usesEvidenceStack;
+  const headingId = `${chapterDomId(slug, chapter.id)}-heading`;
+
+  return (
+    <article id={chapterDomId(slug, chapter.id)} data-chapter-id={chapter.id} tabIndex={-1} aria-labelledby={headingId} className="scroll-mt-8 border-t border-[var(--folio-rule)] py-12 first:pt-8 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--folio-focus)] md:py-16">
+      <div className={usesSplitLayout ? "grid gap-9 xl:grid-cols-12 xl:items-start" : ""}>
+        <div className={usesSplitLayout ? chapter.layout === "artifact-first" ? "min-w-0 xl:col-span-5 xl:col-start-8" : "min-w-0 xl:col-span-5" : "min-w-0 max-w-[68ch]"}>
+          <h2 id={headingId} className="max-w-[16ch] text-[clamp(2.1rem,3.2vw,3.5rem)] font-semibold leading-[0.96] tracking-[-0.05em] [overflow-wrap:anywhere]">{chapter.title}</h2>
+          <div className="mt-6 space-y-5 text-base leading-7 text-[var(--folio-muted)]">{chapter.body.map((paragraph, index) => <p key={`${chapter.id}-paragraph-${index}`}>{paragraph}</p>)}</div>
+          {chapter.annotation && (
+            <aside aria-label={labels.annotation} className={`mt-8 max-w-[14rem] ${chapter.annotation.placement === "right-margin" ? "ml-auto" : ""}`}>
+              <Image src={chapter.annotation.src} alt={chapter.annotation.alt} width={chapter.annotation.width} height={chapter.annotation.height} aria-describedby={chapter.annotation.transcription ? `project-mark-${chapter.annotation.id}` : undefined} className="h-auto w-full" />
+              {chapter.annotation.transcription && <p id={`project-mark-${chapter.annotation.id}`} className="sr-only">{labels.transcription}: {chapter.annotation.transcription}</p>}
+              {chapter.annotation.caption && <p className="mt-2 text-xs leading-relaxed text-[var(--folio-muted)]">{chapter.annotation.caption}</p>}
+            </aside>
+          )}
+        </div>
+
+        {usesSplitLayout && (
+          <div className={`min-w-0 space-y-8 ${chapter.layout === "artifact-first" ? "xl:col-span-6 xl:col-start-1 xl:row-start-1" : "xl:col-span-6 xl:col-start-7"}`}>
+            {chapterArtifacts.map((artifact) => <ChapterArtifactFigure key={artifact.value.id} artifact={artifact} visible={visible} videoFallback={labels.videoFallback} fallbackPoster={fallbackPoster} />)}
+          </div>
+        )}
+      </div>
+
+      {usesArtifactSequence && (
+        <div role="group" aria-labelledby={headingId} tabIndex={0} onKeyDown={(event) => {
+          if (event.target !== event.currentTarget || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
+          event.preventDefault();
+          event.currentTarget.scrollBy({ left: event.currentTarget.clientWidth * (event.key === "ArrowRight" ? 0.88 : -0.88), behavior: "auto" });
+        }} className="project-artifact-sequence mt-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--folio-focus)] md:mt-12">
+          {chapterArtifacts.map((artifact) => (
+            <div key={artifact.value.id} className="project-artifact-sequence-item min-w-0" data-layout={artifact.value.layout ?? "column"}>
+              {isDocumentArtifact(artifact) ? <DocumentArtifactFigure image={artifact.value} visible={visible} openLabel={labels.openDocument} onOpen={onOpenDocument} /> : <ChapterArtifactFigure artifact={artifact} visible={visible} videoFallback={labels.videoFallback} fallbackPoster={fallbackPoster} />}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {usesEvidenceStack && (
+        <div className="mt-10 min-w-0 space-y-10 md:mt-12 md:space-y-12">
+          {chapterArtifacts.map((artifact) => isDocumentArtifact(artifact) ? <DocumentArtifactFigure key={artifact.value.id} image={artifact.value} visible={visible} openLabel={labels.openDocument} onOpen={onOpenDocument} /> : <ChapterArtifactFigure key={artifact.value.id} artifact={artifact} visible={visible} videoFallback={labels.videoFallback} fallbackPoster={fallbackPoster} />)}
+        </div>
+      )}
+    </article>
   );
 }
 
@@ -569,6 +462,14 @@ function artifactMap(media: Project["media"]) {
 
 function chapterDomId(slug: string, chapterId: string) {
   return `project-${slug}-${chapterId}`;
+}
+
+function safeDecodeHash(hash: string) {
+  try {
+    return decodeURIComponent(hash);
+  } catch {
+    return hash;
+  }
 }
 
 function projectImageAspect(aspect: ProjectImage["aspect"]) {

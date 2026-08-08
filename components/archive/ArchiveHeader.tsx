@@ -12,11 +12,8 @@ import DoodleSlot from "@/components/shared/AuthoredDoodle";
 export default function ArchiveHeader() {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -126,7 +123,7 @@ export default function ArchiveHeader() {
                     className="flex h-11 w-11 items-center justify-center border border-white/25 focus-visible:outline-[#f3efe7]"
                     aria-label={siteData.accessibility.toggleTheme}
                   >
-                    {mounted && resolvedTheme === "dark" ? (
+                    {resolvedTheme === "dark" ? (
                       <Sun className="h-4 w-4" />
                     ) : (
                       <Moon className="h-4 w-4" />

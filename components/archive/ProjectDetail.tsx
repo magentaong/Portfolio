@@ -293,53 +293,42 @@ export default function ProjectDetail({
         </section>
       )}
 
-      <nav
-        aria-label={projectsPage.labels.adjacentProjects}
-        className="bg-[#0b0b0e] text-[#f3efe7]"
-      >
-        <div className="mx-auto grid max-w-[1440px] md:grid-cols-2">
-          {previousProject ? (
-            <Link
-              href={`/projects/${previousProject.slug}`}
-              className="group border-b border-white/20 px-5 py-8 transition-colors hover:bg-white hover:text-[#0b0b0e] motion-reduce:transition-none sm:px-8 md:border-b-0 md:border-r lg:px-12"
-            >
-              <span className="text-xs opacity-60">
-                {projectsPage.labels.previousProject}
-              </span>
-              <span className="mt-2 flex items-center gap-3 text-xl font-semibold tracking-[-0.03em] md:text-2xl">
-                <ArrowLeft
-                  aria-hidden="true"
-                  className="h-5 w-5 transition-transform group-hover:-translate-x-1 motion-reduce:transform-none motion-reduce:transition-none"
-                />
-                {previousProject.title}
-              </span>
-            </Link>
-          ) : (
-            <div className="hidden md:block" />
-          )}
-
-          {nextProject ? (
-            <Link
-              href={`/projects/${nextProject.slug}`}
-              className="group px-5 py-8 text-right transition-colors hover:bg-white hover:text-[#0b0b0e] motion-reduce:transition-none sm:px-8 lg:px-12"
-            >
-              <span className="text-xs opacity-60">
-                {projectsPage.labels.nextProject}
-              </span>
-              <span className="mt-2 flex items-center justify-end gap-3 text-xl font-semibold tracking-[-0.03em] md:text-2xl">
-                {nextProject.title}
-                <ArrowRight
-                  aria-hidden="true"
-                  className="h-5 w-5 transition-transform group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none"
-                />
-              </span>
-            </Link>
-          ) : (
-            <div className="hidden md:block" />
-          )}
-        </div>
-      </nav>
+      <AdjacentProjectNavigation previousProject={previousProject} nextProject={nextProject} />
     </div>
+  );
+}
+
+function AdjacentProjectNavigation({
+  previousProject,
+  nextProject,
+}: {
+  previousProject?: Project;
+  nextProject?: Project;
+}) {
+  return (
+    <nav aria-label={projectsPage.labels.adjacentProjects} className="bg-[#0b0b0e] text-[#f3efe7]">
+      <div className="mx-auto grid max-w-[1440px] md:grid-cols-2">
+        {previousProject ? (
+          <Link href={`/projects/${previousProject.slug}`} className="group border-b border-white/20 px-5 py-8 transition-colors hover:bg-white hover:text-[#0b0b0e] motion-reduce:transition-none sm:px-8 md:border-b-0 md:border-r lg:px-12">
+            <span className="text-xs opacity-60">{projectsPage.labels.previousProject}</span>
+            <span className="mt-2 flex items-center gap-3 text-xl font-semibold tracking-[-0.03em] md:text-2xl">
+              <ArrowLeft aria-hidden="true" className="h-5 w-5 transition-transform group-hover:-translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" />
+              {previousProject.title}
+            </span>
+          </Link>
+        ) : <div className="hidden md:block" />}
+
+        {nextProject ? (
+          <Link href={`/projects/${nextProject.slug}`} className="group px-5 py-8 text-right transition-colors hover:bg-white hover:text-[#0b0b0e] motion-reduce:transition-none sm:px-8 lg:px-12">
+            <span className="text-xs opacity-60">{projectsPage.labels.nextProject}</span>
+            <span className="mt-2 flex items-center justify-end gap-3 text-xl font-semibold tracking-[-0.03em] md:text-2xl">
+              {nextProject.title}
+              <ArrowRight aria-hidden="true" className="h-5 w-5 transition-transform group-hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none" />
+            </span>
+          </Link>
+        ) : <div className="hidden md:block" />}
+      </div>
+    </nav>
   );
 }
 

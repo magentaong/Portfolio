@@ -64,7 +64,6 @@ export default function FishCursor() {
         opacity: 0,
         transform: "translate3d(-100px, -100px, 0)",
         imageRendering: "pixelated",
-        willChange: "opacity, transform",
         width: 32,
         height: 32,
       }}

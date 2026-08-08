@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import {
-  motion,
+  domAnimation,
+  LazyMotion,
+  m,
   useMotionValue,
   useReducedMotion,
   useSpring,
@@ -116,18 +118,19 @@ export default function Hero({
   }, [pointerX, pointerY, prefersReducedMotion]);
 
   return (
+    <LazyMotion features={domAnimation}>
     <section className="relative min-h-[112svh] overflow-hidden bg-[#0b0b0e] pb-16 pt-28 text-[#f3efe7] md:pb-24 md:pt-32">
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="mx-auto mb-7 max-w-max text-center text-[11px] font-medium uppercase tracking-[0.2em] text-white/55"
         >
           {homeContent.hero.eyebrow}
-        </motion.p>
+        </m.p>
 
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
@@ -143,7 +146,7 @@ export default function Hero({
             <span className="sr-only"> </span>
           </span>
           <span className="block">{homeContent.hero.name.secondLine}</span>
-        </motion.h1>
+        </m.h1>
 
         <div className="mt-16 grid items-end gap-10 lg:mt-24 lg:grid-cols-[0.68fr_1.7fr_0.68fr]">
           <div className="order-2 max-w-xs lg:order-1 lg:pb-10">
@@ -179,7 +182,7 @@ export default function Hero({
             </div>
           </div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.94, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{
@@ -189,7 +192,7 @@ export default function Hero({
             }}
             className="order-1 mx-auto w-full max-w-3xl lg:order-2"
           >
-            <motion.div
+            <m.div
               className="relative h-[360px] w-full sm:h-[470px]"
               style={
                 prefersReducedMotion
@@ -198,7 +201,7 @@ export default function Hero({
               }
             >
               {currentProject && (
-                <motion.div
+                <m.div
                   className="absolute right-0 top-0 z-10 w-[78%]"
                 >
                   <Link
@@ -238,11 +241,11 @@ export default function Hero({
                       )}
                     </div>
                   </Link>
-                </motion.div>
+                </m.div>
               )}
 
               {currentMiniProject && (
-                <motion.div
+                <m.div
                   className="absolute bottom-0 left-0 z-20 w-[58%]"
                 >
                   <Link
@@ -301,11 +304,11 @@ export default function Hero({
                       </span>
                     </div>
                   </Link>
-                </motion.div>
+                </m.div>
               )}
 
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           <div className="order-3 lg:pb-10">
             {latestNote && (
@@ -335,5 +338,6 @@ export default function Hero({
         </div>
       </div>
     </section>
+    </LazyMotion>
   );
 }
