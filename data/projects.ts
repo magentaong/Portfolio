@@ -465,7 +465,7 @@ export const projects: Project[] = [
         order: 3,
         display: "video",
         layout: "medium-right",
-        note: "The project where I created monkeys, and also started developing an interest in backend systems. I also died a little tbh.",
+        note: "The project where I created monkeys, and also started developing an interest in backend systems.",
         mediaLabel: "Cypress walkthrough",
       },
     },
